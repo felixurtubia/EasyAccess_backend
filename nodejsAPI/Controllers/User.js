@@ -1,15 +1,15 @@
 'use strict'
 
-//const user = require('../Models/User');
-//let db = require('../database');
+let mongoDb = require('../database');
 
 function getUser (req, res){
-    
-    res.send('Get correcto');
+    mongoDb.Listar();
+    res.send("get correcto");
 }
 
 function postUser(req, res){
-    res.send('Hello World');
+    mongoDb.Insertar(req.body)
+    res.send('Post correcto');
 }
 
 function updateUser(req, res){
