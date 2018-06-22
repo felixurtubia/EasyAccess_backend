@@ -8,7 +8,7 @@ MongoClient.connect(config.dbCloud, function(err, client) {
   db.find().toArray(function(err, results) {
   console.log(results)
   })
-   //client.close();
+   client.close();
 });
 
 module.exports = db;

@@ -2,13 +2,13 @@
 
 const express = require('express');
 const userCtrl = require("../Controllers/User");
-const api = express.Router();
+var router = express.Router();
 
 //RUTAS
 
-api.get('/', userCtrl.getUser);
-api.post('/User/', userCtrl.postUser);
-api.delete('/User/:userId', userCtrl.deleteUser);
-api.put('/User/:userId', userCtrl.deleteUser);
+router.get('/', userCtrl.getUser);
+router.post('/', userCtrl.postUser);
+router.delete('/:userId', userCtrl.deleteUser);
+router.put('/:userId', userCtrl.deleteUser);
 
-module.exports = api;
+module.exports = router;
