@@ -6,10 +6,9 @@ const schema = mongoose.Schema;
 const userSchema = schema({
     _id : mongoose.Schema.Types.ObjectId,
     nombre : String,
-    apellido : String,
+    Apellido : String,
     rut : String,
-    edad: String,
-    fotos : [{type: String}] //arreglo de fotos
+    //fotos : [{type: String}] //arreglo de fotos
 });
 
 module.exports = mongoose.model('User', userSchema);
