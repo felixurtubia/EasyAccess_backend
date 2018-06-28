@@ -8,6 +8,7 @@ const userRoute = require("./Routes/User");
 const recognitionRoute = require("./Routes/Recognition");
 
 //CONFIGURACIONES PRIMARIAS
+app.use('/Upload', express.static('Upload')); /*permite dar las imagenes por localhost:3000/Upload/[:imagen]*/
 app.use(bodyParse.urlencoded( {extended : false}));
 app.use(bodyParse.json());
 app.use((req, res, next) => {
@@ -26,7 +27,6 @@ app.use((req, res, next) => {
 //IMPORTAR RUTAS
 app.use('/User', userRoute);
 app.use('/Recognition', recognitionRoute);
-
 
 //CONFIGURACIONES SECUNDARIAS
 app.use((req, res, next) => {

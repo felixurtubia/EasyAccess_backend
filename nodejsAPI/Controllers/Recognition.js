@@ -5,7 +5,7 @@ const path = require('path');
 
 function RecognitionImage(req, res) {
     var ruta = path.join(__dirname, '..', 'Upload');
-    var file = ruta + '/' + req.file.filename + '.jpg';
+    var file = ruta + '/' + req.file.filename;
     fs.rename(req.file.path, file, function (err) {
         if (err) {
             console.log(err);
