@@ -5,6 +5,8 @@ const bodyParse = require("body-parser");
 const app = express();
 const userRoute = require("./Routes/User");
 
+const recognitionRoute = require("./Routes/Recognition");
+
 //CONFIGURACIONES PRIMARIAS
 app.use(bodyParse.urlencoded( {extended : false}));
 app.use(bodyParse.json());
@@ -23,6 +25,7 @@ app.use((req, res, next) => {
 
 //IMPORTAR RUTAS
 app.use('/User', userRoute);
+app.use('/Recognition', recognitionRoute);
 
 
 //CONFIGURACIONES SECUNDARIAS
