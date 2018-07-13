@@ -8,8 +8,8 @@ def person_directory_path_1(instance, filename):
     """
     extension = filename.split(".")[-1]
     return '{}_{}.{}'.format(
-                            instance.id_mongo, 
-                            1, 
+                            instance.id_mongo,
+                            1,
                             extension)
 
 def person_directory_path_2(instance, filename):
