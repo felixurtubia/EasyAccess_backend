@@ -2,15 +2,35 @@ from django.db import models
 
 # Create your models here.
 
-def person_directory_path(instance, filename):
+def person_directory_path_1(instance, filename):
     """
     Se cambia el nombre de la imagen de cada persona por '<id_mongo>_<n° de imagen>'
     """
     extension = filename.split(".")[-1]
     return '{}_{}.{}'.format(
-                            instance.person.id_mongo, 
-                            instance.person.Image.count()+1, 
+                            instance.id_mongo,
+                            1,
                             extension)
+
+def person_directory_path_2(instance, filename):
+    """
+    Se cambia el nombre de la imagen de cada persona por '<id_mongo>_<n° de imagen>'
+    """
+    extension = filename.split(".")[-1]
+    return '{}_{}.{}'.format(
+                            instance.id_mongo, 
+                            2, 
+                            extension)
+
+def person_directory_path_3(instance, filename):
+    """
+    Se cambia el nombre de la imagen de cada persona por '<id_mongo>_<n° de imagen>'
+    """
+    extension = filename.split(".")[-1]
+    return '{}_{}.{}'.format(
+                            instance.id_mongo, 
+                            3, 
+                            extension)                            
 
 class Person(models.Model):
     """
@@ -20,18 +40,9 @@ class Person(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     id_mongo = models.IntegerField(unique=True)
+    image1 = models.ImageField(upload_to=person_directory_path_1)
+    image2 = models.ImageField(upload_to=person_directory_path_2)
+    image3 = models.ImageField(upload_to=person_directory_path_3)
 
     class Meta:
         ordering = ('created',)
-
-class PersonImage(models.Model):
-    """
-    Clase para guardar las imágenes de cada persona, se guardan en MEDIA_ROOT,
-    utilizando la funcion 'person_directory_path para cambiar el nombre'
-    """
-    person = models.ForeignKey(
-        Person,
-        on_delete=models.CASCADE,
-        related_name='Image'
-    )
-    image = models.ImageField(upload_to=person_directory_path)
