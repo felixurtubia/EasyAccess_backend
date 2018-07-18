@@ -7,7 +7,7 @@ def person_directory_path_1(instance, filename):
     Se cambia el nombre de la imagen de cada persona por '<id_mongo>_<n° de imagen>'
     """
     extension = filename.split(".")[-1]
-    return '{}_{}.{}'.format(
+    return 'face_images/{}/{}.{}'.format(
                             instance.id_mongo,
                             1,
                             extension)
@@ -17,7 +17,7 @@ def person_directory_path_2(instance, filename):
     Se cambia el nombre de la imagen de cada persona por '<id_mongo>_<n° de imagen>'
     """
     extension = filename.split(".")[-1]
-    return '{}_{}.{}'.format(
+    return 'face_images/{}/{}.{}'.format(
                             instance.id_mongo, 
                             2, 
                             extension)
@@ -27,7 +27,7 @@ def person_directory_path_3(instance, filename):
     Se cambia el nombre de la imagen de cada persona por '<id_mongo>_<n° de imagen>'
     """
     extension = filename.split(".")[-1]
-    return '{}_{}.{}'.format(
+    return 'face_images/{}/{}.{}'.format(
                             instance.id_mongo, 
                             3, 
                             extension)                            
@@ -39,10 +39,11 @@ class Person(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    id_mongo = models.IntegerField(unique=True)
-    image1 = models.ImageField(upload_to=person_directory_path_1)
-    image2 = models.ImageField(upload_to=person_directory_path_2)
-    image3 = models.ImageField(upload_to=person_directory_path_3)
+    id_mongo = models.IntegerField(null=True)
+    image1 = models.ImageField(upload_to=person_directory_path_1,null=True)
+    image2 = models.ImageField(upload_to=person_directory_path_2,null=True)
+    image3 = models.ImageField(upload_to=person_directory_path_3,null=True)
 
     class Meta:
         ordering = ('created',)
+
