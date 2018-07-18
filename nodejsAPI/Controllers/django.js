@@ -8,9 +8,9 @@ var createUser = function (req, res){
         uri: 'http://posttestserver.com/post.php',
         form: {
             idMongo:  req.idUser,
-            picture1: req.picture1,
-            picture2: req.picture2,
-            picture3: req.picture3,
+            image1: req.picture1,
+            image2: req.picture2,
+            image3: req.picture3,
         },
         headers: {
             /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically

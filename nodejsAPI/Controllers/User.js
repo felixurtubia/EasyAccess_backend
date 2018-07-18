@@ -39,9 +39,9 @@ function postUser(req, res){
         nombre: req.body.nombre,
         Apellido: req.body.Apellido,
         rut: req.body.rut,
-        foto1: req.body.foto1,
-        foto2: req.body.foto2,
-        foto3: req.body.foto3
+        image1: req.body.foto1,
+        image2: req.body.foto2,
+        image3: req.body.foto3
     });
     user.save()
     .then(resultado => {
