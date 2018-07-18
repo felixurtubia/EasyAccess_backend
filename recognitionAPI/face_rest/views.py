@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
+from recognitionAPI.startup import run
 
 
 class PersonViewSet(viewsets.ModelViewSet):
@@ -20,15 +21,16 @@ class PersonViewSet(viewsets.ModelViewSet):
                             image2=self.request.data.get('image2'),
                             image3=self.request.data.get('image3'))
         print("Buenas nuevas, esto funciona")
+        run()
     #permission_classes = [IsAccountAdminOrReadOnly]
 
-class ListUsers(APIView):
+class getId(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.AllowAny,)
 
     def get(self, request, format=None):
-        usernames = [user.username for user in User.objects.all()]
-        return Response(usernames)
+        ids = [person.id_mongo for person in Person.objects.all()]
+        return Response(ids)
 
     def POST(self, request, format=None):
         return({'message':"Get some data!", "data":request.data})

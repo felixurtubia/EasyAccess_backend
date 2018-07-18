@@ -10,12 +10,4 @@ class PersonSerializer(serializers.ModelSerializer):
     id_mongo = serializers.IntegerField(required=False)
     class Meta:
         model = Person
-        #read_only_fields = ['id_mongo', 'image1', 'image2', 'image3']
         fields = ['pk','created','updated','id_mongo', 'image1', 'image2', 'image3']
-
-"""class PersonImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PersonImage
-        fields = ['pk','person', 'image']
-
-"""
