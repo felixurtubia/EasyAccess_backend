@@ -7,7 +7,7 @@ def person_directory_path_1(instance, filename):
     Se cambia el nombre de la imagen de cada persona por '<id_mongo>_<n° de imagen>'
     """
     extension = filename.split(".")[-1]
-    return '{}/{}.{}'.format(
+    return 'face_images/{}/{}.{}'.format(
                             instance.id_mongo,
                             1,
                             extension)
@@ -17,7 +17,7 @@ def person_directory_path_2(instance, filename):
     Se cambia el nombre de la imagen de cada persona por '<id_mongo>_<n° de imagen>'
     """
     extension = filename.split(".")[-1]
-    return '{}/{}.{}'.format(
+    return 'face_images/{}/{}.{}'.format(
                             instance.id_mongo, 
                             2, 
                             extension)
@@ -27,7 +27,7 @@ def person_directory_path_3(instance, filename):
     Se cambia el nombre de la imagen de cada persona por '<id_mongo>_<n° de imagen>'
     """
     extension = filename.split(".")[-1]
-    return '{}/{}.{}'.format(
+    return 'face_images/{}/{}.{}'.format(
                             instance.id_mongo, 
                             3, 
                             extension)                            

@@ -105,7 +105,7 @@ def predict(X_img_path, knn_clf=None, model_path=None, distance_threshold=0.6):
         return []
 
     # Find encodings for faces in the test iamge
-    faces_encodings = face_recognition.face_encodings(X_img, known_face_locations=X_face_locations)
+    faces_encodings = face_recognition.face_encodings(X_img ,known_face_locations=X_face_locations)
 
     # Use the KNN model to find the best matches for the test face
     closest_distances = knn_clf.kneighbors(faces_encodings, n_neighbors=1)
@@ -133,7 +133,8 @@ def run():
 
     known_names = []
     known_face_encodings = []
-    print('Begin training images in {}'.format(settings.MEDIA_ROOT))
-    classifier = train(settings.MEDIA_ROOT, model_save_path=os.path.join(settings.STATIC_ROOT), n_neighbors=2)
+    images_dir = os.path.join(settings.MEDIA_ROOT, 'face_images')
+    print('Begin training images in {}'.format(images_dir))
+    classifier = train(images_dir, model_save_path=os.path.join(settings.STATIC_ROOT+'classifier'), n_neighbors=2)
     print("Training Done...")
 
