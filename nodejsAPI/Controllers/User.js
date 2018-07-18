@@ -46,9 +46,9 @@ function postUser(req, res){
     user.save()
     .then(resultado => {
         var toDjango = {idUser:resultado._id,
-          picture1:req.body.foto1,
-          picture2:req.body.foto2,
-          picture3:req.body.foto3}
+          image1:req.body.foto1,
+          image2:req.body.foto2,
+          image3:req.body.foto3}
         console.log(django)
         django.createUser(toDjango)
         .then(resp => {
@@ -68,6 +68,22 @@ function postUser(req, res){
         });
     });
 }
+
+function postIdentification(req, res){
+      var toDjango2 = {
+        image1:req.body.foto
+      }
+      django.makeMatch(toDjango2)
+      .then(resp2 => {
+        res.status(201).json({
+            idFounded: id});
+      }).catch(error => {
+          console.log(error);
+          res.status(500).json({
+            error: error
+          });
+        })
+    }
 
 function updateUser(req, res){
     const userRut = req.params.userRut;
