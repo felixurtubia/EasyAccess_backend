@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "base64-img": "^1.0.4",
     "body-parser": "^1.18.3",
     "connect-busboy": "0.0.2",
     "express": "^4.16.3",

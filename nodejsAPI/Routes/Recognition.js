@@ -1,3 +1,4 @@
+/*
 'use strict'
 
 const express = require('express');
@@ -15,7 +16,7 @@ const storage = multer.diskStorage({
       cb(null, new Date().toISOString() + "-"+file.originalname);
     }
   });
-  
+
   const fileFilter = (req, file, cb) => {
     // reject a file
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
@@ -24,7 +25,7 @@ const storage = multer.diskStorage({
       cb(null, false);
     }
   };
-  
+
   const upload = multer({
     storage: storage,
     limits: {
@@ -38,3 +39,5 @@ const storage = multer.diskStorage({
 router.post('/', upload.single('foto'), recognitionCtrl.RecognitionImage);
 
 module.exports = router;
+
+*/
