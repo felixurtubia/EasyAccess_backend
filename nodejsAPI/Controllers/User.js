@@ -44,8 +44,8 @@ function postUser(req, res){ // Function to create a new user
     user.save()
     .then(resultado => {
         var toDjango = {idUser:resultado._id.toString(),
-          image1: req.body.image1
-          image2: req.body.image2
+          image1: req.body.image1,
+          image2: req.body.image2,
           image3: req.body.image3
         }
         django.createUser(toDjango)
