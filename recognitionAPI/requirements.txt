@@ -1,4 +1,5 @@
 django_extra_fields==1.0.0
+dlib==19.13.1
 face_recognition==1.2.2
 Django==2.0.6
 djangorestframework==3.8.2
