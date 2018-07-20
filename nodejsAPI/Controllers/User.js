@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const User = require('../Models/User');
+const django = require('./django.js');
 
 function getUser (req, res){
     User.find()
@@ -14,7 +15,7 @@ function getUser (req, res){
         res.status(500).json({
           error: err
         });
-      });   
+      });
 }
 
 function getUserRut (req, res){
@@ -37,20 +38,52 @@ function postUser(req, res){
         _id: new mongoose.Types.ObjectId(),
         nombre: req.body.nombre,
         Apellido: req.body.Apellido,
-        rut: req.body.rut
+        rut: req.body.rut,
+        image1: req.body.foto1,
+        image2: req.body.foto2,
+        image3: req.body.foto3
     });
     user.save()
     .then(resultado => {
-        res.status(201).json({
-            mensaje: "Usuario agregado",
-            usuario: resultado});
-    }).catch(error => {
+        var toDjango = {idUser:resultado._id,
+          image1:req.body.foto1,
+          image2:req.body.foto2,
+          image3:req.body.foto3}
+        console.log(django)
+        django.createUser(toDjango)
+        .then(resp => {
+          res.status(201).json({
+              mensaje: "Usuario agregado",
+              usuario: resultado});
+        }).catch(error => {
+            console.log(error);
+            res.status(500).json({
+              error: error
+            });
+          })
+      }).catch(error => {
         console.log(error);
         res.status(500).json({
           error: error
         });
     });
 }
+
+function postIdentification(req, res){
+      var toDjango2 = {
+        image1:req.body.foto
+      }
+      django.makeMatch(toDjango2)
+      .then(resp2 => {
+        res.status(201).json({
+            idFounded: id});
+      }).catch(error => {
+          console.log(error);
+          res.status(500).json({
+            error: error
+          });
+        })
+    }
 
 function updateUser(req, res){
     const userRut = req.params.userRut;
