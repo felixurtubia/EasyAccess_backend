@@ -1,9 +1,11 @@
+/*
+
 'use strict'
 
 const fs = require('fs');
 const path = require('path');
 
-function RecognitionImage(req, res) {
+function RecognitionImage(req, res) { // Not working
     var ruta = path.join(__dirname, '..', 'Upload');
     var file = ruta + '/' + req.file.filename;
     fs.rename(req.file.path, file, function (err) {
@@ -22,3 +24,5 @@ function RecognitionImage(req, res) {
 module.exports = {
     RecognitionImage
 }
+
+*/
