@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:xenial
 # update and install dependencies
 ENV TZ 'Europe/Amsterdam'
 RUN echo $TZ > /etc/timezone && \
