@@ -1,5 +1,4 @@
 /*
-
 'use strict'
 
 const fs = require('fs');
@@ -24,5 +23,4 @@ function RecognitionImage(req, res) { // Not working
 module.exports = {
     RecognitionImage
 }
-
 */

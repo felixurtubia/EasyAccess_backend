@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const User = require('../Models/User');
 const django = require('./django.js');
+const base64Img = require('base64-img');
 
 function getUser (req, res){
     User.find()
@@ -38,18 +39,16 @@ function postUser(req, res){ // Function to create a new user
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         lastname: req.body.lastname,
-        rut: req.body.rut,
-        image1: req.body.foto1,
-        image2: req.body.foto2,
-        image3: req.body.foto3
+        rut: req.body.rut
     });
     user.save()
     .then(resultado => {
-        var toDjango = {idUser:resultado._id,
-          image1:req.body.foto1,
-          image2:req.body.foto2,
-          image3:req.body.foto3}
-        console.log(django)
+        var toDjango = {idUser:resultado._id.toString(),
+          image1:req.body.image1,
+          image2:req.body.image2,
+          image3:req.body.image3
+        }
+        console.log(toDjango)
         django.createUser(toDjango)
         .then(resp => {
           res.status(201).json({

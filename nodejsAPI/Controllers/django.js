@@ -5,12 +5,13 @@ var createUser = function (req, res){
   return new Promise(function(resolve, reject){
     var options = {
         method: 'POST',
-        uri: 'http://easy.faceapi.boldware.cl/api/Persons',
+        //uri: 'http://easy.faceapi.boldware.cl/api/Persons',
+        uri: 'http://192.168.0.16/api/Persons/',
         form: {
             idMongo:  req.idUser,
-            image1: req.picture1,
-            image2: req.picture2,
-            image3: req.picture3
+            image1: req.image1,
+            image2: req.image2,
+            image3: req.image3
         },
         headers: {
             /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
@@ -31,7 +32,8 @@ var makeMatch = function (req, res){
   return new Promise(function(resolve, reject){
     var options = {
         method: 'POST',
-        uri: 'http://easy.faceapi.boldware.cl/api/getId',
+        //uri: 'http://easy.faceapi.boldware.cl/api/getId',
+        uri: 'http://192.168.0.16/api/getId',
         form: {
             image: req.picture
         },
