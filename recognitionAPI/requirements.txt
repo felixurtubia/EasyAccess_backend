@@ -1,10 +1,5 @@
-
-django:
-    pip install django-extra-fields
-
-face_recognition:
-    pip install face_recognition
-    pip install scipy
-
-face_recognition_knn:
-    pip install scikit-learn 
+django_extra_fields==1.0.0
+face_recognition==1.2.2
+Django==2.0.6
+djangorestframework==3.8.2
+scikit_learn==0.19.2
