@@ -25,7 +25,7 @@ SECRET_KEY = 'nd$q$p#z5e=*qt=ei*=h^gf3-ks2t)mg0yq&dy$-m6g0d99oiv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["easy.faceapi.boldware.cl"]
 
 
 # Application definition
