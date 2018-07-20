@@ -39,7 +39,7 @@ class Person(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    id_mongo = models.IntegerField(null=True)
+    id_mongo = models.CharField(null=True, max_length=1000)
     image1 = models.ImageField(upload_to=person_directory_path_1,null=True)
     image2 = models.ImageField(upload_to=person_directory_path_2,null=True)
     image3 = models.ImageField(upload_to=person_directory_path_3,null=True)

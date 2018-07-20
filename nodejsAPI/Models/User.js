@@ -5,8 +5,8 @@ const schema = mongoose.Schema;
 
 const userSchema = schema({
     _id : mongoose.Schema.Types.ObjectId,
-    nombre : String,
-    Apellido : String,
+    name : String,
+    lastname : String,
     rut : String
 });
 

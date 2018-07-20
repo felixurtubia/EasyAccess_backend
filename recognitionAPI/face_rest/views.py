@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 #rom face_rest.serializers import PersonImageSerializer
 from face_rest.serializers import PersonSerializer
 from face.models import Person#, PersonImage
@@ -48,14 +48,23 @@ def prediction(image, knn_clf=None, model_path=None, distance_threshold=0.6):
 class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
-
     def perform_create(self, serializer):
-        serializer.save(id_mongo=self.request.data.get('id_mongo'),
+        #print(self.request.body)
+        serializer.save(id_mongo=self.request.data.get('idMongo'),
                             image1=self.request.data.get('image1'),
                             image2=self.request.data.get('image2'),
                             image3=self.request.data.get('image3'))
-        print("Buenas nuevas, esto funciona")
+        print("Data:", self.request.data)
+        #print("Body:", self.request.body)
         run()
+    """
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(True, status=status.HTTP_201_CREATED, headers=headers)
+    """
     #permission_classes = [IsAccountAdminOrReadOnly]
 
 class getId(APIView):
@@ -73,5 +82,5 @@ class getId(APIView):
         #matching = []
         if len(matching) == 0:
             return Response(data="unknown")
-        return Response(data=matching)
+        return Response(data=matching[0][0])
     
