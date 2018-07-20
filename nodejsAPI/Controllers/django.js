@@ -5,7 +5,7 @@ var createUser = function (req, res){
   return new Promise(function(resolve, reject){
     var options = {
         method: 'POST',
-        uri: 'http://posttestserver.com/post.php',
+        uri: 'http://easy.faceapi.boldware.cl/api/Persons',
         form: {
             idMongo:  req.idUser,
             image1: req.picture1,
@@ -21,9 +21,7 @@ var createUser = function (req, res){
         resolve(body);
       })
       .catch(function (err) {
-        //reject(err);
-        console.log('paso por aca!!')
-        resolve(body);
+        reject(err);
       });
  })
 }
@@ -33,7 +31,7 @@ var makeMatch = function (req, res){
   return new Promise(function(resolve, reject){
     var options = {
         method: 'POST',
-        uri: 'http://posttestserver.com/post.php',
+        uri: 'http://easy.faceapi.boldware.cl/api/getId',
         form: {
             image: req.picture
         },
@@ -43,13 +41,10 @@ var makeMatch = function (req, res){
     };
     rp(options)
       .then(function (body) {
-        console.log(body) // Mostrando lo que tiene la wea
-        //resolve({id:body.id});
-        resolve(body);
+        resolve({id:body.data});
       })
       .catch(function (err) {
-        //reject(err);
-        resolve(body);
+        reject(err);
       });
  })
 }
