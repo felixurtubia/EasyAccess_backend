@@ -4,10 +4,22 @@ const express = require('express');
 const bodyParse = require("body-parser");
 const app = express();
 const userRoute = require("./Routes/User");
+var getRawBody = require('raw-body');
+
+app.use(function (req, res, next) {
+  getRawBody(req, {
+    length: req.headers['content-length'],
+    limit: '100mb',
+    encoding: contentType.parse(req).parameters.charset
+  }, function (err, string) {
+    if (err) return next(err)
+    req.text = string
+    next()
+  })
+});
 
 const recognitionRoute = require("./Routes/Recognition");
 
-app.use(express.json(limit("1000mb")));
 
 //CONFIGURACIONES PRIMARIAS
 app.use('/Upload', express.static('Upload')); /*permite dar las imagenes por localhost:3000/Upload/[:imagen]*/
