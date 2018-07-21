@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParse = require("body-parser");
+var contentType = require('content-type')
 const app = express();
 const userRoute = require("./Routes/User");
 var getRawBody = require('raw-body');
