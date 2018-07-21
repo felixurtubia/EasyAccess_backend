@@ -6,7 +6,7 @@ const app = express();
 const userRoute = require("./Routes/User");
 
 const recognitionRoute = require("./Routes/Recognition");
-
+app.use(express.limit(100000000));
 //CONFIGURACIONES PRIMARIAS
 app.use('/Upload', express.static('Upload')); /*permite dar las imagenes por localhost:3000/Upload/[:imagen]*/
 app.use(bodyParse.urlencoded( {extended : false}));
