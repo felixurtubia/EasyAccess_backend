@@ -36,7 +36,7 @@ function getUserRut (req, res){
 }
 
 function postUser(req, res){ // Function to create a new user
-  console.log(req.body);
+  console.log(req.body.name);
   console.log("Creating new user! ");
     const user = User({
         _id: new mongoose.Types.ObjectId(),
@@ -55,9 +55,9 @@ function postUser(req, res){ // Function to create a new user
         }
         django.createUser(toDjango)
         .then(resp => {
-          console.log(resp);
+//          console.log(resp);
           res.status(201).json({
-              mensaje: "Usuario agregado",
+              mensaje: "Usuario creado",
               usuario: resultado});
         }).catch(error => {
             console.log(error);
