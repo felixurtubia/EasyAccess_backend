@@ -6,6 +6,7 @@ const django = require('./django.js');
 const base64Img = require('base64-img');
 
 function getUser (req, res){
+  console.log("Gettin user")
     User.find()
       .exec()
       .then(docs => {
@@ -35,6 +36,8 @@ function getUserRut (req, res){
 }
 
 function postUser(req, res){ // Function to create a new user
+  console.log(req.body);
+  console.log("Creating new user! ");
     const user = User({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -43,6 +46,8 @@ function postUser(req, res){ // Function to create a new user
     });
     user.save()
     .then(resultado => {
+      console.log("user creation accomplished, now posting to faceapi");
+
         var toDjango = {idUser:resultado._id.toString(),
           image1: req.body.image1,
           image2: req.body.image2,
@@ -50,6 +55,7 @@ function postUser(req, res){ // Function to create a new user
         }
         django.createUser(toDjango)
         .then(resp => {
+          console.log(resp);
           res.status(201).json({
               mensaje: "Usuario agregado",
               usuario: resultado});

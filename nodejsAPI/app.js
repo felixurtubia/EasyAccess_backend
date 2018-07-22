@@ -6,19 +6,11 @@ var contentType = require('content-type')
 var app = express();
 var userRoute = require("./Routes/User");
 var getRawBody = require('raw-body');
+
 app.use(bodyParse.json({limit: '50mb'}));
 app.use(bodyParse.urlencoded({limit: '50mb', extended: true}));
-app.use(function (req, res, next) {
-  getRawBody(req, {
-    length: req.headers['content-length'],
-    limit: '100mb',
-    encoding: contentType.parse(req).parameters.charset
-  }, function (err, string) {
-    if (err) return next(err)
-    req.text = string
-    next()
-  })
-});
+
+
 
 const recognitionRoute = require("./Routes/Recognition");
 
