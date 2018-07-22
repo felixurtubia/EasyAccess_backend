@@ -6,7 +6,8 @@ var contentType = require('content-type')
 const app = express();
 const userRoute = require("./Routes/User");
 var getRawBody = require('raw-body');
-
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(function (req, res, next) {
   getRawBody(req, {
     length: req.headers['content-length'],
