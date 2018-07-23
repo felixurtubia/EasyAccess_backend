@@ -86,14 +86,6 @@ class PersonViewSet(viewsets.ModelViewSet):
                             image3=self.request.data.get('image3'))
         
         run()
-        """
-    def create(self, request, *args, **kwargs):
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        """
 
 class getId(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
@@ -104,6 +96,7 @@ class getId(APIView):
         return Response(ids)
 
     def post(self, request, format=None):
+        print(request.data.get('image'))
         image = to_image(request.data.get('image'))
         print(image)
         matching = prediction(image,model_path=os.path.join(settings.STATIC_ROOT+'classifier'))
