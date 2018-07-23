@@ -106,10 +106,10 @@ class getId(APIView):
     def post(self, request, format=None):
         print(request.data.get('image'))
         image = to_image(request.data.get('image'))
-        print(image)
+       
         matching = prediction(image,model_path=os.path.join(settings.STATIC_ROOT+'classifier'))
         #matching = []
         if len(matching) == 0:
             return Response(data="unknown")
-        return Response(data={'data':matching[0][0]}, status=status.HTTP_202_ACCEPTED)
+        return Response(data=matching[0][0])
     

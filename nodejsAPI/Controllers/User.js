@@ -84,7 +84,6 @@ function postIdentification(req, res) { // Function to indenticate a person
     image: req.body.image
   }
 
-  console.log(req.body.image);
   console.log("identification begin");
 
   django.makeMatch(toDjango2)
@@ -92,7 +91,7 @@ function postIdentification(req, res) { // Function to indenticate a person
       console.log("identification succeed !! ");
       res.status(201).json({
         success:true,
-        idFounded: resp2.id
+        idFounded: resp2
       });
     }).catch(error => {
       console.log("Identification failded, reason: " + error);
