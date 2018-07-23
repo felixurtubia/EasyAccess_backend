@@ -6,7 +6,7 @@ const router = express.Router();
 
 //RUTAS
 router.get('/', userCtrl.getUser); // get all users
-router.get('/getId', userCtrl.postIdentification);
+router.post('/getId', userCtrl.postIdentification);
 router.get('/:userRut', userCtrl.getUserRut); // get user by rut
 router.post('/', userCtrl.postUser); // create a new user
 router.delete('/:userRut', userCtrl.deleteUser);
