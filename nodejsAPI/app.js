@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 
 //IMPORTAR RUTAS
 app.use('/User', userRoute);
-app.use('/Recognition', recognitionRoute);
+//app.use('/Recognition', recognitionRoute);
 
 //CONFIGURACIONES SECUNDARIAS
 app.use((req, res, next) => {

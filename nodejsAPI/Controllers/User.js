@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const User = require('../Models/User');
 const django = require('./django.js');
+const base64Img = require('base64-img');
 
 function getUser (req, res){
     User.find()
@@ -33,23 +34,20 @@ function getUserRut (req, res){
     });
 }
 
-function postUser(req, res){
+function postUser(req, res){ // Function to create a new user
     const user = User({
         _id: new mongoose.Types.ObjectId(),
-        nombre: req.body.nombre,
-        Apellido: req.body.Apellido,
-        rut: req.body.rut,
-        image1: req.body.foto1,
-        image2: req.body.foto2,
-        image3: req.body.foto3
+        name: req.body.name,
+        lastname: req.body.lastname,
+        rut: req.body.rut
     });
     user.save()
     .then(resultado => {
-        var toDjango = {idUser:resultado._id,
-          image1:req.body.foto1,
-          image2:req.body.foto2,
-          image3:req.body.foto3}
-        console.log(django)
+        var toDjango = {idUser:resultado._id.toString(),
+          image1: req.body.image1,
+          image2: req.body.image2,
+          image3: req.body.image3
+        }
         django.createUser(toDjango)
         .then(resp => {
           res.status(201).json({
@@ -69,9 +67,9 @@ function postUser(req, res){
     });
 }
 
-function postIdentification(req, res){
+function postIdentification(req, res){ // Function to indenticate a person
       var toDjango2 = {
-        image1:req.body.foto
+        image1:req.body.image
       }
       django.makeMatch(toDjango2)
       .then(resp2 => {
@@ -125,5 +123,6 @@ module.exports = {
     getUserRut,
     postUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    postIdentification
 }
