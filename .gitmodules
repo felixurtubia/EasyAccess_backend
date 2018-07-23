@@ -1,0 +1,3 @@
+[submodule "EasyAccess_Front"]
+	path = EasyAccess_Front
+	url = https://github.com/bmirandan/EasyAccess_Front.git
