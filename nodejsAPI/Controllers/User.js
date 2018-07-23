@@ -92,7 +92,7 @@ function postIdentification(req, res) { // Function to indenticate a person
       console.log("identification succeed !! ");
       res.status(201).json({
         success:true,
-        idFounded: id
+        idFounded: resp2.id
       });
     }).catch(error => {
       console.log("Identification failded, reason: " + error);
