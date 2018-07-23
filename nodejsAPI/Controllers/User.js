@@ -81,7 +81,7 @@ function postUser(req, res) { // Function to create a new user
 
 function postIdentification(req, res) { // Function to indenticate a person
   var toDjango2 = {
-    image1: req.body.image
+    image: req.body.image
   }
 
   console.log("identification begin");
