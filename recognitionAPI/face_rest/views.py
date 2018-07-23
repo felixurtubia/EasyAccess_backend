@@ -104,6 +104,7 @@ class getId(APIView):
         return Response(ids)
 
     def post(self, request, format=None):
+        print(request.data.get('image'))
         image = to_image(request.data.get('image'))
         print(image)
         matching = prediction(image,model_path=os.path.join(settings.STATIC_ROOT+'classifier'))
