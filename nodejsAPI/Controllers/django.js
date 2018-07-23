@@ -43,6 +43,7 @@ var makeMatch = function (req, res){
     };
     rp(options)
       .then(function (body) {
+        console.log(body.data);
         resolve({id:body.data});
       })
       .catch(function (err) {
