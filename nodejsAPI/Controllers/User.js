@@ -86,11 +86,13 @@ function postIdentification(req, res) { // Function to indenticate a person
   django.makeMatch(toDjango2)
     .then(resp2 => {
       res.status(201).json({
+        success:true,
         idFounded: id
       });
     }).catch(error => {
       console.log(error);
       res.status(500).json({
+        success:false,
         error: error
       });
     })
