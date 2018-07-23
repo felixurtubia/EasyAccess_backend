@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', userCtrl.getUser); // get all users
 router.get('/:userRut', userCtrl.getUserRut); // get user by rut
 router.post('/', userCtrl.postUser); // create a new user
-router.post('/getId', userCtrl.postIdentification);
+router.get('/getId', userCtrl.postIdentification);
 router.delete('/:userRut', userCtrl.deleteUser);
 router.put('/:userRut', userCtrl.updateUser);
 

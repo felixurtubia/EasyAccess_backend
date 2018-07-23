@@ -3,5 +3,4 @@ face_recognition==1.2.2
 Django==2.0.6
 djangorestframework==3.8.2
 scikit_learn==0.19.2
-dlib==19.13.1
 scipy==1.1.0
