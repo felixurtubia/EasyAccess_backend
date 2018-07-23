@@ -35,7 +35,7 @@ var makeMatch = function (req, res){
         //uri: 'http://easy.faceapi.boldware.cl/api/getId',
         uri: 'http://easy.faceapi.boldware.cl/api/getId',
         form: {
-            image: req.picture
+            image: req.image
         },
         headers: {
             /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
