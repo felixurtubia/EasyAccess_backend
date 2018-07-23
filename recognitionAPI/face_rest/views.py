@@ -10,13 +10,43 @@ from sklearn import neighbors
 import pickle
 import math
 
-
 from rest_framework.views import APIView
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
 from recognitionAPI.startup import run
 import os
 from django.conf import settings
+
+# For base64 image decoder
+import re
+import base64
+import uuid
+import imghdr
+
+from django.core.files.base import ContentFile
+# -----
+
+def to_image(base64_data):
+    # Strip data header if it exists
+    base64_data = re.sub(r"^data\:.+base64\,(.+)$", r"\1", base64_data)
+
+    # Try to decode the file. Return validation error if it fails.
+    try:
+        decoded_file = base64.b64decode(base64_data)
+    except TypeError:
+        msg = "Please upload a valid image."
+        print(msg)
+
+    # Get the file name extension:
+    extension = imghdr.what("file_name", decoded_file)
+    if extension not in ("jpeg", "jpg", "png"):
+        msg = "{0} is not a valid image type.".format(extension)
+        print(msg)
+
+    extension = "jpg" if extension == "jpeg" else extension
+    file_name = ".".join([str(uuid.uuid4()), extension])
+    data = ContentFile(decoded_file, name=file_name)
+    return data
 
 
 def prediction(image, knn_clf=None, model_path=None, distance_threshold=0.6):
@@ -30,7 +60,7 @@ def prediction(image, knn_clf=None, model_path=None, distance_threshold=0.6):
     if knn_clf is None:
         with open(model_path, 'rb') as f:
             knn_clf = pickle.load(f)
-
+    image = image
     X_img = face_recognition.load_image_file(image)
     X_face_locations = face_recognition.face_locations(X_img)
 
@@ -54,18 +84,16 @@ class PersonViewSet(viewsets.ModelViewSet):
                             image1=self.request.data.get('image1'),
                             image2=self.request.data.get('image2'),
                             image3=self.request.data.get('image3'))
-        print("Data:", self.request.data)
-        #print("Body:", self.request.body)
+        
         run()
-    """
+        """
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(True, status=status.HTTP_201_CREATED, headers=headers)
-    """
-    #permission_classes = [IsAccountAdminOrReadOnly]
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        """
 
 class getId(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
@@ -76,7 +104,7 @@ class getId(APIView):
         return Response(ids)
 
     def post(self, request, format=None):
-        image = request.data.get('image')
+        image = to_image(request.data.get('image'))
         print(image)
         matching = prediction(image,model_path=os.path.join(settings.STATIC_ROOT+'classifier'))
         #matching = []
