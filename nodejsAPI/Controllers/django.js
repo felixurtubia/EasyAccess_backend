@@ -43,8 +43,8 @@ var makeMatch = function (req, res){
     };
     rp(options)
       .then(function (body) {
-        console.log(body.data);
-        resolve({id:body.data});
+        console.log(body);
+        resolve({id:body});
       })
       .catch(function (err) {
         reject(err);
