@@ -83,7 +83,7 @@ function postIdentification(req, res) { // Function to indenticate a person
   var toDjango2 = {
     image: req.body.image
   }
-
+  console.log(toDjango2.image);
   console.log("identification begin");
 
   django.makeMatch(toDjango2)
