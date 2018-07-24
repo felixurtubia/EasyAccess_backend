@@ -50,7 +50,7 @@ def to_image(base64_data):
     return data
 
 
-def prediction(image, knn_clf=None, model_path=None, distance_threshold=0.6):
+def prediction(image, knn_clf=None, model_path=None, distance_threshold=0.5):
     """
     Recognizes an image from request 
     """
@@ -87,14 +87,6 @@ class PersonViewSet(viewsets.ModelViewSet):
                             image3=self.request.data.get('image3'))
         
         run()
-        """
-    def create(self, request, *args, **kwargs):
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        """
 
 class getId(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
