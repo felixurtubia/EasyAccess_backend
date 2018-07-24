@@ -50,7 +50,7 @@ def to_image(base64_data):
     return data
 
 
-def prediction(image, knn_clf=None, model_path=None, distance_threshold=0.6):
+def prediction(image, knn_clf=None, model_path=None, distance_threshold=0.5):
     """
     Recognizes an image from request 
     """
