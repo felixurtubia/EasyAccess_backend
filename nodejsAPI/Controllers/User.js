@@ -81,16 +81,20 @@ function postUser(req, res) { // Function to create a new user
 
 function postIdentification(req, res) { // Function to indenticate a person
   var toDjango2 = {
-    image1: req.headers.image
+    image: req.body.image
   }
+  console.log(toDjango2.image);
+  console.log("identification begin");
+
   django.makeMatch(toDjango2)
     .then(resp2 => {
+      console.log("identification succeed !! ");
       res.status(201).json({
         success:true,
-        idFounded: id
+        idFounded: resp2
       });
     }).catch(error => {
-      console.log(error);
+      console.log("Identification failded, reason: " + error);
       res.status(500).json({
         success:false,
         error: error

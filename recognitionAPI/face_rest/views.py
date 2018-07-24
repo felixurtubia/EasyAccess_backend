@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets, status
+from rest_framework.exceptions import NotAuthenticated
 #rom face_rest.serializers import PersonImageSerializer
 from face_rest.serializers import PersonSerializer
 from face.models import Person#, PersonImage
@@ -104,11 +105,17 @@ class getId(APIView):
         return Response(ids)
 
     def post(self, request, format=None):
-        image = to_image(request.data.get('image'))
-        print(image)
+        print(self.request.data.get('image'))
+        image = to_image(self.request.data.get('image'))
+       
         matching = prediction(image,model_path=os.path.join(settings.STATIC_ROOT+'classifier'))
         #matching = []
-        if len(matching) == 0:
-            return Response(data="unknown")
-        return Response(data=matching[0][0])
+        #if len(matching) == 0:
+        #   print(len(matching))
+        #   return Response(data="unknown", status=status.HTTP_401_UNAUTHORIZED)
+        #return Response(data=matching[0][0])
     
+        if matching[0][0] == "unknown":
+            return Response(status=status.HTTP_403_FORBIDDEN)
+        else:
+            return Response(data={'data':matching[0][0]})
