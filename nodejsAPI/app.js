@@ -11,10 +11,6 @@ app.use(bodyParse.json({limit: '50mb'}));
 app.use(bodyParse.urlencoded({limit: '50mb', extended: true}));
 
 
-
-const recognitionRoute = require("./Routes/Recognition");
-
-
 //CONFIGURACIONES PRIMARIAS
 app.use('/Upload', express.static('Upload')); /*permite dar las imagenes por localhost:3000/Upload/[:imagen]*/
 
@@ -33,7 +29,6 @@ app.use((req, res, next) => {
 
 //IMPORTAR RUTAS
 app.use('/User', userRoute);
-//app.use('/Recognition', recognitionRoute);
 
 //CONFIGURACIONES SECUNDARIAS
 app.use((req, res, next) => {
