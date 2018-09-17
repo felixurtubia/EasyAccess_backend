@@ -2,6 +2,10 @@
 
 const Log = require('../Models/Log');
 
+/**
+ * Entrega la fecha y hora
+ * @returns {String[]} [fecha, hora]
+ */
 function getDateTime() {
     var date = new Date();
     var hour = date.getHours();
@@ -18,6 +22,10 @@ function getDateTime() {
     return [year + "/" + month + "/" + day, hour + ":" + min + ":" + sec];
 }
 
+/**
+ * Guarda el usuario junto a la fecha y hora de su reconocimiento
+ * @param {Object} idUser
+ */
 function logRecognition(idFounded){
     dateTime = getDateTime();
     const log = Log({
@@ -34,3 +42,7 @@ function logRecognition(idFounded){
         console.log("log creation error");
     });    
 }
+
+module.exports = {
+    logRecognition
+  }
