@@ -42,7 +42,25 @@ function logRecognition(idFounded){
         console.log("log creation error");
     });    
 }
+/**
+ * Retorna todos los logs 
+ */
+function getLog(req, res){
+  console.log("Get log")
+  Log.find()
+    .exec()
+    .then(docs => {
+      res.status(200).json(docs);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+}
 
 module.exports = {
-    logRecognition
+    logRecognition,
+    getLog
   }

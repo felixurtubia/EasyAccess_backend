@@ -5,6 +5,7 @@ var bodyParse = require("body-parser");
 var contentType = require('content-type')
 var app = express();
 var userRoute = require("./Routes/User");
+var logRoute = require("./Routes/Log");
 var getRawBody = require('raw-body');
 
 app.use(bodyParse.json({limit: '50mb'}));
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 
 //IMPORTAR RUTAS
 app.use('/User', userRoute);
+app.use('/Log', logRoute);
 
 //CONFIGURACIONES SECUNDARIAS
 app.use((req, res, next) => {
