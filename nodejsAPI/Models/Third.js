@@ -7,7 +7,7 @@ const thirdSchema = schema({
     //relacion log-user
     user : { type: schema.ObjectId, ref: "User" },
     name : String,
-    lastName : String, 
+    lastname : String, 
     rut : String,
     access : Boolean
 });
