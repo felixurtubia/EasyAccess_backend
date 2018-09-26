@@ -28,6 +28,29 @@ function getThird(req, res) {
 }
 
 /**
+ * Actualiza el acceso de un invitado 
+ */
+function updateAccess(req, res) {
+  const idThird = req.params.idThird;
+  Third.update({_id : idThird},
+    {$set: {
+        "access": req.params.access,
+      }
+    }
+  ).exec()
+  .then(result => {
+    console.log("update great");
+    res.status(200).json(result);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: err
+    });
+  });
+}
+
+/**
  * Se crea un tercero, debe entregar en req el id del usuario
  * que creo el tercero
  */
@@ -81,5 +104,6 @@ function postThird(req, res) {
 
   module.exports = {
     postThird,
+    updateAccess,
     getThird
   }
