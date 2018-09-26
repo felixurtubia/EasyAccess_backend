@@ -7,6 +7,26 @@ const base64Img = require('base64-img');
 const logController = require('./Log');
 const Third = require('../Models/Third');
 
+
+/**
+ * Entrega todos los invitados de un usuario 
+ */
+function getThird(req, res) {
+  const idUser = req.params.idUser;
+  console.log("Gettin third")
+  Third.find({user: idUser})
+    .exec()
+    .then(docs => {
+      res.status(200).json(docs);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+}
+
 /**
  * Se crea un tercero, debe entregar en req el id del usuario
  * que creo el tercero
@@ -60,5 +80,6 @@ function postThird(req, res) {
   }
 
   module.exports = {
-    postThird
+    postThird,
+    getThird
   }
