@@ -1,6 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
+const schema = mongoose.Schema;
 
 const thirdSchema = schema({
     _id : mongoose.Schema.Types.ObjectId,
