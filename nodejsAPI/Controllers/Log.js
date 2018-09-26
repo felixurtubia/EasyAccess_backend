@@ -31,6 +31,7 @@ function logRecognition(idFounded){
     dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
+        type : 0,
         user: idFounded,
         date: dateTime[0],
         time: dateTime[1]

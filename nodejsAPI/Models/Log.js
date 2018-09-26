@@ -5,8 +5,10 @@ const schema = mongoose.Schema;
 
 const logSchema = schema({
     _id : mongoose.Schema.Types.ObjectId,
+    type : Number,
     //relacion log-user
-    user : { type: schema.ObjectId, ref: "User" }, 
+    user : { type: schema.ObjectId, ref: "User" },
+    third : {type: schema.ObjectId, ref: "Third"}, 
     date : String,
     time : String
 });
