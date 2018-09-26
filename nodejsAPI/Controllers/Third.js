@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 //const User = require('../Models/User');
 const django = require('./django.js');
 const base64Img = require('base64-img');
-//const Log = require('./Log');
+const logController = require('./Log');
 const Third = require('../Models/Third');
 
 /**
@@ -36,6 +36,7 @@ function postThird(req, res) {
           .then(resp => {
             //          console.log(resp);
             console.log("Faceapi trained accomplished");
+            logController.logThird(req.body.iduser, resultado._id);
             res.status(201).json({
               success: true,
               mensaje: "Third create",
