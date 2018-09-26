@@ -1,6 +1,7 @@
 'use strict'
 
 const Log = require('../Models/Log');
+const User = require('../Models/User');
 
 /**
  * Entrega la fecha y hora
@@ -49,8 +50,10 @@ function getLog(req, res){
   console.log("Get log")
   Log.find()
     .exec()
-    .then(docs => {
-      res.status(200).json(docs);
+    .then(docs => { //logs
+        User.populate(docs, {path: "user"},function(err, docs){
+        	res.status(200).send(docs);
+        });
     })
     .catch(err => {
       console.log(err);
