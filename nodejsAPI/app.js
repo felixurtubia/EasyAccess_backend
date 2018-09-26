@@ -5,14 +5,12 @@ var bodyParse = require("body-parser");
 var contentType = require('content-type')
 var app = express();
 var userRoute = require("./Routes/User");
+var logRoute = require("./Routes/Log");
+var thirdRoute = require('./Routes/Third');
 var getRawBody = require('raw-body');
 
 app.use(bodyParse.json({limit: '50mb'}));
 app.use(bodyParse.urlencoded({limit: '50mb', extended: true}));
-
-
-
-const recognitionRoute = require("./Routes/Recognition");
 
 
 //CONFIGURACIONES PRIMARIAS
@@ -33,7 +31,8 @@ app.use((req, res, next) => {
 
 //IMPORTAR RUTAS
 app.use('/User', userRoute);
-//app.use('/Recognition', recognitionRoute);
+app.use('/Log', logRoute);
+app.use('/Third', thirdRoute);
 
 //CONFIGURACIONES SECUNDARIAS
 app.use((req, res, next) => {
