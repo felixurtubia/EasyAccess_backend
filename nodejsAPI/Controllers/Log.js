@@ -44,6 +44,53 @@ function logRecognition(idFounded){
         console.log("log creation error");
     });    
 }
+
+/**
+ * Guarda el usuario y al invitado junto a la fecha y hora de su creacion
+ * @param {Object} idUser
+ * @param {Object} idThird
+ */
+function logThird(idUser, idThird){
+    dateTime = getDateTime();
+    const log = Log({
+        _id: new mongoose.Types.ObjectId(),
+        type : 1,
+        user: idFounded,
+        third: idThird,
+        date: dateTime[0],
+        time: dateTime[1]
+    })
+    log.save()
+    .then(answer => {
+        console.log("log creation accomplished");
+    })
+    .catch(error => {
+        console.log("log creation error");
+    });
+}
+
+/**
+ * Guarda el usuario que invito a otra personas con su fecha y hora de su creacion
+ * @param {Object} idUser
+ */
+function logOther(idUser){
+    dateTime = getDateTime();
+    const log = Log({
+        _id: new mongoose.Types.ObjectId(),
+        type : 2,
+        user: idFounded,
+        date: dateTime[0],
+        time: dateTime[1]
+    })
+    log.save()
+    .then(answer => {
+        console.log("log creation accomplished");
+    })
+    .catch(error => {
+        console.log("log creation error");
+    });
+}
+
 /**
  * Retorna todos los logs 
  */
@@ -66,5 +113,7 @@ function getLog(req, res){
 
 module.exports = {
     logRecognition,
+    logThird,
+    logOther,
     getLog
   }
