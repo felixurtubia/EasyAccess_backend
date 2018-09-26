@@ -40,7 +40,7 @@ function postThird(req, res) {
       name: req.body.name,
       lastname: req.body.lastname,
       rut: req.body.rut,
-      access : Boolean
+      access : true
     });
     third.save()
       .then(resultado => {
