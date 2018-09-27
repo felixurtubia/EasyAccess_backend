@@ -1,6 +1,6 @@
 'use strict'
 
-const Notification = require('../Models/Notificaction');
+const Notification = require('../Models/Notification');
 const logCtrl = require('./Log');
 
 /**
