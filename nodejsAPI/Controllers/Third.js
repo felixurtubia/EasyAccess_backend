@@ -4,8 +4,51 @@ const mongoose = require('mongoose');
 //const User = require('../Models/User');
 const django = require('./django.js');
 const base64Img = require('base64-img');
-//const Log = require('./Log');
+const logController = require('./Log');
 const Third = require('../Models/Third');
+
+
+/**
+ * Entrega todos los invitados de un usuario 
+ */
+function getThird(req, res) {
+  const idUser = req.params.idUser;
+  console.log("Gettin third")
+  Third.find({user: idUser})
+    .exec()
+    .then(docs => {
+      res.status(200).json(docs);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+}
+
+/**
+ * Actualiza el acceso de un invitado 
+ */
+function updateAccess(req, res) {
+  const idThird = req.params.idThird;
+  Third.update({_id : idThird},
+    {$set: {
+        "access": req.params.access,
+      }
+    }
+  ).exec()
+  .then(result => {
+    console.log("update great");
+    res.status(200).json(result);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: err
+    });
+  });
+}
 
 /**
  * Se crea un tercero, debe entregar en req el id del usuario
@@ -20,7 +63,7 @@ function postThird(req, res) {
       name: req.body.name,
       lastname: req.body.lastname,
       rut: req.body.rut,
-      access : Boolean
+      access : true
     });
     third.save()
       .then(resultado => {
@@ -36,6 +79,7 @@ function postThird(req, res) {
           .then(resp => {
             //          console.log(resp);
             console.log("Faceapi trained accomplished");
+            logController.logThird(req.body.iduser, resultado._id);
             res.status(201).json({
               success: true,
               mensaje: "Third create",
@@ -59,5 +103,7 @@ function postThird(req, res) {
   }
 
   module.exports = {
-    postThird
+    postThird,
+    updateAccess,
+    getThird
   }

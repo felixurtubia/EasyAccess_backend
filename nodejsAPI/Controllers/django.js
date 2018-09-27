@@ -5,8 +5,10 @@ var createUser = function (req, res){
   return new Promise(function(resolve, reject){
     var options = {
         method: 'POST',
+
         //uri: 'http://easy.faceapi.boldware.cl/api/Persons',
         uri: 'http://easy.faceapi.boldware.cl/api/Persons/',
+      
         form: {
             idMongo:  req.idUser,
             image1: req.image1,
@@ -32,8 +34,10 @@ var makeMatch = function (req, res){
   return new Promise(function(resolve, reject){
     var options = {
         method: 'POST',
-        //uri: 'http://easy.faceapi.boldware.cl/api/getId',
+
         uri: 'http://easy.faceapi.boldware.cl/api/getId',
+        //uri: 'http://easy.faceapi.lifeware.cl/api/getId',
+
         form: {
             image: req.image
         },
@@ -41,17 +45,35 @@ var makeMatch = function (req, res){
             /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
         }
     };
+    var params = {
+        method: 'POST',
+        //uri: 'http://easy.faceapi.boldware.cl/api/getId',
+        uri: 'http://51.15.240.129:3000/api/5b33bd5cc5c7741bd9e6fc21/push',
+        headers: {
+            "message": {
+              "title":"Exito",
+              "body": "Vuestro invitado ha arrivado",
+              "params": {}
+            }
+        }
+    };
     rp(options)
       .then(function (body) {
         console.log("this is body",body);
 
-        if(body == 'unknown'){ 
+        if(body == 'unknown'){
 
         	reject("No está registrado");}
         else{
-        	  resolve({id:body});
+          var id = body;
+          rp(params).then(function (response){
+              console.log(response);
+          	  resolve({id});
+            }).catch(function (err) {
+              reject(err);
+            });
         }
-      
+
       })
       .catch(function (err) {
         reject(err);

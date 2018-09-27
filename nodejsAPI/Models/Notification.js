@@ -3,14 +3,13 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-const logSchema = schema({
+const notificationSchema = schema({
     _id : mongoose.Schema.Types.ObjectId,
-    type : Number,
-    //relacion log-user
     user : { type: schema.ObjectId, ref: "User" },
-    third : {type: schema.ObjectId, ref: "Third"}, 
+    description : String,
+    commentary : String,
     date : String,
     time : String
 });
 
-module.exports = mongoose.model('Log', logSchema);
+module.exports = mongoose.model('Notification', notificationSchema);

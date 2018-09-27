@@ -7,6 +7,7 @@ var app = express();
 var userRoute = require("./Routes/User");
 var logRoute = require("./Routes/Log");
 var thirdRoute = require('./Routes/Third');
+var notificationRoute = require('./Routes/Notification');
 var getRawBody = require('raw-body');
 
 app.use(bodyParse.json({limit: '50mb'}));
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
 app.use('/User', userRoute);
 app.use('/Log', logRoute);
 app.use('/Third', thirdRoute);
+app.use('/Notification', notificationRoute);
 
 //CONFIGURACIONES SECUNDARIAS
 app.use((req, res, next) => {
