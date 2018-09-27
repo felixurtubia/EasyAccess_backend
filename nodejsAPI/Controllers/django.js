@@ -47,8 +47,8 @@ var makeMatch = function (req, res){
         uri: 'http://51.15.240.129:3000/api/5b33bd5cc5c7741bd9e6fc21/push',
         headers: {
             "message": {
-              "title":"Title of message",
-              "body": "Body of message",
+              "title":"Exito",
+              "body": "Vuestro invitado ha arrivado",
               "params": {}
             }
         }

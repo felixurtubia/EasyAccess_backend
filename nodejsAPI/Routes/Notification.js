@@ -6,6 +6,7 @@ const router = express.Router();
 
 //RUTAS
 router.get('/:idUser', notificationCtrl.getNotification);
-router.post('/', notificationCtrl.postNotificacion);
+router.post('/fromResident', notificationCtrl.postNotificacionResident);
+router.post('/fromAdmin', notificationCtrl.postNotificacionAdmin);
 
 module.exports = router;
