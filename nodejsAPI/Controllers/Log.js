@@ -115,5 +115,6 @@ module.exports = {
     logRecognition,
     logThird,
     logOther,
-    getLog
+    getLog,
+    getDateTime
   }

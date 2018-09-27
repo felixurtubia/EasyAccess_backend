@@ -41,35 +41,17 @@ var makeMatch = function (req, res){
             /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
         }
     };
-    var params = {
-        method: 'POST',
-        //uri: 'http://easy.faceapi.boldware.cl/api/getId',
-        uri: 'http://51.15.240.129:3000/api/5b33bd5cc5c7741bd9e6fc21/push',
-        headers: {
-            "message": {
-              "title":"Title of message",
-              "body": "Body of message",
-              "params": {}
-            }
-        }
-    };
     rp(options)
       .then(function (body) {
         console.log("this is body",body);
 
-        if(body == 'unknown'){
+        if(body == 'unknown'){ 
 
         	reject("No está registrado");}
         else{
-          var id = body;
-          rp(params).then(function (response){
-              console.log(response);
-          	  resolve({id});
-            }).catch(function (err) {
-              reject(err);
-            });
+        	  resolve({id:body});
         }
-
+      
       })
       .catch(function (err) {
         reject(err);
