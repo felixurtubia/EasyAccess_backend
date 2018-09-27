@@ -25,7 +25,7 @@ SECRET_KEY = 'nd$q$p#z5e=*qt=ei*=h^gf3-ks2t)mg0yq&dy$-m6g0d99oiv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["easy.faceapi.lifeware.cl","127.0.0.1","localhost"]
+ALLOWED_HOSTS = ["easy.faceapi.lifeware.cl","easy.faceapi.boldware.cl","127.0.0.1","localhost"]
 
 
 # Application definition
