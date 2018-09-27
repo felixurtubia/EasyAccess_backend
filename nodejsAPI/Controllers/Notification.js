@@ -113,5 +113,6 @@ function postNotificacionAdmin(req, res){ // NOTIFICACION QUE ENVIA EL GUARDIA
 
 module.exports = {
     getNotification,
-    postNotificacion
+    postNotificacionResident,
+    postNotificacionAdmin
 }
