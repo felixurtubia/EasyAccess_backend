@@ -94,7 +94,7 @@ function postIdentification(req, res) { // Function to indenticate a person
         success:true,
         idFounded: resp2
       });
-      Log.logRecognition(resp2);
+    //  Log.logRecognition(resp2);
     }).catch(error => {
       console.log("Identification failded, reason: " + error);
       res.status(500).json({

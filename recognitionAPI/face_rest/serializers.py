@@ -36,9 +36,9 @@ def toImage(base64_data):
 class PersonSerializer(serializers.ModelSerializer):
 
     id_mongo = serializers.CharField(required=False)
-    image1 = serializers.CharField(required=False, max_length=10000)
-    image2 = serializers.CharField(required=False, max_length=10000)
-    image3 = serializers.CharField(required=False, max_length=10000)
+    image1 = serializers.CharField(required=False, max_length=1000000)
+    image2 = serializers.CharField(required=False, max_length=1000000)
+    image3 = serializers.CharField(required=False, max_length=1000000)
     
     def save(self, **kwargs):
         # Will be done on every save

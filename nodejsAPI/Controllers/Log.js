@@ -1,5 +1,5 @@
 'use strict'
-
+const mongoose = require('mongoose');
 const Log = require('../Models/Log');
 const User = require('../Models/User');
 
@@ -28,7 +28,7 @@ function getDateTime() {
  * @param {Object} idUser
  */
 function logRecognition(idFounded){
-    dateTime = getDateTime();
+    var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type : 0,
@@ -51,7 +51,7 @@ function logRecognition(idFounded){
  * @param {Object} idThird
  */
 function logThird(idUser, idThird){
-    dateTime = getDateTime();
+    var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type : 1,
@@ -74,7 +74,7 @@ function logThird(idUser, idThird){
  * @param {Object} idUser
  */
 function logOther(idUser){
-    dateTime = getDateTime();
+    var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type : 2,

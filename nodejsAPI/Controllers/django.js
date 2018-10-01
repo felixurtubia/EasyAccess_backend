@@ -46,27 +46,35 @@ var makeMatch = function (req, res){
         }
     };
     var params = {
+
         method: 'POST',
         //uri: 'http://easy.faceapi.boldware.cl/api/getId',
-        uri: 'http://51.15.240.129:3000/api/5b33bd5cc5c7741bd9e6fc21/push',
-        headers: {
-            "message": {
+        uri: 'http://51.15.240.129:3000/api/5b33/push',
+	'body': {
+ 		"token":'L7S9O5M4T1I',
+	      "message": {
               "title":"Exito",
               "body": "Vuestro invitado ha arrivado",
               "params": {}
             }
-        }
+        },
+	json:true
+   
+	
     };
+
     rp(options)
       .then(function (body) {
         console.log("this is body",body);
 
         if(body == 'unknown'){
 
-        	reject("No est√° registrado");}
+        	reject("No esta° registrado");}
         else{
           var id = body;
+
           rp(params).then(function (response){
+		
               console.log(response);
           	  resolve({id});
             }).catch(function (err) {
