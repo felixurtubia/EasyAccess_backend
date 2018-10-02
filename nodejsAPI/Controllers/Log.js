@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const Log = require('../Models/Log');
 const User = require('../Models/User');
+const Third = require('../Models/Third');
 
 /**
  * Entrega la fecha y hora
@@ -99,9 +100,11 @@ function getLog(req, res) {
     console.log("Get log")
     Log.find()
         .exec()
-        .then(docs => { //logs
+        .then(docs => {
             User.populate(docs, { path: "user" }, function (err, docs) {
-                res.status(200).send(docs);
+                Third.populate(docs, { path: "third" }, function (err, docs) {
+                    res.status(200).send(docs);
+                });
             });
         })
         .catch(err => {
