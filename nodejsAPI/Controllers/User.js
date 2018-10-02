@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = require('../Models/User');
 const django = require('./django.js');
 const base64Img = require('base64-img');
-const Log = require('./Log');
+const logCtrl = require('./Log');
 
 function getUser(req, res) {
   console.log("Gettin user")
@@ -94,7 +94,7 @@ function postIdentification(req, res) { // Function to indenticate a person
         success:true,
         idFounded: resp2
       });
-    //  Log.logRecognition(resp2);
+      logCtrl.logRecognition(resp2);
     }).catch(error => {
       console.log("Identification failded, reason: " + error);
       res.status(500).json({
