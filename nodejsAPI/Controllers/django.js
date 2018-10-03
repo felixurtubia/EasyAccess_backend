@@ -69,23 +69,24 @@ var makeMatch = function (req, res){
 
         if(body == 'unknown'){
 
-        	reject("No esta° registrado");}
+        	reject("No est√° registrado");}
         else{
           var id = body;
-
-          rp(params).then(function (response){
+          resolve({id});
+         /* rp(params).then(function (response){
 		
               console.log(response);
           	  resolve({id});
             }).catch(function (err) {
               reject(err);
-            });
+            });*/
         }
 
       })
       .catch(function (err) {
         reject(err);
       });
+      
  })
 }
 
