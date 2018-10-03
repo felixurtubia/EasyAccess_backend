@@ -11,10 +11,10 @@ class Person(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    id_mongo = models.CharField(null=True, max_length=1000)
-    image1 = models.CharField(null=True, max_length=1000000)
-    image2 = models.CharField(null=True, max_length=1000000)
-    image3 = models.CharField(null=True, max_length=1000000)
+    id_mongo = models.CharField(null=True, max_length=10000)
+    image1 = models.CharField(null=True, max_length=100000000)
+    image2 = models.CharField(null=True, max_length=100000000)
+    image3 = models.CharField(null=True, max_length=100000000)
 
     class Meta:
         ordering = ('created',)
