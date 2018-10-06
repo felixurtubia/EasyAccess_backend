@@ -1,3 +1,6 @@
 [submodule "EasyAccess_Front"]
 	path = EasyAccess_Front
 	url = https://github.com/bmirandan/EasyAccess_Front.git
+[submodule "EasyAccess_FaceAPI"]
+	path = EasyAccess_FaceAPI
+	url = https://github.com/felixurtubia/EasyAccess_FaceAPI.git
