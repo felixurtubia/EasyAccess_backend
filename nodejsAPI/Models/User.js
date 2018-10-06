@@ -5,9 +5,9 @@ const schema = mongoose.Schema;
 
 const userSchema = schema({
     _id : mongoose.Schema.Types.ObjectId,
-    name : String,
-    lastname : String,
-    rut : String
+    name : { type: String, required: true} ,
+    lastname : { type:  String, required: true},
+    rut : { type:  String, required: true, trim: true, match: /\d{8}-\d{1}/}
 });
 
 module.exports = mongoose.model('User', userSchema);
