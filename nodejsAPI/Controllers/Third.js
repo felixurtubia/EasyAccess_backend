@@ -72,7 +72,7 @@ function updateAccess(req, res) {
 function postThird(req, res) {
   const third = Third({
     _id: new mongoose.Types.ObjectId(),
-    user: req.body.iduser,
+    user: req.body.idUser,
     name: req.body.name,
     lastname: req.body.lastname,
     rut: req.body.rut,
@@ -90,11 +90,11 @@ function postThird(req, res) {
       django.createUser(toDjango)
         .then(resp => {
           console.log("Faceapi trained accomplished");
-          logCtrl.logThird(req.body.iduser, resultado._id);
+          logCtrl.logThird(req.body.idUser, resultado._id);
           res.status(201).json({
             success: true,
-            mensaje: "Third create",
-            usuario: resultado
+            message: "Third create",
+            invited: resultado
           });
         }).catch(error => {
           console.log(error);
