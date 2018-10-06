@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-const thirdSchema = schema({
+const adminSchema = schema({
     _id: mongoose.Schema.Types.ObjectId,
     edifice: { required: true, type: schema.ObjectId, ref: "Edifice" },
     name: { type: String, required: true },
@@ -14,4 +14,4 @@ const thirdSchema = schema({
     startDate: { type: String, require: true },
 });
 
-module.exports = mongoose.model('Third', thirdSchema);
+module.exports = mongoose.model('Admin', adminSchema);
