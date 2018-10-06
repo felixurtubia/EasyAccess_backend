@@ -1,17 +1,23 @@
 'use strict'
 
+//Modules
 const mongoose = require('mongoose');
-const User = require('../Models/User');
-const django = require('./django.js');
 const base64Img = require('base64-img');
+//Controllers
+const django = require('./django.js');
 const logCtrl = require('./Log');
+//Models
+const User = require('../Models/User');
 
+/**
+ * Entrega todos los usuarios 
+ */
 function getUser(req, res) {
-  console.log("Gettin user")
   User.find()
     .exec()
     .then(docs => {
       res.status(200).json(docs);
+      console.log("Route: /User [GET] Get all Users");
     })
     .catch(err => {
       console.log(err);
@@ -21,12 +27,17 @@ function getUser(req, res) {
     });
 }
 
+/**
+ * Entrega el usuario mediante su rut
+ * @param {String} userRut rut del usuario (RUTA)
+ */
 function getUserRut(req, res) {
   const userRut = req.params.userRut;
   User.findOne({ rut: userRut })
     .exec()
     .then(docs => {
       res.status(200).json(docs);
+      console.log("Route: /User/:userRut [GET] Get the User by rut");
     })
     .catch(error => {
       console.log(error);
@@ -36,9 +47,16 @@ function getUserRut(req, res) {
     });
 }
 
-function postUser(req, res) { // Function to create a new user
-  console.log(req.body.name);
-  console.log("Creating new user! ");
+/**
+ * Crear usuario
+ * @param {String} name nombre del usuario
+ * @param {String} lastname apellido del usuario
+ * @param {String} rut rut del usuario
+ * @param image1 imagen1 del usuario
+ * @param image2 imagen2 del usuario
+ * @param image3 imagen3 del usuario
+ */
+function postUser(req, res) {
   const user = User({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -47,7 +65,7 @@ function postUser(req, res) { // Function to create a new user
   });
   user.save()
     .then(resultado => {
-      console.log("User creation accomplished, now posting to faceapi");
+      console.log("Route: /User/ [POST] create User now posting to faceapi");
 
       var toDjango = {
         idUser: resultado._id.toString(),
@@ -80,7 +98,11 @@ function postUser(req, res) { // Function to create a new user
     });
 }
 
-function postIdentification(req, res) { // Function to indenticate a person
+/**
+ * Se envia una foto para reconocimiento facial
+ * @param image imagen de la persona
+ */
+function postIdentification(req, res) {
   var toDjango2 = {
     image: req.body.image
   }
@@ -91,19 +113,23 @@ function postIdentification(req, res) { // Function to indenticate a person
     .then(resp2 => {
       console.log("identification succeed !! ");
       res.status(201).json({
-        success:true,
+        success: true,
         idFounded: resp2
       });
       logCtrl.logRecognition(resp2);
     }).catch(error => {
       console.log("Identification failded, reason: " + error);
       res.status(500).json({
-        success:false,
+        success: false,
         error: error
       });
     })
 }
 
+/**
+ * Actualizar algun dato de un usuario mediante su rut
+ * @param {String} userRut rut del usuario
+ */
 function updateUser(req, res) {
   const userRut = req.params.userRut;
   const actualizar = {};
@@ -124,6 +150,10 @@ function updateUser(req, res) {
     });
 }
 
+/**
+ * Eliminar un usuario por su rut
+ * @param {String} userRut rut del usuario (RUTA)
+ */
 function deleteUser(req, res) {
   const userRut = req.params.userRut;
   User.findOneAndRemove({ rut: userRut })
