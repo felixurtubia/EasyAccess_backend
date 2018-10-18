@@ -1,5 +1,5 @@
 'use strict'
-
+const cors = require('cors');
 var express = require('express');
 var bodyParse = require("body-parser");
 var contentType = require('content-type')
@@ -10,6 +10,9 @@ var thirdRoute = require('./Routes/Third');
 var notificationRoute = require('./Routes/Notification');
 var getRawBody = require('raw-body');
 
+app.use(cors());
+app.options('*', cors());
+  
 app.use(bodyParse.json({limit: '50mb'}));
 app.use(bodyParse.urlencoded({limit: '50mb', extended: true}));
 

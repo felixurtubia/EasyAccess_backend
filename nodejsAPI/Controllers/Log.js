@@ -1,5 +1,8 @@
 'use strict'
+
+//Modules
 const mongoose = require('mongoose');
+//Models
 const Log = require('../Models/Log');
 const User = require('../Models/User');
 const Third = require('../Models/Third');
@@ -25,8 +28,8 @@ function getDateTime() {
 }
 
 /**
- * Guarda el usuario junto a la fecha y hora de su reconocimiento
- * @param {Object} idUser
+ * Log del usuario junto a la fecha y hora de su reconocimiento
+ * @param {String} idFounded id del usuario que se reconocio facialmente
  */
 function logRecognition(idFounded) {
     var dateTime = getDateTime();
@@ -39,18 +42,17 @@ function logRecognition(idFounded) {
     });
     log.save()
         .then(answer => {
-            console.log("log creation accomplished");
+            console.log("Log Recognition creation accomplished");
         })
         .catch(error => {
-            console.log("log creation error");
             console.log(error);
         });
 }
 
 /**
- * Guarda el usuario y al invitado junto a la fecha y hora de su creacion
- * @param {Object} idUser
- * @param {Object} idThird
+ * Log del usuario al crear un invitado junto a su fecha y hora
+ * @param {String} idUser id del usuario
+ * @param {String} idThird id del invitado
  */
 function logThird(idUser, idThird) {
     var dateTime = getDateTime();
@@ -64,45 +66,45 @@ function logThird(idUser, idThird) {
     })
     log.save()
         .then(answer => {
-            console.log("log creation accomplished");
+            console.log("log create invited creation accomplished");
         })
         .catch(error => {
-            console.log("log creation error");
+            console.log(error);
         });
 }
 
 /**
- * Guarda el usuario que invito a otra personas con su fecha y hora de su creacion
- * @param {Object} idUser
+ * Log del usuario al invitar un tercero junto su fecha y hora
+ * @param {String} idUser id del usuario
  */
 function logOther(idUser) {
     var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 2,
-        user: idFounded,
+        user: idUser,
         date: dateTime[0],
         time: dateTime[1]
     })
     log.save()
         .then(answer => {
-            console.log("log creation accomplished");
+            console.log("log other creation accomplished");
         })
         .catch(error => {
-            console.log("log creation error");
+            console.log(error);
         });
 }
 
 /**
- * Retorna todos los logs 
+ * Entrega todos los logs 
  */
 function getLog(req, res) {
-    console.log("Get log")
     Log.find()
         .exec()
         .then(docs => {
             User.populate(docs, { path: "user" }, function (err, docs) {
                 Third.populate(docs, { path: "third" }, function (err, docs) {
+                    console.log("Route: /Log [GET] Get all logs");
                     res.status(200).send(docs);
                 });
             });
