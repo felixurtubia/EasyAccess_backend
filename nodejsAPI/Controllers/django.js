@@ -1,14 +1,16 @@
 var rp = require('request-promise');
 
-
+/**
+ * Creacion de un usuario en la api de django ingresando
+ * las imagenes para entrenar y preparar el analisis de match
+ */
 var createUser = function (req, res){
   return new Promise(function(resolve, reject){
     var options = {
         method: 'POST',
 
-        //uri: 'http://easy.faceapi.boldware.cl/api/Persons',
         uri: 'http://easy.faceapi.boldware.cl/api/Persons/',
-      
+
         form: {
             idMongo:  req.idUser,
             image1: req.image1,
@@ -29,14 +31,20 @@ var createUser = function (req, res){
  })
 }
 
-
+/**
+* Recibe una imagen correspondiente a la persona con intenciones de ingresar,
+* en este punto por medio de un POST se hace analisis de las imagenes ingresadas
+* anteriormente con la que se envia, se recibe un id en el caso que haya un match
+* y un valor nulo en caso que no haya match.
+* Se genera una notificación de "Vuestro invitado ha arrivado" y se envia a la aplicacion
+* del residente.
+*/
 var makeMatch = function (req, res){
   return new Promise(function(resolve, reject){
     var options = {
         method: 'POST',
 
         uri: 'http://easy.faceapi.boldware.cl/api/getId',
-        //uri: 'http://easy.faceapi.lifeware.cl/api/getId',
 
         form: {
             image: req.image
@@ -48,19 +56,18 @@ var makeMatch = function (req, res){
     var params = {
 
         method: 'POST',
-        //uri: 'http://easy.faceapi.boldware.cl/api/getId',
         uri: 'http://51.15.240.129:3000/api/5b33/push',
-	'body': {
- 		"token":'L7S9O5M4T1I',
-	      "message": {
-              "title":"Exito",
-              "body": "Vuestro invitado ha arrivado",
-              "params": {}
-            }
-        },
+      	'body': {
+       		"token":'L7S9O5M4T1I',
+      	      "message": {
+                "title":"Exito",
+                "body": "Vuestro invitado ha arrivado",
+                "params": {}
+              }
+          },
 	json:true
-   
-	
+
+
     };
 
     rp(options)
@@ -73,20 +80,13 @@ var makeMatch = function (req, res){
         else{
           var id = body;
           resolve({id});
-         /* rp(params).then(function (response){
-		
-              console.log(response);
-          	  resolve({id});
-            }).catch(function (err) {
-              reject(err);
-            });*/
         }
 
       })
       .catch(function (err) {
         reject(err);
       });
-      
+
  })
 }
 
