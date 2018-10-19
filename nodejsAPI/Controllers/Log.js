@@ -106,13 +106,15 @@ function logThird(idUser, idThird) {
 /**
  * Log del usuario al invitar un tercero junto su fecha y hora
  * @param {String} idUser id del usuario
+ * @param {String} other informacion sobre el tercero
  */
-function logOther(idUser) {
+function logOther(idUser, other) {
     var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 2,
         user: idUser,
+        comment : other,
         date: dateTime[0],
         time: dateTime[1]
     })
@@ -147,10 +149,35 @@ function getLog(req, res) {
         });
 }
 
+/**
+ * Log del usuario al invitar un tercero junto su fecha y hora
+ * @param {String} idThird id del invitado
+ * @param {Boolean} newAccess nuevo valor del acceso del invitado
+ */
+function logUpdateAccess(idThird, newAccess){
+    var dateTime = getDateTime();
+    const log = Log({
+        _id: new mongoose.Types.ObjectId(),
+        type: 4,
+        third: idThird,
+        comment: newAccess.toString(),
+        date: dateTime[0],
+        time: dateTime[1]
+    })
+    log.save()
+        .then(answer => {
+            console.log("log other creation accomplished");
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+
 module.exports = {
     logRecognitionUser,
     logRecognitionThird,
     logThird,
+    logUpdateAccess,
     logOther,
     getLog,
     getDateTime
