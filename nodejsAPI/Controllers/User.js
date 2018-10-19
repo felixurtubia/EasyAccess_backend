@@ -126,6 +126,7 @@ function postIdentification(req, res) {
         success: false,
         error: error
       });
+      logCtrl.logFailRecognition();
     })
 }
 
