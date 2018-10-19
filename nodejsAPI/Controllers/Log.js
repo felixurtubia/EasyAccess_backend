@@ -31,7 +31,7 @@ function getDateTime() {
  * Log del usuario junto a la fecha y hora de su reconocimiento
  * @param {String} idFounded id del usuario que se reconocio facialmente
  */
-function logRecognition(idFounded) {
+function logRecognitionUser(idFounded) {
     var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
@@ -42,10 +42,40 @@ function logRecognition(idFounded) {
     });
     log.save()
         .then(answer => {
-            console.log("Log Recognition creation accomplished");
+            console.log("Log Recognition User creation accomplished");
         })
         .catch(error => {
             console.log(error);
+        });
+}
+
+/**
+ * Log del invitado junto a la fecha y hora de su reconocimiento
+ * @param {String} idFounded id del invitado que se reconocio facialmente
+ */
+function logRecognitionThird(idFounded) {
+    var dateTime = getDateTime();
+    Third.find({ _id: idFounded })
+        .exec()
+        .then(docs => {
+            const log = Log({
+                _id: new mongoose.Types.ObjectId(),
+                type: 3,
+                user: docs.user,
+                third: idFounded,
+                date: dateTime[0],
+                time: dateTime[1]
+            });
+            log.save()
+                .then(answer => {
+                    console.log("Log Recognition Third creation accomplished");
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        })
+        .catch(err => {
+            console.log(err);
         });
 }
 
@@ -118,7 +148,8 @@ function getLog(req, res) {
 }
 
 module.exports = {
-    logRecognition,
+    logRecognitionUser,
+    logRecognitionThird,
     logThird,
     logOther,
     getLog,
