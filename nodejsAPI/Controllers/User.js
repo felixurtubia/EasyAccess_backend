@@ -129,11 +129,19 @@ function postIdentification(req, res) {
     })
 }
 
+/**
+ * si es un usuario, se agrega el log
+ * @param {String} idUser id de un usuario
+ */
 function IdentificationUser(idUser){
   console.log("identification succeed !! is a User");
   logCtrl.logRecognitionUser(idUser);
 }
 
+/**
+ * si es un invitado, se agrega el log y se manda una notificacion
+ * @param {String} idThird id de un invitado
+ */
 function IdentificationThird(idThird){
   console.log("identification succeed !! is a Third");
   logCtrl.logRecognitionThird(idThird);
