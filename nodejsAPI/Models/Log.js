@@ -9,6 +9,7 @@ const logSchema = schema({
     //relacion log-user
     user : { type: schema.ObjectId, ref: "User" },
     third : {type: schema.ObjectId, ref: "Third"}, 
+    comment : String,
     date : String,
     time : String
 });
