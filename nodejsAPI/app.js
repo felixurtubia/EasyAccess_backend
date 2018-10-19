@@ -9,6 +9,7 @@ var logRoute = require("./Routes/Log");
 var thirdRoute = require('./Routes/Third');
 var notificationRoute = require('./Routes/Notification');
 var otherRoute = require('./Routes/Other');
+var edificeRoute = require('./Routes/Edifice')
 var getRawBody = require('raw-body');
 
 app.use(cors());
@@ -40,6 +41,7 @@ app.use('/Log', logRoute);
 app.use('/Third', thirdRoute);
 app.use('/Notification', notificationRoute);
 app.use('/Other', otherRoute);
+app.use('/Edifice', edificeRoute);
 
 //CONFIGURACIONES SECUNDARIAS
 app.use((req, res, next) => {
