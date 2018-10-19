@@ -50,36 +50,6 @@ function logRecognitionUser(idFounded) {
 }
 
 /**
- * Log del invitado junto a la fecha y hora de su reconocimiento
- * @param {String} idFounded id del invitado que se reconocio facialmente
- */
-function logRecognitionThird(idFounded) {
-    var dateTime = getDateTime();
-    Third.find({ _id: idFounded })
-        .exec()
-        .then(docs => {
-            const log = Log({
-                _id: new mongoose.Types.ObjectId(),
-                type: 3,
-                user: docs.user,
-                third: idFounded,
-                date: dateTime[0],
-                time: dateTime[1]
-            });
-            log.save()
-                .then(answer => {
-                    console.log("Log Recognition Third creation accomplished");
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        })
-        .catch(err => {
-            console.log(err);
-        });
-}
-
-/**
  * Log del usuario al crear un invitado junto a su fecha y hora
  * @param {String} idUser id del usuario
  * @param {String} idThird id del invitado
@@ -128,24 +98,32 @@ function logOther(idUser, other) {
 }
 
 /**
- * Entrega todos los logs 
+ * Log del invitado junto a la fecha y hora de su reconocimiento
+ * @param {String} idFounded id del invitado que se reconocio facialmente
  */
-function getLog(req, res) {
-    Log.find()
+function logRecognitionThird(idFounded) {
+    var dateTime = getDateTime();
+    Third.find({ _id: idFounded })
         .exec()
         .then(docs => {
-            User.populate(docs, { path: "user" }, function (err, docs) {
-                Third.populate(docs, { path: "third" }, function (err, docs) {
-                    console.log("Route: /Log [GET] Get all logs");
-                    res.status(200).send(docs);
-                });
+            const log = Log({
+                _id: new mongoose.Types.ObjectId(),
+                type: 3,
+                user: docs.user,
+                third: idFounded,
+                date: dateTime[0],
+                time: dateTime[1]
             });
+            log.save()
+                .then(answer => {
+                    console.log("Log Recognition Third creation accomplished");
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({
-                error: err
-            });
         });
 }
 
@@ -173,12 +151,55 @@ function logUpdateAccess(idThird, newAccess){
         });
 }
 
+/**
+ * Log cuando se falla la identificacion junto su fecha y hora
+ */
+function logFailRecognition(){
+    var dateTime = getDateTime();
+    const log = Log({
+        _id: new mongoose.Types.ObjectId(),
+        type: 5,
+        date: dateTime[0],
+        time: dateTime[1]
+    })
+    log.save()
+        .then(answer => {
+            console.log("log other creation accomplished");
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+
+/**
+ * Entrega todos los logs 
+ */
+function getLog(req, res) {
+    Log.find()
+        .exec()
+        .then(docs => {
+            User.populate(docs, { path: "user" }, function (err, docs) {
+                Third.populate(docs, { path: "third" }, function (err, docs) {
+                    console.log("Route: /Log [GET] Get all logs");
+                    res.status(200).send(docs);
+                });
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+}
+
 module.exports = {
     logRecognitionUser,
     logRecognitionThird,
     logThird,
     logUpdateAccess,
     logOther,
+    logFailRecognition,
     getLog,
     getDateTime
 }
