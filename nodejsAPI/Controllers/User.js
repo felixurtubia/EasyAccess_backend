@@ -111,12 +111,15 @@ function postIdentification(req, res) {
 
   django.makeMatch(toDjango2)
     .then(resp2 => {
-      console.log("identification succeed !! ");
       res.status(201).json({
         success: true,
         idFounded: resp2
       });
-      logCtrl.logRecognition(resp2);
+      if(true){
+        IdentificationUser(resp2);
+      } else{
+        IdentificationThird(resp2);
+      }      
     }).catch(error => {
       console.log("Identification failded, reason: " + error);
       res.status(500).json({
@@ -124,6 +127,17 @@ function postIdentification(req, res) {
         error: error
       });
     })
+}
+
+function IdentificationUser(idUser){
+  console.log("identification succeed !! is a User");
+  logCtrl.logRecognitionUser(idUser);
+}
+
+function IdentificationThird(idThird){
+  console.log("identification succeed !! is a Third");
+  logCtrl.logRecognitionThird(idThird);
+  // Llamar funcion que manda una notificacion
 }
 
 /**
