@@ -37,7 +37,7 @@ var createUserGuest = function (req, res){
     var options = {
         method: 'POST',
 
-        uri: 'http://easy.faceapi.boldware.cl/api/guest/',
+        uri: 'http://easy.faceapi.boldware.cl/api/guests/',
 
         form: {
             idCreador: req.idCreator,
