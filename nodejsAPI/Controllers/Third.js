@@ -91,7 +91,8 @@ function postThird(req, res) {
         image1: req.body.image1,
         image2: req.body.image2,
         image3: req.body.image3,
-        idCreator: req.body.idUser
+        idCreator: req.body.idUser,
+        isGuest: true,
       }
       django.createUserGuest(toDjango)
         .then(resp => {

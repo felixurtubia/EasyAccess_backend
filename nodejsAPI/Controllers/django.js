@@ -37,14 +37,16 @@ var createUserGuest = function (req, res){
     var options = {
         method: 'POST',
 
-        uri: 'http://easy.faceapi.boldware.cl/api/guests/',
+        uri: 'http://easy.faceapi.boldware.cl/api/Persons/',
 
         form: {
-            idCreador: req.idCreator,
+            idCreator: req.idCreator,
             idMongo:  req.idUser,
             image1: req.image1,
             image2: req.image2,
-            image3: req.image3
+            image3: req.image3,
+            isGuest: req.isGuest
+
         },
         headers: {
             /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
