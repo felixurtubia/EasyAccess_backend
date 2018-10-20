@@ -72,6 +72,8 @@ function updateAccess(req, res) {
  * @param image2 imagen 2 del invitado (JSON)
  * @param image3 imagen 3 del invitado (JSON)
  */
+
+ //Si falla django se debe borrar el usario por que si
 function postThird(req, res) {
   const third = Third({
     _id: new mongoose.Types.ObjectId(),
@@ -88,9 +90,10 @@ function postThird(req, res) {
         idUser: resultado._id.toString(),
         image1: req.body.image1,
         image2: req.body.image2,
-        image3: req.body.image3
+        image3: req.body.image3,
+        idCreator: req.body.idUser
       }
-      django.createUser(toDjango)
+      django.createUserGuest(toDjango)
         .then(resp => {
           console.log("Faceapi trained accomplished");
           logCtrl.logThird(req.body.idUser, resultado._id);
