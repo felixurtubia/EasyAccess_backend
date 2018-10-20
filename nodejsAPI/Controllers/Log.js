@@ -20,12 +20,12 @@ function createLog(name, description, user, third){
     });
     log.save()
         .then(answer => {
-            console.log("Log created:" + log.name)
+            console.log("Log created:" + log.name);
 
         })
-        .catch(err => {
+        .catch(error => {
             console.log(error);
-        })
+        });
 }
 
 

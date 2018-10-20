@@ -70,16 +70,15 @@ var makeMatch = function (req, res){
 
 
     };
-
+    */
     rp(options)
       .then(function (body) {
         console.log("this is body",body);
 
-        if(body == 'unknown'){
-
+        if(body[0] > 0 ){
         	reject("No está registrado");}
         else{
-          var id = body;
+          var id = body[1];
           resolve({id});
         }
 
@@ -87,8 +86,6 @@ var makeMatch = function (req, res){
       .catch(function (err) {
         reject(err);
       });
-
-    */
  })
 }
 
