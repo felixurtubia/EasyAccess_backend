@@ -114,15 +114,26 @@ function postIdentification(req, res) {
   console.log("Identification begin");
   django.makeMatch(toDjango2)
     .then(resp2 => {
+      console.log("ULTIMATE BODY: " + resp2);
       if(resp2[0]==0){
         IdentificationUser(resp2[1]);
+        res.status(202).json({
+          success: true,
+          idFounded: resp2[1]
+        });
       } else if (resp2[0]==1){
         IdentificationThird(resp2[1], resp2[2]);
-      };  
-      res.status(202).json({
-        success: true,
-        idFounded: resp2[1]
-      });
+        res.status(202).json({
+          success: true,
+          idFounded: resp2[1]
+        }); 
+      } else {
+        res.status(202).json({
+          success: true,
+          idFounded: resp2[1]
+        });
+      };
+      
           
     }).catch(error => {
       console.log("Identification failed, reason: " + error);
