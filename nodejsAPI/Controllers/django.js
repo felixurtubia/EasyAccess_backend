@@ -53,6 +53,7 @@ var makeMatch = function (req, res){
             /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
         }
     };
+    /*
     var params = {
 
         method: 'POST',
@@ -87,6 +88,7 @@ var makeMatch = function (req, res){
         reject(err);
       });
 
+    */
  })
 }
 

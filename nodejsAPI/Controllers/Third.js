@@ -10,7 +10,7 @@ const django = require('./django.js');
 const Third = require('../Models/Third');
 
 /**
- * Entrega todos los invitados de un usuario mediante 
+ * Entrega todos los invitados de un usuario mediante
  * la id de ese usuario
  * @param {String} idUser id del usuario (RUTA)
  */
@@ -32,7 +32,7 @@ function getThird(req, res) {
 
 /**
  * Se busca un invitado mediante su id en la ruta
- * y se actualiza su 'access' con el valor 
+ * y se actualiza su 'access' con el valor
  * @param {String} idThird id del invitado (RUTA)
  * @param {Boolean} access se le permite el acceso al invitado? (JSON)
  */
@@ -48,6 +48,7 @@ function updateAccess(req, res) {
   ).exec()
     .then(result => {
       console.log("Route: /Third/:idThird [PUT] Update 'access' the invited");
+      logCtrl.logUpdateAccess(idThird, newAccess);
       res.status(200).json(result);
     })
     .catch(err => {

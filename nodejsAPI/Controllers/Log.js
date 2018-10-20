@@ -133,7 +133,7 @@ function logUpdateAccess(idThird, newAccess){
         _id: new mongoose.Types.ObjectId(),
         type: 4,
         third: idThird,
-        comment: newAccess.toString(),
+        comment: "Acces changed to: " + newAccess.toString(),
     })
     log.save()
         .then(answer => {
@@ -163,7 +163,7 @@ function logFailRecognition(){
 }
 
 /**
- * Entrega todos los logs 
+ * Entrega todos los logs
  */
 function getLog(req, res) {
     Log.find()
