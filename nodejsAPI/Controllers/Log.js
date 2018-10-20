@@ -35,7 +35,7 @@ function createLog(name, description, user, third){
  * @param {String} idFounded id del usuario que se reconocio facialmente
  */
 function logRecognitionUser(idFounded) {
-    //var dateTime = getDateTime();
+
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 0,
@@ -57,7 +57,6 @@ function logRecognitionUser(idFounded) {
  * @param {String} idThird id del invitado
  */
 function logThird(idUser, idThird) {
-    //var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 1,
@@ -80,7 +79,6 @@ function logThird(idUser, idThird) {
  * @param {String} other informacion sobre el tercero
  */
 function logOther(idUser, other) {
-    //var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 2,
@@ -101,7 +99,6 @@ function logOther(idUser, other) {
  * @param {String} idFounded id del invitado que se reconocio facialmente
  */
 function logRecognitionThird(idFounded) {
-    //var dateTime = getDateTime();
     Third.find({ _id: idFounded })
         .exec()
         .then(docs => {
@@ -131,7 +128,6 @@ function logRecognitionThird(idFounded) {
  * @param {Boolean} newAccess nuevo valor del acceso del invitado
  */
 function logUpdateAccess(idThird, newAccess){
-    //var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 4,
@@ -151,7 +147,6 @@ function logUpdateAccess(idThird, newAccess){
  * Log cuando se falla la identificacion junto su fecha y hora
  */
 function logFailRecognition(){
-    //var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 5,
@@ -195,6 +190,5 @@ module.exports = {
     logOther,
     logFailRecognition,
     getLog,
-    getDateTime,
     createLog,
 }
