@@ -5,22 +5,25 @@ const mongoose = require('mongoose');
 //Controllers
 const logCtrl = require('./Log');
 //Models
+const Department = require('../Models/Department');
 const Edifice = require('../Models/Edifice');
 
 /**
  * Entrega todos los edificios 
  * @param {String} idUser id del usuario (RUTA)
  */
-function postEdifice(req, res) {
-  const edifice = Edifice({
+function postDepartment(req, res) {
+
+const department = Department({
     _id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
-    location: req.body.location,
-    numberDepartments: req.body.numberDepartments
+    edifice: req.body.edificeId,
+    numberDepartment: req.body.departmentNumber,
+    quantityUser: req.body.numberOfResidents,
+    floorDepartment: req.body.departmentFloor,
   });
-  edifice.save()
+  department.save()
     .then(resultado => {
-      console.log("A new building has been created")
+      console.log("A new department has been created")
       res.status(200).json({
         success: true,
       });
@@ -36,11 +39,11 @@ function postEdifice(req, res) {
 
 }
 
-function getEdifice(req, res) {
-  Edifice.find()
+function getDepartment(req, res) {
+  Department.find()
     .exec()
     .then(docs => {
-      console.log("A request for all the buildings has been done");
+      console.log("A request for all the departments has been done");
       res.status(200).json(docs);
     })
     .catch(err => {
@@ -53,6 +56,6 @@ function getEdifice(req, res) {
 
 
 module.exports = {
-  postEdifice,
-  getEdifice
+  postDepartment,
+  getDepartment
 }

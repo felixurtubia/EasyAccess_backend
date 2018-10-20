@@ -7,7 +7,7 @@ const departmentSchema = schema({
     _id: mongoose.Schema.Types.ObjectId,
     edifice: { required: true, type: schema.ObjectId, ref: "Edifice" },
     numberDepartment: { type: String, required: true },
-    quiantityUser: { type: String, required: true },
+    quantityUser: { type: String, required: true },
     floorDepartment: { type: String, required: true },
 });
 
