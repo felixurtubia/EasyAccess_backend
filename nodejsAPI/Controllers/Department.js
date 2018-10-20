@@ -2,19 +2,18 @@
 
 //Modules
 const mongoose = require('mongoose');
-//Controllers
-const logCtrl = require('./Log');
 //Models
 const Department = require('../Models/Department');
-const Edifice = require('../Models/Edifice');
 
 /**
- * Entrega todos los edificios 
- * @param {String} idUser id del usuario (RUTA)
+ * Crear un nuevo departamento
+ * @param {String} edificeId id del edificio
+ * @param {String} departmentNumber numero de departamentos
+ * @param {String} numberOfResidents numeros de residentes
+ * @param {String} departmentFloor piso del departamento
  */
 function postDepartment(req, res) {
-
-const department = Department({
+  const department = Department({
     _id: new mongoose.Types.ObjectId(),
     edifice: req.body.edificeId,
     numberDepartment: req.body.departmentNumber,
@@ -26,6 +25,7 @@ const department = Department({
       console.log("A new department has been created")
       res.status(200).json({
         success: true,
+        result: resultado
       });
     })
     .catch(error => {
@@ -35,10 +35,11 @@ const department = Department({
         error: error
       });
     });
-
-
 }
 
+/**
+ * Obtener todos los departamentos 
+ */
 function getDepartment(req, res) {
   Department.find()
     .exec()
@@ -53,7 +54,6 @@ function getDepartment(req, res) {
       });
     });
 }
-
 
 module.exports = {
   postDepartment,

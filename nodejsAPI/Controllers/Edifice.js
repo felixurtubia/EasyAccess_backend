@@ -2,14 +2,14 @@
 
 //Modules
 const mongoose = require('mongoose');
-//Controllers
-const logCtrl = require('./Log');
 //Models
 const Edifice = require('../Models/Edifice');
 
 /**
- * Entrega todos los edificios 
- * @param {String} idUser id del usuario (RUTA)
+ * Crear un nuevo departamento
+ * @param {String} name nombre del edificio
+ * @param {String} location ubicacion
+ * @param {String} numberDepartments numeros de departamentos
  */
 function postEdifice(req, res) {
   const edifice = Edifice({
@@ -23,6 +23,7 @@ function postEdifice(req, res) {
       console.log("A new building has been created")
       res.status(200).json({
         success: true,
+        result: resultado
       });
     })
     .catch(error => {
@@ -32,10 +33,11 @@ function postEdifice(req, res) {
         error: error
       });
     });
-
-
 }
 
+/**
+ * Obtener todos los edificios
+ */
 function getEdifice(req, res) {
   Edifice.find()
     .exec()
@@ -50,7 +52,6 @@ function getEdifice(req, res) {
       });
     });
 }
-
 
 module.exports = {
   postEdifice,
