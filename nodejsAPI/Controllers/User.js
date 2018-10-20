@@ -68,7 +68,6 @@ function postUser(req, res) {
   user.save()
     .then(resultado => {
       console.log("Route: /User/ [POST] create User now posting to faceapi");
-
       var toDjango = {
         idUser: resultado._id.toString(),
         image1: req.body.image1,
@@ -79,6 +78,7 @@ function postUser(req, res) {
         .then(resp => {
           //          console.log(resp);
           console.log("Faceapi trained accomplished");
+
           res.status(201).json({
             success: true,
             mensaje: "Usuario creado",
@@ -113,15 +113,16 @@ function postIdentification(req, res) {
 
   django.makeMatch(toDjango2)
     .then(resp2 => {
+      if(resp2[0]==0){
+        IdentificationUser(resp2[1]);
+      } else{
+        IdentificationThird(resp2[1]);
+      }  
       res.status(201).json({
         success: true,
         idFounded: resp2
       });
-      if(true){
-        IdentificationUser(resp2);
-      } else{
-        IdentificationThird(resp2);
-      }      
+          
     }).catch(error => {
       console.log("Identification failded, reason: " + error);
       res.status(500).json({
