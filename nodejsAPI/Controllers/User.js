@@ -116,7 +116,7 @@ function postIdentification(req, res) {
     .then(resp2 => {
       if(resp2[0]==0){
         IdentificationUser(resp2[1]);
-      } else{
+      } else if (resp2[0]==1){
         IdentificationThird(resp2[1], resp2[2]);
       };  
       res.status(201).json({
@@ -125,17 +125,17 @@ function postIdentification(req, res) {
       });
           
     }).catch(error => {
-      console.log("Identification failded, reason: " + error);
+      console.log("Identification failed, reason: " + error);
       logCtrl.createLog("Identification Failed", 
                         "Someone just tried to identificate and failed",
                         "...",
-                        "...")
+                        "...");
       res.status(500).json({
         success: false,
         error: error
       });
       //logCtrl.logFailRecognition();
-    })
+    });
 }
 
 /**
