@@ -32,13 +32,12 @@ function getDateTime() {
  * @param {String} idFounded id del usuario que se reconocio facialmente
  */
 function logRecognitionUser(idFounded) {
-    var dateTime = getDateTime();
+    //var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 0,
         user: idFounded,
-        date: dateTime[0],
-        time: dateTime[1]
+        comment: "Someone has entered"
     });
     log.save()
         .then(answer => {
@@ -55,14 +54,13 @@ function logRecognitionUser(idFounded) {
  * @param {String} idThird id del invitado
  */
 function logThird(idUser, idThird) {
-    var dateTime = getDateTime();
+    //var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 1,
         user: idUser,
         third: idThird,
-        date: dateTime[0],
-        time: dateTime[1]
+        comment: "A new guest has been created",
     })
     log.save()
         .then(answer => {
@@ -79,14 +77,12 @@ function logThird(idUser, idThird) {
  * @param {String} other informacion sobre el tercero
  */
 function logOther(idUser, other) {
-    var dateTime = getDateTime();
+    //var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 2,
         user: idUser,
         comment : other,
-        date: dateTime[0],
-        time: dateTime[1]
     })
     log.save()
         .then(answer => {
@@ -102,7 +98,7 @@ function logOther(idUser, other) {
  * @param {String} idFounded id del invitado que se reconocio facialmente
  */
 function logRecognitionThird(idFounded) {
-    var dateTime = getDateTime();
+    //var dateTime = getDateTime();
     Third.find({ _id: idFounded })
         .exec()
         .then(docs => {
@@ -111,8 +107,7 @@ function logRecognitionThird(idFounded) {
                 type: 3,
                 user: docs.user,
                 third: idFounded,
-                date: dateTime[0],
-                time: dateTime[1]
+                comment: "A new guest has been identified"
             });
             log.save()
                 .then(answer => {
@@ -133,14 +128,12 @@ function logRecognitionThird(idFounded) {
  * @param {Boolean} newAccess nuevo valor del acceso del invitado
  */
 function logUpdateAccess(idThird, newAccess){
-    var dateTime = getDateTime();
+    //var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 4,
         third: idThird,
         comment: newAccess.toString(),
-        date: dateTime[0],
-        time: dateTime[1]
     })
     log.save()
         .then(answer => {
@@ -155,12 +148,10 @@ function logUpdateAccess(idThird, newAccess){
  * Log cuando se falla la identificacion junto su fecha y hora
  */
 function logFailRecognition(){
-    var dateTime = getDateTime();
+    //var dateTime = getDateTime();
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 5,
-        date: dateTime[0],
-        time: dateTime[1]
     })
     log.save()
         .then(answer => {

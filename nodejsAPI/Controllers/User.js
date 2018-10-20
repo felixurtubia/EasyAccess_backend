@@ -59,9 +59,11 @@ function getUserRut(req, res) {
 function postUser(req, res) {
   const user = User({
     _id: new mongoose.Types.ObjectId(),
+    department: "5bca7cbc7944c28e153a1019",
     name: req.body.name,
     lastname: req.body.lastname,
-    rut: req.body.rut
+    rut: req.body.rut,
+    birthDate: "16/07/2018"
   });
   user.save()
     .then(resultado => {

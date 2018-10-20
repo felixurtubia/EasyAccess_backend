@@ -10,8 +10,7 @@ const logSchema = schema({
     user : { type: schema.ObjectId, ref: "User" },
     third : {type: schema.ObjectId, ref: "Third"}, 
     comment : String,
-    date : String,
-    time : String
+    date : {type: Date, default: Date.now()},
 });
 
 module.exports = mongoose.model('Log', logSchema);
