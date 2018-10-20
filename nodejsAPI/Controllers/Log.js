@@ -132,7 +132,7 @@ function logUpdateAccess(idThird, newAccess){
         _id: new mongoose.Types.ObjectId(),
         type: 4,
         third: idThird,
-        comment: "Acces changed to: " + newAccess.toString(),
+        comment: "Access changed to: " + newAccess.toString(),
     })
     log.save()
         .then(answer => {
