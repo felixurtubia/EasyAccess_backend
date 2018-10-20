@@ -78,8 +78,8 @@ var makeMatch = function (req, res){
         if(body[0] > 0 ){
         	reject("No está registrado");}
         else{
-          var id = body[1];
-          resolve({id});
+          //var id = body[1];
+          resolve(body);
         }
 
       })
