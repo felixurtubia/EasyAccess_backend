@@ -17,7 +17,8 @@ function postOther(req, res) {
         message: "send notification succeed",
         other : other
     });
-    logCtrl.logOther(idUser, other);
+    logCtrl.logOther(idUser, other); /* CAMBIAR FUNCION*/
+    // logCtrl.createLog("No third", "Se autoriza la entrada a un servicio", idUser, "...")
 }
 
 module.exports = {

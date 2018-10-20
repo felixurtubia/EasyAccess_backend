@@ -49,6 +49,8 @@ function updateAccess(req, res) {
     .then(result => {
       console.log("Route: /Third/:idThird [PUT] Update 'access' the invited");
       logCtrl.logUpdateAccess(idThird, newAccess);
+      // logCtrl.createLog("Change status", "El estado de invitado ha sido cambiado a " + newAccess,
+      // "...", idThird) // Cambiar el ... al usuario
       res.status(200).json(result);
     })
     .catch(err => {
@@ -92,6 +94,8 @@ function postThird(req, res) {
         .then(resp => {
           console.log("Faceapi trained accomplished");
           logCtrl.logThird(req.body.idUser, resultado._id);
+          // logCtrl.createLog("Third created", "El invitado " + resultado._id.toString() + " ha sido ingresado",
+          //req.body.idUser.toString(), resultado._id.toString())
           res.status(201).json({
             success: true,
             message: "Third create",
