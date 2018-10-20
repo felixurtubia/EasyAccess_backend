@@ -119,5 +119,6 @@ var makeMatch = function (req, res){
 
 module.exports = {
     createUser,
-    makeMatch
+    makeMatch,
+    createUserGuest
 }
