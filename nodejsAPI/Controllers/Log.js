@@ -7,25 +7,28 @@ const Log = require('../Models/Log');
 const User = require('../Models/User');
 const Third = require('../Models/Third');
 
-/**
- * Entrega la fecha y hora
- * @returns {String[]} [fecha, hora]
- */
-function getDateTime() {
-    var date = new Date();
-    var hour = date.getHours();
-    hour = (hour < 10 ? "0" : "") + hour;
-    var min = date.getMinutes();
-    min = (min < 10 ? "0" : "") + min;
-    var sec = date.getSeconds();
-    sec = (sec < 10 ? "0" : "") + sec;
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    month = (month < 10 ? "0" : "") + month;
-    var day = date.getDate();
-    day = (day < 10 ? "0" : "") + day;
-    return [year + "/" + month + "/" + day, hour + ":" + min + ":" + sec];
+
+function createLog(name, description, user, third){
+    const log = Log({
+        _id: new mongoose.Types.ObjectId(),
+        name : name,
+        description: description,
+        date: Date.now(),
+        user: user,
+        third: third
+
+    });
+    log.save()
+        .then(answer => {
+            console.log("Log created:" + log.name)
+
+        })
+        .catch(err => {
+            console.log(error);
+        })
 }
+
+
 
 /**
  * Log del usuario junto a la fecha y hora de su reconocimiento
@@ -192,5 +195,6 @@ module.exports = {
     logOther,
     logFailRecognition,
     getLog,
-    getDateTime
+    getDateTime,
+    createLog,
 }

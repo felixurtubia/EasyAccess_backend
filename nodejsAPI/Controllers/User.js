@@ -78,7 +78,10 @@ function postUser(req, res) {
         .then(resp => {
           //          console.log(resp);
           console.log("Faceapi trained accomplished");
-
+          logCtrl.createLog("A user has been created", 
+                            "User " + resultado._id.toString() + " has been created",
+                            resultado._id.toString(),
+                            "...")
           res.status(201).json({
             success: true,
             mensaje: "Usuario creado",
@@ -108,28 +111,31 @@ function postIdentification(req, res) {
   var toDjango2 = {
     image: req.body.image
   }
-  console.log(toDjango2.image);
-  console.log("identification begin");
+  console.log("Identification begin");
 
   django.makeMatch(toDjango2)
     .then(resp2 => {
       if(resp2[0]==0){
         IdentificationUser(resp2[1]);
       } else{
-        IdentificationThird(resp2[1]);
+        IdentificationThird(resp2[1], resp2[2]);
       }  
       res.status(201).json({
         success: true,
-        idFounded: resp2
+        idFounded: resp2[1]
       });
           
     }).catch(error => {
       console.log("Identification failded, reason: " + error);
+      logCtrl.createLog("Identification Failed", 
+                        "Someone just tried to identificate and failed",
+                        "...",
+                        "...")
       res.status(500).json({
         success: false,
         error: error
       });
-      logCtrl.logFailRecognition();
+      //logCtrl.logFailRecognition();
     })
 }
 
@@ -139,16 +145,29 @@ function postIdentification(req, res) {
  */
 function IdentificationUser(idUser){
   console.log("identification succeed !! is a User");
-  logCtrl.logRecognitionUser(idUser);
+  //logCtrl.logRecognitionUser(idUser);
+
+  name = "A user has entered the building";
+  description = "The user " + idUser + " has entered the building";
+  user = idUser;
+  third = "...";
+
+  logCtrl.createLog(name, description, user, third);
 }
 
 /**
  * si es un invitado, se agrega el log y se manda una notificacion
  * @param {String} idThird id de un invitado
  */
-function IdentificationThird(idThird){
+function IdentificationThird(idThird, idUser){
   console.log("identification succeed !! is a Third");
-  logCtrl.logRecognitionThird(idThird);
+  //logCtrl.logRecognitionThird(idThird);
+  name = "A guest has entered the building";
+  description = "Guest " + idThird +" from " + idUser + " has entered the building";
+  user = idUser;
+  third = idThird;
+
+  logCtrl.createLog(name, description, user, third);
   // Llamar funcion que manda una notificacion
 }
 
