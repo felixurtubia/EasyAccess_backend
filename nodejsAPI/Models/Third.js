@@ -5,10 +5,10 @@ const schema = mongoose.Schema;
 
 const thirdSchema = schema({
     _id: mongoose.Schema.Types.ObjectId,
-    user: { required: true, type: schema.ObjectId, ref: "User" },
-    name: { type: String, required: true },
-    lastname: { type: String, required: true },
-    access: { type: Boolean, required: true },
+    user: { required: false, type: schema.ObjectId, ref: "User" },
+    name: { type: String, required: false },
+    lastname: { type: String, required: false },
+    access: { type: Boolean, required: false },
     rut: {type:String, required: false}
 });
 
