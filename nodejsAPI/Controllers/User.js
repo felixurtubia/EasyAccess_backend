@@ -119,18 +119,19 @@ function postIdentification(req, res) {
         IdentificationUser(resp2[1]);
         res.status(202).json({
           success: true,
-          idFounded: resp2[1]
+          idMongo: resp2[1]
         });
       } else if (resp2[0]==1){
         IdentificationThird(resp2[1], resp2[2]);
         res.status(202).json({
           success: true,
-          idFounded: resp2[1]
+          idMongo: resp2[1],
+          idCreator: resp2[2],
         }); 
       } else {
         res.status(202).json({
           success: true,
-          idFounded: resp2[1]
+          idMongo: resp2[1]
         });
       };
       
