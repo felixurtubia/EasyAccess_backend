@@ -112,14 +112,13 @@ function postIdentification(req, res) {
     image: req.body.image
   }
   console.log("Identification begin");
-
   django.makeMatch(toDjango2)
     .then(resp2 => {
       if(resp2[0]==0){
         IdentificationUser(resp2[1]);
       } else{
         IdentificationThird(resp2[1], resp2[2]);
-      }  
+      };  
       res.status(201).json({
         success: true,
         idFounded: resp2[1]
