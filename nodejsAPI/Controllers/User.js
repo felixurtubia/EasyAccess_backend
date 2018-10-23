@@ -138,10 +138,10 @@ function postIdentification(req, res) {
           
     }).catch(error => {
       console.log("Identification failed, reason: " + error);
-      logCtrl.createLog("Identification Failed", 
-                        "Someone just tried to identificate and failed",
-                        "...",
-                        "...");
+      logCtrl.createLog(name='Identification Failed', 
+                        description='Someone just tried to identificate and failed',
+                        '...',
+                        '...',type=5);
       res.status(500).json({
         success: false,
         error: error
@@ -161,7 +161,8 @@ function IdentificationUser(idUser){
   name = "A user has entered the building";
   description = "The user " + idUser + " has entered the building";
   user = idUser;
-  third = "...";
+  third = '...';
+  type=5;
 
   logCtrl.createLog(name, description, user, third);
 }

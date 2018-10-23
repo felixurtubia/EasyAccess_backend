@@ -70,7 +70,7 @@ var createUserGuest = function (req, res){
 * Se genera una notificación de "Vuestro invitado ha arrivado" y se envia a la aplicacion
 * del residente.
 */
-var makeMatch = function (req, res){
+var makeMatch = function (req){
   return new Promise(function(resolve, reject){
     var options = {
         method: 'POST',

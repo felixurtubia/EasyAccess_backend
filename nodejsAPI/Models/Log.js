@@ -9,8 +9,8 @@ const logSchema = schema({
     description : String,
     date : {type: Date, default: Date.now()},
     //relacion log-user
-    user : { type: schema.ObjectId, ref: "User" },
-    third : {type: schema.ObjectId, ref: "Third"},
+    user : String,//{ type: schema.ObjectId, ref: "User" },
+    third : String,//{type: schema.ObjectId, ref: "Third"},
     type: Number, 
     
     
