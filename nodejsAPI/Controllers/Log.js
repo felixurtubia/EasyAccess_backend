@@ -78,19 +78,25 @@ function logThird(idUser, idThird) {
  * @param {String} idUser id del usuario
  * @param {String} other informacion sobre el tercero
  */
-function logOther(idUser, other) {
+function logOther(req,res) {
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         type: 2,
-        user: idUser,
-        comment : other,
+        user: req.body.idUser,
+        comment : req.body.comment,
+        description: req.body.description
     })
     log.save()
         .then(answer => {
+            
             console.log("log other creation accomplished");
+            res.status(200).json(answer);
+        
         })
         .catch(error => {
             console.log(error);
+            res.status(500).json(answer);
+       
         });
 }
 
