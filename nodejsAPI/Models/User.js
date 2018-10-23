@@ -8,7 +8,7 @@ const userSchema = schema({
     department : { required: false, type: schema.ObjectId, ref: "Department" },
     name: { type: String, required: false },
     lastname: { type: String, required: false },
-    rut: { type: String, required: false, trim: true, match: /\d{8}-\d{1}/ },
+    rut: { type: String, required: false}, //, trim: true, match: /\d{8}-\d{1}/ 
     birthDate: { type: String, require: false }
 });
 

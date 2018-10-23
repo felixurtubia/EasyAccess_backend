@@ -15,7 +15,8 @@ var createUser = function (req, res){
             idMongo:  req.idUser,
             image1: req.image1,
             image2: req.image2,
-            image3: req.image3
+            image3: req.image3,
+            isGuest: false,
         },
         headers: {
             /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
@@ -45,7 +46,7 @@ var createUserGuest = function (req, res){
             image1: req.image1,
             image2: req.image2,
             image3: req.image3,
-            isGuest: req.isGuest
+            isGuest: true,
 
         },
         headers: {
