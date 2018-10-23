@@ -174,12 +174,15 @@ function getLog(req, res) {
     Log.find()
         .exec()
         .then(docs => {
-            User.populate(docs, { path: "user" }, function (err, docs) {
+
+            console.log("Route: /Log [GET] Get all logs");
+            res.status(200).send(docs);
+            /*User.populate(docs, { path: "user" }, function (err, docs) {
                 Third.populate(docs, { path: "third" }, function (err, docs) {
                     console.log("Route: /Log [GET] Get all logs");
                     res.status(200).send(docs);
                 });
-            });
+            });*/
         })
         .catch(err => {
             console.log(err);
