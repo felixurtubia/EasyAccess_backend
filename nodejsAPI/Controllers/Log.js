@@ -8,14 +8,15 @@ const User = require('../Models/User');
 const Third = require('../Models/Third');
 
 
-function createLog(name, description, user, third){
+function createLog(name, description, user, third, type){
     const log = Log({
         _id: new mongoose.Types.ObjectId(),
         name : name,
         description: description,
         date: Date.now(),
         user: user,
-        third: third
+        third: third,
+        type: type,
 
     });
     log.save()

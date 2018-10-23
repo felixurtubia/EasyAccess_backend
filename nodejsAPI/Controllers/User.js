@@ -138,10 +138,10 @@ function postIdentification(req, res) {
           
     }).catch(error => {
       console.log("Identification failed, reason: " + error);
-      logCtrl.createLog(name='Identification Failed', 
-                        description='Someone just tried to identificate and failed',
+      logCtrl.createLog('Identification Failed', 
+                        'Someone just tried to identificate and failed',
                         '...',
-                        '...',type=5);
+                        '...',5);
       res.status(500).json({
         success: false,
         error: error
@@ -162,9 +162,9 @@ function IdentificationUser(idUser){
   description = "The user " + idUser + " has entered the building";
   user = idUser;
   third = '...';
-  type=5;
+  type=0;
 
-  logCtrl.createLog(name, description, user, third);
+  logCtrl.createLog(name, description, user, third, type);
 }
 
 /**
@@ -178,8 +178,9 @@ function IdentificationThird(idThird, idUser){
   description = "Guest " + idThird +" from " + idUser + " has entered the building";
   user = idUser;
   third = idThird;
+  type= 3
 
-  logCtrl.createLog(name, description, user, third);
+  logCtrl.createLog(name, description, user, third, type);
   // Llamar funcion que manda una notificacion
 }
 
