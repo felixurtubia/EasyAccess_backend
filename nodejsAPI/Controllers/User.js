@@ -112,6 +112,8 @@ function postIdentification(req, res) {
     image: req.body.image
   }
   console.log("Identification begin");
+  console.log("Image received:")
+  console.log(req.body.image)
   django.makeMatch(toDjango2)
     .then(resp2 => {
       console.log("ULTIMATE BODY: " + resp2);
