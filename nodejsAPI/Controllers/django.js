@@ -110,7 +110,8 @@ var makeMatch = function (req){
         	reject("No está registrado");}
         else{
           //var id = body[1];
-          var temp = body.split(",")
+          var temp = body.slice(1, -1).split(",")
+          console.log("new temp variables is:" + temp + "of type" + temp)
           resolve(body);
         }
 
