@@ -118,6 +118,7 @@ function postIdentification(req, res) {
     .then(resp2 => {
       console.log("ULTIMATE BODY: " + resp2);
       if(resp2[0]==0){
+        console.log("es residente")
         IdentificationUser(resp2[1]);
         res.status(202).json({
           success: true,
@@ -125,6 +126,7 @@ function postIdentification(req, res) {
         });
       } else if (resp2[0]==1){
         IdentificationThird(resp2[1], resp2[2]);
+        console.log("es invitado")
         res.status(202).json({
           success: true,
           idMongo: resp2[1],
