@@ -6,7 +6,7 @@ const base64Img = require('base64-img');
 //Controllers
 const django = require('./django.js');
 const logCtrl = require('./Log');
-const thidCtrl = require('./Third');
+const thirdCtrl = require('./Third');
 //Models
 const User = require('../Models/User');
 
@@ -130,7 +130,7 @@ function postIdentification(req, res) {
       } else if (resp2[0]==1){
 
         let reqParams={idUser: resp2[1]}
-        thidCtrl.getThirdPromise(reqParams).then(data=>{
+        thirdCtrl.getThirdPromise(reqParams).then(data=>{
 
           console.log(data)
           if(data.access){
