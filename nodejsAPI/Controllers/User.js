@@ -117,6 +117,7 @@ function postIdentification(req, res) {
   django.makeMatch(toDjango2)
     .then(resp2 => {
       console.log("ULTIMATE BODY: " + resp2);
+      console.log(resp2[1] + " "+resp2[2] + " " + resp2[0]);
       if(resp2[0]==0){
         console.log("es residente")
         IdentificationUser(resp2[1]);
