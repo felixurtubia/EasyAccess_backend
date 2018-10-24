@@ -4,23 +4,23 @@ var rp = require('request-promise');
  * Creacion de un usuario en la api de django ingresando
  * las imagenes para entrenar y preparar el analisis de match
  */
-var createUser = function (req, res){
-  return new Promise(function(resolve, reject){
+var createUser = function (req, res) {
+  return new Promise(function (resolve, reject) {
     var options = {
-        method: 'POST',
+      method: 'POST',
 
-        uri: 'http://easy.faceapi.boldware.cl/api/Persons/',
+      uri: 'http://easy.faceapi.boldware.cl/api/Persons/',
 
-        form: {
-            idMongo:  req.idUser,
-            image1: req.image1,
-            image2: req.image2,
-            image3: req.image3,
-            isGuest: false,
-        },
-        headers: {
-            /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
-        }
+      form: {
+        idMongo: req.idUser,
+        image1: req.image1,
+        image2: req.image2,
+        image3: req.image3,
+        isGuest: false,
+      },
+      headers: {
+        /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
+      }
     };
     rp(options)
       .then(function (body) {
@@ -29,29 +29,29 @@ var createUser = function (req, res){
       .catch(function (err) {
         reject(err);
       });
- })
+  })
 }
 
 
-var createUserGuest = function (req, res){
-  return new Promise(function(resolve, reject){
+var createUserGuest = function (req, res) {
+  return new Promise(function (resolve, reject) {
     var options = {
-        method: 'POST',
+      method: 'POST',
 
-        uri: 'http://easy.faceapi.boldware.cl/api/Persons/',
+      uri: 'http://easy.faceapi.boldware.cl/api/Persons/',
 
-        form: {
-            idCreator: req.idCreator,
-            idMongo:  req.idUser,
-            image1: req.image1,
-            image2: req.image2,
-            image3: req.image3,
-            isGuest: true,
+      form: {
+        idCreator: req.idCreator,
+        idMongo: req.idUser,
+        image1: req.image1,
+        image2: req.image2,
+        image3: req.image3,
+        isGuest: true,
 
-        },
-        headers: {
-            /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
-        }
+      },
+      headers: {
+        /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
+      }
     };
     rp(options)
       .then(function (body) {
@@ -60,7 +60,7 @@ var createUserGuest = function (req, res){
       .catch(function (err) {
         reject(err);
       });
- })
+  })
 }
 /**
 * Recibe una imagen correspondiente a la persona con intenciones de ingresar,
@@ -70,20 +70,20 @@ var createUserGuest = function (req, res){
 * Se genera una notificación de "Vuestro invitado ha arrivado" y se envia a la aplicacion
 * del residente.
 */
-var makeMatch = function (req){
-  return new Promise(function(resolve, reject){
+var makeMatch = function (req) {
+  return new Promise(function (resolve, reject) {
     var options = {
-        method: 'POST',
+      method: 'POST',
 
-        uri: 'http://easy.faceapi.boldware.cl/api/getId',
+      uri: 'http://easy.faceapi.boldware.cl/api/getId',
 
-        form: {
-            image: req.image
-        },
-        headers: {
-            /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
-        },
-        json: true
+      form: {
+        image: req.image
+      },
+      headers: {
+        /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
+      },
+      json: true
     };
     /*
     var params = {
@@ -105,14 +105,13 @@ var makeMatch = function (req){
     */
     rp(options)
       .then(function (body) {
-        console.log("this is body" + body + " of type "+ typeof body);
+        console.log("this is body: " + body + " of type " + typeof body);
 
-        if(body[0] > 1 ){
-        	reject("No está registrado");}
-        else{
+        if (body[0] > 1) {
+          reject("No está registrado");
+        }
+        else {
           //var id = body[1];
-          var temp = body.slice(1, -1).split(",");
-          console.log("new temp variables is:" + temp + " of type: " + typeof temp);
           resolve(body);
         }
 
@@ -120,11 +119,11 @@ var makeMatch = function (req){
       .catch(function (err) {
         reject(err);
       });
- })
+  })
 }
 
 module.exports = {
-    createUser,
-    makeMatch,
-    createUserGuest
+  createUser,
+  makeMatch,
+  createUserGuest
 }
