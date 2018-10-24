@@ -163,11 +163,11 @@ function IdentificationUser(idUser){
   console.log("identification succeed !! is a User");
   //logCtrl.logRecognitionUser(idUser);
 
-  name = "A user has entered the building";
-  description = "The user " + idUser + " has entered the building";
-  user = idUser;
-  third = '...';
-  type=0;
+  var name = "A user has entered the building";
+  var description = "The user " + idUser + " has entered the building";
+  var user = idUser;
+  var third = '...';
+  var type=0;
 
   logCtrl.createLog(name, description, user, third, type);
 }
@@ -179,11 +179,11 @@ function IdentificationUser(idUser){
 function IdentificationThird(idThird, idUser){
   console.log("identification succeed !! is a Third");
   //logCtrl.logRecognitionThird(idThird);
-  name = "A guest has entered the building";
-  description = "Guest " + idThird +" from " + idUser + " has entered the building";
-  user = idUser;
-  third = idThird;
-  type= 3
+  var name = "A guest has entered the building";
+  var description = "Guest " + idThird +" from " + idUser + " has entered the building";
+  var user = idUser;
+  var third = idThird;
+  var type= 3
 
   logCtrl.createLog(name, description, user, third, type);
   // Llamar funcion que manda una notificacion
