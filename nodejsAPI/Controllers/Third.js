@@ -21,7 +21,7 @@ function getThird(req, res) {
     .then(docs => {
       console.log("Route: /Third/:idUser [GET] Get all invited the user");
       
-      res.status(200).json(docs);
+      res.status(200).json(docs[0]);
     })
     .catch(err => {
       console.log(err);
