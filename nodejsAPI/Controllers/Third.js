@@ -20,6 +20,7 @@ function getThird(req, res) {
     .exec()
     .then(docs => {
       console.log("Route: /Third/:idUser [GET] Get all invited the user");
+      
       res.status(200).json(docs);
     })
     .catch(err => {
@@ -34,7 +35,7 @@ function getThird(req, res) {
 function getThirdPromise(req) {
   return new Promise(function (resolve, reject) {
     var idUser = req.idUser;
-    Third.find({ user: idUser })
+    Third.find({ _id: idUser })
       .exec()
       .then(docs => {
         console.log("Route: /Third/:idUser [GET] Get all invited the user");

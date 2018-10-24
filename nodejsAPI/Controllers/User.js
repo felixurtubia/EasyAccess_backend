@@ -132,7 +132,8 @@ function postIdentification(req, res) {
         let reqParams={idUser: resp2[1]}
         thirdCtrl.getThirdPromise(reqParams).then(data=>{
 
-          console.log(data)
+          console.log(data.access);
+          console.log(data.name);
           if(data.access){
             IdentificationThird(resp2[1], resp2[2]);
             console.log("Es invitado permitido")
