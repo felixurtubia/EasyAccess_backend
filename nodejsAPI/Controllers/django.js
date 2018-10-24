@@ -104,12 +104,13 @@ var makeMatch = function (req){
     */
     rp(options)
       .then(function (body) {
-        console.log("this is body",body);
+        console.log("this is body" + body + " of type "+ typeof body);
 
         if(body[0] > 1 ){
         	reject("No está registrado");}
         else{
           //var id = body[1];
+          var temp = body.split(",")
           resolve(body);
         }
 
