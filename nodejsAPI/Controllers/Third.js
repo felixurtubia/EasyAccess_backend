@@ -35,9 +35,11 @@ function getThird(req, res) {
 function getThirdPromise(req) {
   return new Promise(function (resolve, reject) {
     var idUser = req.idUser;
+    console.log(idUser);
     Third.find({ _id: idUser })
       .exec()
       .then(docs => {
+        console.log(docs)
         console.log("Route: /Third/:idUser [GET] Get all invited the user");
         resolve(docs)
       })
