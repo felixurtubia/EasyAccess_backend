@@ -30,6 +30,24 @@ function getThird(req, res) {
     });
 }
 
+
+function getThirdPromise(req) {
+  return new Promise(function (resolve, reject) {
+    var idUser = req.params.idUser;
+    Third.find({ user: idUser })
+      .exec()
+      .then(docs => {
+        console.log("Route: /Third/:idUser [GET] Get all invited the user");
+        resolve(docs)
+      })
+      .catch(err => {
+        console.log(err);
+        reject(err)
+      });
+
+  })
+
+}
 /**
  * Se busca un invitado mediante su id en la ruta
  * y se actualiza su 'access' con el valor
@@ -73,7 +91,7 @@ function updateAccess(req, res) {
  * @param image3 imagen 3 del invitado (JSON)
  */
 
- //Si falla django se debe borrar el usario por que si
+//Si falla django se debe borrar el usario por que si
 function postThird(req, res) {
   const third = Third({
     _id: new mongoose.Types.ObjectId(),
@@ -124,5 +142,6 @@ function postThird(req, res) {
 module.exports = {
   postThird,
   updateAccess,
-  getThird
+  getThird,
+  getThirdPromise
 }

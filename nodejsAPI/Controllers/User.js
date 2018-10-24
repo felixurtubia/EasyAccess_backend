@@ -6,6 +6,7 @@ const base64Img = require('base64-img');
 //Controllers
 const django = require('./django.js');
 const logCtrl = require('./Log');
+const thidCtrl = require('./Third');
 //Models
 const User = require('../Models/User');
 
@@ -123,20 +124,45 @@ function postIdentification(req, res) {
         IdentificationUser(resp2[1]);
         res.status(202).json({
           success: true,
-          idMongo: resp2[1]
+          idMongo: resp2[1],
+          msg: 'Usuario residente'
         });
       } else if (resp2[0]==1){
-        IdentificationThird(resp2[1], resp2[2]);
-        console.log("es invitado")
-        res.status(202).json({
-          success: true,
-          idMongo: resp2[1],
-          idCreator: resp2[2],
-        }); 
+
+        reqParams={idUser: resp2[1]}
+        this.thidCtrl.getThirdPromise(reqParams).then(data=>{
+
+          console.log(data)
+          if(data.access){
+            IdentificationThird(resp2[1], resp2[2]);
+            console.log("Es invitado permitido")
+            res.status(202).json({
+              success: true,
+              idMongo: resp2[1],
+              idCreator: resp2[2],
+              msg:"El residente permite su entrada"
+            }); 
+          }else{
+            IdentificationThird(resp2[1], resp2[2]);
+            console.log("Es invitado no permitido")
+            res.status(200).json({
+              success: false,
+              idMongo: resp2[1],
+              idCreator: resp2[2],
+              msg:"El residente denegó su entrada"
+            }); 
+          }
+        }).catch(err=>{
+          res.status(500).json({  success: false, msg:error})
+        })
+
+  
+
       } else {
         res.status(202).json({
           success: true,
-          idMongo: resp2[1]
+          idMongo: resp2[1],
+          msg:"usuario identificado"
         });
       };
       
@@ -149,7 +175,8 @@ function postIdentification(req, res) {
                         '...',5);
       res.status(500).json({
         success: false,
-        error: error
+        error: error,
+        msg: 'Usuario no identificado'
       });
       //logCtrl.logFailRecognition();
     });
