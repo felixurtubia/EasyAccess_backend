@@ -130,7 +130,7 @@ function postIdentification(req, res) {
       } else if (resp2[0]==1){
 
         let reqParams={idUser: resp2[1]}
-        this.thidCtrl.getThirdPromise(reqParams).then(data=>{
+        thidCtrl.getThirdPromise(reqParams).then(data=>{
 
           console.log(data)
           if(data.access){
