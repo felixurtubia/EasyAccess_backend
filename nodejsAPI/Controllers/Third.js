@@ -33,7 +33,7 @@ function getThird(req, res) {
 
 function getThirdPromise(req) {
   return new Promise(function (resolve, reject) {
-    var idUser = req.params.idUser;
+    var idUser = req.idUser;
     Third.find({ user: idUser })
       .exec()
       .then(docs => {
