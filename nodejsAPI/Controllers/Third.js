@@ -21,7 +21,7 @@ function getThird(req, res) {
     .then(docs => {
       console.log("Route: /Third/:idUser [GET] Get all invited the user");
       
-      res.status(200).json(docs[0]);
+      res.status(200).json(docs);
     })
     .catch(err => {
       console.log(err);
@@ -39,9 +39,9 @@ function getThirdPromise(req) {
     Third.find({ _id: idUser })
       .exec()
       .then(docs => {
-        console.log(docs)
+        console.log(docs[0])
         console.log("Route: /Third/:idUser [GET] Get all invited the user");
-        resolve(docs)
+        resolve(docs[0])
       })
       .catch(err => {
         console.log(err);
