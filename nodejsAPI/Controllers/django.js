@@ -106,7 +106,7 @@ var makeMatch = function (req){
       .then(function (body) {
         console.log("this is body",body);
 
-        if(body[0] > 0 ){
+        if(body[0] > 1 ){
         	reject("No está registrado");}
         else{
           //var id = body[1];
