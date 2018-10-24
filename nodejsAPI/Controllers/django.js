@@ -82,7 +82,8 @@ var makeMatch = function (req){
         },
         headers: {
             /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
-        }
+        },
+        json: true
     };
     /*
     var params = {
@@ -110,8 +111,8 @@ var makeMatch = function (req){
         	reject("No está registrado");}
         else{
           //var id = body[1];
-          var temp = body.slice(1, -1).split(",")
-          console.log("new temp variables is:" + temp + "of type" + temp)
+          var temp = body.slice(1, -1).split(",");
+          console.log("new temp variables is:" + temp + " of type: " + typeof temp);
           resolve(body);
         }
 
