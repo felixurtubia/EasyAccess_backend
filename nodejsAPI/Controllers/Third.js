@@ -31,6 +31,22 @@ function getThird(req, res) {
     });
 }
 
+function getAllThird(req, res) {
+  var idUser = req.params.idUser;
+  Third.find()
+    .exec()
+    .then(docs => {
+      console.log("Route: /Third/:idUser [GET] Get all invited");
+      
+      res.status(200).json(docs);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+}
 
 function getThirdPromise(req) {
   return new Promise(function (resolve, reject) {
@@ -146,5 +162,6 @@ module.exports = {
   postThird,
   updateAccess,
   getThird,
-  getThirdPromise
+  getThirdPromise,
+  getAllThird
 }

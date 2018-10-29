@@ -8,5 +8,5 @@ const router = express.Router();
 router.post('/', thirdCtrl.postThird);
 router.get('/:idUser', thirdCtrl.getThird);
 router.put('/:idThird', thirdCtrl.updateAccess)
-
+router.get('/', thirdCtrl.getAllThird);
 module.exports = router;
