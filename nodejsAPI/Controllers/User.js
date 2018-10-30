@@ -254,7 +254,7 @@ function deleteUser(req, res) {
     });
 }
 
-function loginUSer(req, res) {
+function loginUser(req, res) {
   const userRut = req.params.userRut;
   const userPass = req.params.userPass;
   User.findOne({ rut: userRut })
@@ -286,5 +286,5 @@ module.exports = {
   updateUser,
   deleteUser,
   postIdentification,
-  loginUser
+  loginUser,
 }
