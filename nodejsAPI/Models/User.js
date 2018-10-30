@@ -9,7 +9,8 @@ const userSchema = schema({
     name: { type: String, required: false },
     lastname: { type: String, required: false },
     rut: { type: String, required: false}, //, trim: true, match: /\d{8}-\d{1}/ 
-    birthDate: { type: String, require: false }
+    birthDate: { type: String, require: false },
+    created: {type:Date, default: Date.now},
 });
 
 module.exports = mongoose.model('User', userSchema);

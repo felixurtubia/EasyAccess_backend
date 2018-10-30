@@ -79,10 +79,10 @@ function postUser(req, res) {
         .then(resp => {
           //          console.log(resp);
           console.log("Faceapi trained accomplished");
-          logCtrl.createLog("A user has been created", 
-                            "User " + resultado._id.toString() + " has been created",
-                            resultado._id.toString(),
-                            "...")
+          logCtrl.createLog("A user has been created",
+            "User " + resultado._id.toString() + " has been created",
+            resultado._id.toString(),
+            "...")
           res.status(201).json({
             success: true,
             mensaje: "Usuario creado",
@@ -115,7 +115,7 @@ function postIdentification(req, res) {
   console.log("Identification begin");
   django.makeMatch(toDjango2)
     .then(resp2 => {
-      if(resp2[0]==0){
+      if (resp2[0] == 0) {
         console.log("es residente")
         IdentificationUser(resp2[1]);
         res.status(202).json({
@@ -123,53 +123,51 @@ function postIdentification(req, res) {
           idMongo: resp2[1],
           msg: 'Usuario residente'
         });
-      } else if (resp2[0]==1){
-
-        let reqParams={idUser: resp2[1]}
-        thirdCtrl.getThirdPromise(reqParams).then(data=>{
-
+      } else if (resp2[0] == 1) {
+        let reqParams = { idUser: resp2[1] }
+        thirdCtrl.getThirdPromise(reqParams).then(data => {
           console.log(data.access);
           console.log(data.name);
-          if(data.access){
+          if (data.access) {
             IdentificationThird(resp2[1], resp2[2]);
             console.log("Es invitado permitido")
             res.status(202).json({
               success: true,
               idMongo: resp2[1],
               idCreator: resp2[2],
-              msg:"El residente permite su entrada"
-            }); 
-          }else{
+              msg: "El residente permite su entrada"
+            });
+          } else {
             IdentificationThird(resp2[1], resp2[2]);
             console.log("Es invitado no permitido")
             res.status(200).json({
               success: false,
               idMongo: resp2[1],
               idCreator: resp2[2],
-              msg:"El residente denegó su entrada"
-            }); 
+              msg: "El residente denegó su entrada"
+            });
           }
-        }).catch(err=>{
-          res.status(500).json({  success: false, msg:error})
+        }).catch(err => {
+          res.status(500).json({ success: false, msg: error })
         })
 
-  
+
 
       } else {
         res.status(202).json({
           success: true,
           idMongo: resp2[1],
-          msg:"usuario identificado"
+          msg: "usuario identificado"
         });
       };
-      
-          
+
+
     }).catch(error => {
       console.log("Identification failed, reason: " + error);
-      logCtrl.createLog('Identification Failed', 
-                        'Someone just tried to identificate and failed',
-                        '...',
-                        '...',5);
+      logCtrl.createLog('Identification Failed',
+        'Someone just tried to identificate and failed',
+        '...',
+        '...', 5);
       res.status(500).json({
         success: false,
         error: error,
@@ -183,7 +181,7 @@ function postIdentification(req, res) {
  * si es un usuario, se agrega el log
  * @param {String} idUser id de un usuario
  */
-function IdentificationUser(idUser){
+function IdentificationUser(idUser) {
   console.log("identification succeed !! is a User");
   //logCtrl.logRecognitionUser(idUser);
 
@@ -191,7 +189,7 @@ function IdentificationUser(idUser){
   var description = "The user " + idUser + " has entered the building";
   var user = idUser;
   var third = '...';
-  var type=0;
+  var type = 0;
 
   logCtrl.createLog(name, description, user, third, type);
 }
@@ -200,14 +198,14 @@ function IdentificationUser(idUser){
  * si es un invitado, se agrega el log y se manda una notificacion
  * @param {String} idThird id de un invitado
  */
-function IdentificationThird(idThird, idUser){
+function IdentificationThird(idThird, idUser) {
   console.log("identification succeed !! is a Third");
   //logCtrl.logRecognitionThird(idThird);
   var name = "A guest has entered the building";
-  var description = "Guest " + idThird +" from " + idUser + " has entered the building";
+  var description = "Guest " + idThird + " from " + idUser + " has entered the building";
   var user = idUser;
   var third = idThird;
-  var type= 3
+  var type = 3
 
   logCtrl.createLog(name, description, user, third, type);
   // Llamar funcion que manda una notificacion
@@ -256,11 +254,37 @@ function deleteUser(req, res) {
     });
 }
 
+function loginUSer(req, res) {
+  const userRut = req.params.userRut;
+  const userPass = req.params.userPass;
+  User.findOne({ rut: userRut })
+  .exec()
+  .then(docs => {
+    console.log("Route: /User/login, user finded");
+    if(userPass == 'passwordTest'){
+      res.status(200).json(docs);
+      console.log("User identified")
+    } else {
+      res.status(403).json(docs);
+      console.log("Password equivocada")
+    };
+    
+  })
+  .catch(error => {
+    console.log(error);
+    res.status(500).json({
+      error: error
+    })
+  });
+
+}
+
 module.exports = {
   getUser,
   getUserRut,
   postUser,
   updateUser,
   deleteUser,
-  postIdentification
+  postIdentification,
+  loginUser
 }
