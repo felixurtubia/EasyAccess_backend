@@ -90,5 +90,7 @@ function retrieveCode(req, res){
 }
 module.exports = {
   postEdifice,
-  getEdifice
+  getEdifice,
+  retrieveCode,
+  generateCode,
 }
