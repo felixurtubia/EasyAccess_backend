@@ -7,6 +7,7 @@ const base64Img = require('base64-img');
 const django = require('./django.js');
 const logCtrl = require('./Log');
 const thirdCtrl = require('./Third');
+const edificeCtrl = require('./Edifice')
 //Models
 const User = require('../Models/User');
 const Third = require('../Models/Third');
@@ -270,7 +271,10 @@ function deleteUser(req, res) {
 
 function loginUser(req, res) {
   const password = req.body.password;
+  console.log("password received: " + password);
+  var id = "5bca670ccbc43f3ae43cb4ba";
   //const userPass = req.params.userPass;
+  var code = edificeCtrl.getCode(id);
   if(password=="hola1234"){
     res.status(200).json({success: true});
   } else {

@@ -88,9 +88,21 @@ function retrieveCode(req, res){
     res.status(500).json({error:err});
   });
 }
+
+function getCode(id){
+  Edifice.findById(id).exec()
+  .then(edifice=> {
+    return(edifice.code);
+  })
+  .catch(err => {
+    console.log(err);
+    return(null);
+  });
+}
 module.exports = {
   postEdifice,
   getEdifice,
   retrieveCode,
   generateCode,
+  getCode,
 }
