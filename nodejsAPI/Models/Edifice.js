@@ -8,6 +8,7 @@ const edificeSchema = schema({
     name: { type: String, required: false },
     location: { type: String, required: false },
     numberDepartments: { type: String, required: false },
+    code : {type:String, required:false},
 });
 
 module.exports = mongoose.model('Edifice', edificeSchema);

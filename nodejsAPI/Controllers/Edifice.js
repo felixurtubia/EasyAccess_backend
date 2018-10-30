@@ -53,6 +53,41 @@ function getEdifice(req, res) {
     });
 }
 
+/*
+  Generar un nuevo codigo para registro
+*/
+function generateCode(req, res){
+  Edifice.findById("5bca670ccbc43f3ae43cb4ba").exec()
+  .then(edifice => {
+    console.log("Generating code for building:" + edifice);
+    //Se genera numero entre 100.000 y 999.999
+    numero = Math.floor(Math.random()*(999999-100000+1)+100000);
+    console.log("Generated code: " + numero);
+    edifice.code = numero;
+    edifice.save();
+    res.status(200).json({code:numero});
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error:err,
+    });
+  })
+}
+
+/*
+ Obtener el codigo generado para registro
+*/
+function retrieveCode(req, res){
+  Edifice.findById("5bca670ccbc43f3ae43cb4ba").exec()
+  .then(edifice=> {
+    res.status(200).json({code:edifice.code});
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({error:err});
+  });
+}
 module.exports = {
   postEdifice,
   getEdifice
