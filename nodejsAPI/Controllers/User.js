@@ -269,9 +269,10 @@ function deleteUser(req, res) {
 }
 
 function loginUser(req, res) {
-  const userRut = req.params.userRut;
+  const password = req.params.password;
   //const userPass = req.params.userPass;
-  if(userRut=="hola1234"){
+  console.log("Password incoming:"+ password);
+  if(password=="hola1234"){
     res.status(200).json({success: true});
   } else {
     res.status(403).json({success:false});
