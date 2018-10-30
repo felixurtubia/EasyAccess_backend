@@ -61,7 +61,7 @@ function generateCode(req, res){
   .then(edifice => {
     console.log("Generating code for building:" + edifice);
     //Se genera numero entre 100.000 y 999.999
-    numero = Math.floor(Math.random()*(999999-100000+1)+100000);
+    var numero = Math.floor(Math.random()*(999999-100000+1)+100000);
     console.log("Generated code: " + numero);
     edifice.code = numero;
     edifice.save();
