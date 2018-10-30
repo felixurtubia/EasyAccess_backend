@@ -96,7 +96,7 @@ function getCode(id){
   })
   .catch(err => {
     console.log(err);
-    return(null);
+    return("");
   });
 }
 module.exports = {
