@@ -269,7 +269,7 @@ function deleteUser(req, res) {
 }
 
 function loginUser(req, res) {
-  const password = req.params.password;
+  const password = req.body.password;
   //const userPass = req.params.userPass;
   console.log("Password incoming:"+ password);
   if(password=="hola1234"){
