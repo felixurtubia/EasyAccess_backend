@@ -271,9 +271,9 @@ function deleteUser(req, res) {
 
 function loginUser(req, res) {
   const password = req.body.password;
-  console.log("password received: " + password);
   var id = "5bca670ccbc43f3ae43cb4ba";
   var code = edificeCtrl.getCode(id);
+  console.log("password received: " + password + " comparing against: " + code);
   if(password==code){
     res.status(200).json({success: true});
   } else {
