@@ -9,6 +9,7 @@ const logCtrl = require('./Log');
 const thirdCtrl = require('./Third');
 //Models
 const User = require('../Models/User');
+const Third = require('../Models/Third');
 
 /**
  * Entrega todos los usuarios 
@@ -201,6 +202,19 @@ function IdentificationUser(idUser) {
 function IdentificationThird(idThird, idUser) {
   console.log("identification succeed !! is a Third");
   //logCtrl.logRecognitionThird(idThird);
+  Third.findByIdAndUpdate(idThird, {lastAccess : Date.now()})
+    .exec()
+    .then(result => {
+      console.log(result);
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+      
   var name = "A guest has entered the building";
   var description = "Guest " + idThird + " from " + idUser + " has entered the building";
   var user = idUser;
@@ -261,12 +275,12 @@ function loginUser(req, res) {
   .exec()
   .then(docs => {
     console.log("Route: /User/login, user finded");
-    if(userPass == 'passwordTest'){
+    if(userPass=="passwordTest"){
       res.status(200).json(docs);
-      console.log("User identified")
+      console.log("User identified");
     } else {
-      res.status(403).json(docs);
-      console.log("Password equivocada")
+      res.status(403).json({success: false});
+      console.log("Password equivocada");
     };
     
   })

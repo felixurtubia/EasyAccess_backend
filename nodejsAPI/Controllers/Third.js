@@ -56,7 +56,7 @@ function getThirdPromise(req) {
       .exec()
       .then(docs => {
         console.log(docs[0])
-        console.log("Route: /Third/:idUser [GET] Get all invited the user");
+        console.log("Route: /Third/:idUser [GET] Get all invited users");
         resolve(docs[0])
       })
       .catch(err => {
@@ -79,7 +79,6 @@ function updateAccess(req, res) {
   Third.update({ _id: idThird },
     {
       $set: {
-        "lastUpdate":Date.now(),
         "access": newAccess,
       }
     }
