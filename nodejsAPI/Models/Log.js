@@ -7,7 +7,7 @@ const logSchema = schema({
     _id : mongoose.Schema.Types.ObjectId,
     name : String,
     description : String,
-    date : {type: Date, default: Date.now()},
+    date : {type: Date, default: new Date(Date.now())},
     //relacion log-user
     user : String,//{ type: schema.ObjectId, ref: "User" },
     third : String,//{type: schema.ObjectId, ref: "Third"},

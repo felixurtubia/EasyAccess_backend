@@ -9,7 +9,8 @@ const thirdSchema = schema({
     name: { type: String, required: false },
     lastname: { type: String, required: false },
     access: { type: Boolean, required: false },
-    rut: {type:String, required: false}
+    rut: {type:String, required: false},
+    lastUpdate: {type:Date, default:Date.now}
 });
 
 module.exports = mongoose.model('Third', thirdSchema);

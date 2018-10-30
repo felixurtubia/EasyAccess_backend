@@ -79,6 +79,7 @@ function updateAccess(req, res) {
   Third.update({ _id: idThird },
     {
       $set: {
+        "lastUpdate":Date.now,
         "access": newAccess,
       }
     }
