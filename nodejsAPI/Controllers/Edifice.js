@@ -59,7 +59,7 @@ function getEdifice(req, res) {
 function generateCode(req, res){
   Edifice.findById("5bca670ccbc43f3ae43cb4ba").exec()
   .then(edifice => {
-    console.log("Generating code for building:" + edifice);
+    console.log("Generating code for building:" + edifice.name);
     //Se genera numero entre 100.000 y 999.999
     var numero = Math.floor(Math.random()*(999999-100000+1)+100000);
     console.log("Generated code: " + numero);
