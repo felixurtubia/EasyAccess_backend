@@ -240,6 +240,11 @@ function updateUser(req, res) {
     .exec()
     .then(result => {
       console.log(result);
+      logCtrl.createLog("Administrador ha editado un usuario",
+                        "el administrador del edificio ha editado campos del usuario {rut del usuario}",
+                        "",
+                        "",
+                        7);
       res.status(200).json(result);
     })
     .catch(err => {
@@ -259,6 +264,11 @@ function deleteUser(req, res) {
   User.findOneAndRemove({ rut: userRut })
     .exec()
     .then(result => {
+      log.createLog("Administrador ha elimiado un usuario",
+                    "El administrador del edificio ha eliminado el usuario {rut del usuario}",
+                    "",
+                    "",
+                    8);
       res.status(200).json(result);
     })
     .catch(err => {
