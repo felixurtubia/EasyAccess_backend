@@ -11,5 +11,6 @@ router.get('/:userRut', userCtrl.getUserRut); // get user by rut
 router.post('/', userCtrl.postUser); // create a new user
 router.delete('/:userRut', userCtrl.deleteUser);
 router.put('/:userRut', userCtrl.updateUser);
+router.post('/login', userCtrl.loginUser);
 
 module.exports = router;

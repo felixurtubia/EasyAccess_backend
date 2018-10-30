@@ -171,7 +171,7 @@ function logFailRecognition(){
  * Entrega todos los logs
  */
 function getLog(req, res) {
-    Log.find()
+    Log.find().sort('-date')
         .exec()
         .then(docs => {
 
