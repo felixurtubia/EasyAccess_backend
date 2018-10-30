@@ -89,20 +89,9 @@ function retrieveCode(req, res){
   });
 }
 
-function getCode(id){
-  Edifice.findById(id).exec()
-  .then(edifice=> {
-    return(edifice.code);
-  })
-  .catch(err => {
-    console.log(err);
-    return("");
-  });
-}
 module.exports = {
   postEdifice,
   getEdifice,
   retrieveCode,
   generateCode,
-  getCode,
 }

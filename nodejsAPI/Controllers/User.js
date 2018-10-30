@@ -10,7 +10,7 @@ const thirdCtrl = require('./Third');
 const edificeCtrl = require('./Edifice')
 //Models
 const User = require('../Models/User');
-const Third = require('../Models/Third');
+const Edifice = require('../Models/Edifice');
 
 /**
  * Entrega todos los usuarios 
@@ -271,7 +271,7 @@ function deleteUser(req, res) {
 
 function loginUser(req, res) {
   const password = req.body.password;
-  var code = edificeCtrl.getCode("5bca670ccbc43f3ae43cb4ba");
+  code = Edifice.findById("5bca670ccbc43f3ae43cb4ba").code;
   console.log("password received: " + password + " comparing against: " + code);
   if(password==code){
     res.status(200).json({success: true});
