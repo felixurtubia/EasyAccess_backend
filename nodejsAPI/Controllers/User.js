@@ -271,13 +271,20 @@ function deleteUser(req, res) {
 
 function loginUser(req, res) {
   const password = req.body.password;
-  var code = Edifice.findById("5bca670ccbc43f3ae43cb4ba").code;
-  console.log("password received: " + password + " comparing against: " + code);
-  if(password==code){
-    res.status(200).json({success: true});
-  } else {
-    res.status(403).json({success:false});
-  }
+  Edifice.findById("5bca670ccbc43f3ae43cb4ba", function (err, edifice) {
+    if(err){
+      console.log(err);
+      res.status(500).json({success:false})
+    }
+    var code = edifice.code;
+    console.log("password received: " + password + " comparing against: " + code);
+    if(password==code){
+      res.status(200).json({success: true});
+    } else {
+      res.status(403).json({success:false});
+    }
+  });  
+  
   /*
   User.findOne({ rut: userRut })
   .exec()
