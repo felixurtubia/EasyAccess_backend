@@ -270,7 +270,13 @@ function deleteUser(req, res) {
 
 function loginUser(req, res) {
   const userRut = req.params.userRut;
-  const userPass = req.params.userPass;
+  //const userPass = req.params.userPass;
+  if(userRut=="hola1234"){
+    res.status(200).json({success: true});
+  } else {
+    res.status(403).json({success:false});
+  }
+  /*
   User.findOne({ rut: userRut })
   .exec()
   .then(docs => {
@@ -280,7 +286,7 @@ function loginUser(req, res) {
       console.log("User identified");
     } else {
       res.status(403).json({success: false});
-      console.log("Password equivocada");
+      console.log("Password equivocada" + userPass);
     };
     
   })
@@ -289,7 +295,7 @@ function loginUser(req, res) {
     res.status(500).json({
       error: error
     })
-  });
+  });*/
 
 }
 
