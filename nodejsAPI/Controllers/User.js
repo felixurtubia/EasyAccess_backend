@@ -280,6 +280,11 @@ function loginUser(req, res) {
     console.log("password received: " + password + " comparing against: " + code);
     if(password==code){
       res.status(200).json({success: true});
+      logCtrl.createLog("Residente ingresa por primera vez a la APP", 
+                      "El usuario " + "rut" + " ha ingresado haciendo uso del código " + "codigo",
+                      "",
+                      "",
+                      6);
     } else {
       res.status(403).json({success:false});
     }
