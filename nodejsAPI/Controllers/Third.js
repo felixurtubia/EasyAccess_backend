@@ -168,11 +168,11 @@ function updateThird(req, res) {
     .exec()
     .then(result => {
       console.log(req.body);
-      /*logCtrl.createLog("Usuario ha editado un usuario",
-                        "el Usuario  edificio ha editado campos del usuario {rut del usuario}",
+      logCtrl.createLog("Los datos de un invitado se han actualizado",
+                        "los datos de un invitado se han actualizado",
                         "",
                         "",
-                        7);*/
+                        9);
       res.status(200).json(req.body);
     })
     .catch(err => {
