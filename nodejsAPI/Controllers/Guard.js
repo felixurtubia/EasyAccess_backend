@@ -30,8 +30,8 @@ function getGuard(req, res) {
    * Crear usuario
    * @param {String} edifice edificio asociado
    * @param {String} lastname apellido del guardia
-   * @param {String} rut rut del usuario
-   * @param {String} name nombre del usuario
+   * @param {String} rut rut del guardia
+   * @param {String} name nombre del guardia
    * @param {String} phone numeros de celular
    */
   function postGuard(req, res) {
@@ -46,6 +46,11 @@ function getGuard(req, res) {
     guard.save()
       .then(resultado => {
         console.log("Route: /Guard/ [POST] create Guard now");
+        logCtrl.createLog("Se agrego un Guardia",
+                          "Se agrego un nuevo Guardia",
+                          "",
+                          "",
+                          11);
         res.status(200).json(req.body);
       }).catch(error => {
         console.log(error);
