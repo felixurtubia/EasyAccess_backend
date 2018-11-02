@@ -183,9 +183,34 @@ function updateThird(req, res) {
     });
 };
 
+/**
+ * Eliminar un invitado por su id
+ * @param {String} thirdId id del invitado (RUTA)
+ */
+function deleteThird(req, res) {
+  const thirdId = req.params.thirdId;
+  Third.findByIdAndRemove(thirdId)
+    .exec()
+    .then(result => {
+      logCtrl.createLog("Invitado eliminado",
+                    "El invitado ha sido eliminado",
+                    "",
+                    "",
+                    10);
+      res.status(200).json("delete success");
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+}
+
 module.exports = {
   postThird,
   updateAccess,
+  deleteThird,
   getThird,
   getThirdPromise,
   getAllThird,
