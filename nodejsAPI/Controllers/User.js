@@ -228,24 +228,20 @@ function IdentificationThird(idThird, idUser) {
 
 /**
  * Actualizar algun dato de un usuario mediante su rut
- * @param {String} userRut rut del usuario
+ * @param {String} userId id del usuario
  */
 function updateUser(req, res) {
-  const userRut = req.params.userRut;
-  const actualizar = {};
-  for (const campo of req.body) {
-    actualizar[campo.propName] = campo.value;
-  }
-  Product.update({ rut: userRut }, { $set: actualizar })
+  const userId = req.params.userId;
+  User.findByIdAndUpdate(userId , { $set: req.body })
     .exec()
     .then(result => {
-      console.log(result);
+      console.log(req.body);
       logCtrl.createLog("Administrador ha editado un usuario",
                         "el administrador del edificio ha editado campos del usuario {rut del usuario}",
                         "",
                         "",
                         7);
-      res.status(200).json(result);
+      res.status(200).json(req.body);
     })
     .catch(err => {
       console.log(err);
@@ -253,7 +249,7 @@ function updateUser(req, res) {
         error: err
       });
     });
-}
+};
 
 /**
  * Eliminar un usuario por su rut
