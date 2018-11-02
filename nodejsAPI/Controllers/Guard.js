@@ -66,11 +66,11 @@ function getGuard(req, res) {
       .exec()
       .then(result => {
         console.log(req.body);
-        /*logCtrl.createLog("Usuario se actualizo sus parametros",
-                          "un usuario actualizo sus datos",
+        logCtrl.createLog("Se actualizo los datos del Guardia",
+                          "Se actualizo los datos del Guardia",
                           "",
                           "",
-                          7);*/
+                          12);
         res.status(200).json(req.body);
       })
       .catch(err => {
