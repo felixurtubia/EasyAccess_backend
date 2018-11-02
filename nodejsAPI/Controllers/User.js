@@ -252,20 +252,20 @@ function updateUser(req, res) {
 };
 
 /**
- * Eliminar un usuario por su rut
- * @param {String} userRut rut del usuario (RUTA)
+ * Eliminar un usuario por su id
+ * @param {String} userId id del usuario (RUTA)
  */
 function deleteUser(req, res) {
-  const userRut = req.params.userRut;
-  User.findOneAndRemove({ rut: userRut })
+  const userId = req.params.userId;
+  User.findByIdAndRemove(userId)
     .exec()
     .then(result => {
-      log.createLog("Administrador ha elimiado un usuario",
+      /*log.createLog("Administrador ha elimiado un usuario",
                     "El administrador del edificio ha eliminado el usuario {rut del usuario}",
                     "",
                     "",
-                    8);
-      res.status(200).json(result);
+                    8);*/
+      res.status(200).json("delete success");
     })
     .catch(err => {
       console.log(err);
