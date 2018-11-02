@@ -95,11 +95,11 @@ function getGuard(req, res) {
     Guard.findByIdAndRemove(guardId)
       .exec()
       .then(result => {
-        /*logCtrl.createLog("Administrador ha elimiado un usuario",
-                      "El administrador del edificio ha eliminado el usuario {rut del usuario}",
+        logCtrl.createLog("Se elimino un Guardia",
+                      "Se elimino un Guardia",
                       "",
                       "",
-                      8);*/
+                      13);
         res.status(200).json("delete success");
       })
       .catch(err => {
