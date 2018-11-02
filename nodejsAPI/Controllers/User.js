@@ -132,7 +132,7 @@ function postIdentification(req, res) {
           console.log(data.name);
           if (data.access) {
             IdentificationThird(resp2[1], resp2[2]);
-            console.log("Es invitado permitido")
+            console.log("Es invitado permitido");
             res.status(202).json({
               success: true,
               idMongo: resp2[1],
@@ -207,13 +207,11 @@ function IdentificationThird(idThird, idUser) {
     .exec()
     .then(result => {
       console.log(result);
-      res.status(200).json(result);
+      return null;
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({
-        error: err
-      });
+      return null;
     });
       
   var name = "A guest has entered the building";
