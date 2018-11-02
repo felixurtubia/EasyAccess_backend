@@ -11,6 +11,7 @@ const edificeCtrl = require('./Edifice')
 //Models
 const User = require('../Models/User');
 const Edifice = require('../Models/Edifice');
+const Third = require('../Models/Third');
 
 /**
  * Entrega todos los usuarios 
@@ -317,6 +318,47 @@ function loginUser(req, res) {
 
 }
 
+function lateThird(req, res) {
+  var idUser = req.params.idUser;
+  Third.find({ user: idUser })
+    .exec()
+    .then(docs => {
+      var i;
+      var laterSixMonth = [];
+      for (i = 0; i < Object.keys(docs).length; i++) {
+        if (sixMonthMore(docs[i].lastAccess)) {
+          laterSixMonth.push({ name: docs[i].name, _id: docs[i]._id });
+        }
+      }
+      if (laterSixMonth.length != 0) {
+        console.log(laterSixMonth);
+        res.status(200).json({
+          later: true,
+          list: laterSixMonth
+        });
+      } else {
+        res.status(200).json({
+          later: false
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+}
+
+function sixMonthMore(thirdDate) {
+  var today = new Date();
+  var sixMonth = 180 * 24 * 60 * 60 * 1000;
+  if (Math.abs(today - thirdDate) > sixMonth) {
+    return true;
+  }
+  return false;
+}
+
 module.exports = {
   getUser,
   getUserRut,
@@ -325,4 +367,5 @@ module.exports = {
   deleteUser,
   postIdentification,
   loginUser,
+  lateThird
 }

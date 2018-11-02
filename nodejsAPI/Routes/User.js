@@ -12,5 +12,6 @@ router.post('/', userCtrl.postUser); // create a new user
 router.delete('/:userId', userCtrl.deleteUser);
 router.put('/:userId', userCtrl.updateUser);
 router.post('/login', userCtrl.loginUser);
+router.post('/LaterThird/:idUser', userCtrl.lateThird); 
 
 module.exports = router;
