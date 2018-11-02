@@ -141,7 +141,7 @@ function postIdentification(req, res) {
             });
           } else {
             IdentificationThird(resp2[1], resp2[2]);
-            console.log("Es invitado no permitido")
+            console.log("Es invitado no permitido");
             res.status(200).json({
               success: false,
               idMongo: resp2[1],
@@ -207,11 +207,9 @@ function IdentificationThird(idThird, idUser) {
     .exec()
     .then(result => {
       console.log(result);
-      return null;
     })
     .catch(err => {
       console.log(err);
-      return null;
     });
       
   var name = "A guest has entered the building";
@@ -219,9 +217,8 @@ function IdentificationThird(idThird, idUser) {
   var user = idUser;
   var third = idThird;
   var type = 3
-
   logCtrl.createLog(name, description, user, third, type);
-  // Llamar funcion que manda una notificacion
+  console.log("Log created in third")
 }
 
 /**
