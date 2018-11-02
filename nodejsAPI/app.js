@@ -11,6 +11,7 @@ var notificationRoute = require('./Routes/Notification');
 var otherRoute = require('./Routes/Other');
 var edificeRoute = require('./Routes/Edifice');
 var departmentRoute = require('./Routes/Department');
+var guardRoute = require('./Routes/Guard');
 var getRawBody = require('raw-body');
 
 app.use(cors());
@@ -44,6 +45,7 @@ app.use('/Notification', notificationRoute);
 app.use('/Other', otherRoute);
 app.use('/Edifice', edificeRoute);
 app.use('/Department', departmentRoute);
+app.use('/Guard', guardRoute);
 
 //CONFIGURACIONES SECUNDARIAS
 app.use((req, res, next) => {
