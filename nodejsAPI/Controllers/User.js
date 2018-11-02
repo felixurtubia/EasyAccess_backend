@@ -149,7 +149,7 @@ function postIdentification(req, res) {
               msg: "El residente denegó su entrada"
             });
           }
-        }).catch(err => {
+        }).catch(error => {
           res.status(500).json({ success: false, msg: error })
         })
 
