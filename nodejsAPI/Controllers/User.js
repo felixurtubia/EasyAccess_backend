@@ -236,8 +236,8 @@ function updateUser(req, res) {
     .exec()
     .then(result => {
       console.log(req.body);
-      logCtrl.createLog("Administrador ha editado un usuario",
-                        "el administrador del edificio ha editado campos del usuario {rut del usuario}",
+      logCtrl.createLog("Usuario se actualizo sus parametros",
+                        "un usuario actualizo sus datos",
                         "",
                         "",
                         7);
@@ -260,11 +260,11 @@ function deleteUser(req, res) {
   User.findByIdAndRemove(userId)
     .exec()
     .then(result => {
-      /*log.createLog("Administrador ha elimiado un usuario",
+      logCtrl.createLog("Administrador ha elimiado un usuario",
                     "El administrador del edificio ha eliminado el usuario {rut del usuario}",
                     "",
                     "",
-                    8);*/
+                    8);
       res.status(200).json("delete success");
     })
     .catch(err => {
