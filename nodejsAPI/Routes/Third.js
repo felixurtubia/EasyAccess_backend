@@ -7,6 +7,7 @@ const router = express.Router();
 //RUTAS
 router.post('/', thirdCtrl.postThird);
 router.get('/:idUser', thirdCtrl.getThird);
-router.put('/:idThird', thirdCtrl.updateAccess)
+router.put('/:idThird', thirdCtrl.updateAccess);
+router.put('/Update/:thirdId', thirdCtrl.updateThird);
 router.get('/', thirdCtrl.getAllThird);
 module.exports = router;

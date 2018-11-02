@@ -158,10 +158,36 @@ function postThird(req, res) {
     });
 }
 
+/**
+ * Actualizar algun dato de un usuario mediante su id
+ * @param {String} userId id del usuario
+ */
+function updateThird(req, res) {
+  const thirdId = req.params.thirdId;
+  Third.findByIdAndUpdate(thirdId , { $set: req.body })
+    .exec()
+    .then(result => {
+      console.log(req.body);
+      /*logCtrl.createLog("Usuario ha editado un usuario",
+                        "el Usuario  edificio ha editado campos del usuario {rut del usuario}",
+                        "",
+                        "",
+                        7);*/
+      res.status(200).json(req.body);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+};
+
 module.exports = {
   postThird,
   updateAccess,
   getThird,
   getThirdPromise,
-  getAllThird
+  getAllThird,
+  updateThird
 }

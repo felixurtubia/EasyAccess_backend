@@ -227,7 +227,7 @@ function IdentificationThird(idThird, idUser) {
 }
 
 /**
- * Actualizar algun dato de un usuario mediante su rut
+ * Actualizar algun dato de un usuario mediante su id
  * @param {String} userId id del usuario
  */
 function updateUser(req, res) {
