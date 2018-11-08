@@ -7,5 +7,5 @@ const router = express.Router();
 //RUTAS
 router.get('/', initDataCtrl.getInitData);
 router.put('/', initDataCtrl.updateInitData);
-
+router.post('/:version', initDataCtrl.newVersion);
 module.exports = router;
