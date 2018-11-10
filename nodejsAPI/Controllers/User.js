@@ -80,12 +80,12 @@ function postUser(req, res) {
       }
       django.createUser(toDjango)
         .then(resp => {
-          //          console.log(resp);
           console.log("Faceapi trained accomplished");
-          logCtrl.createLog("A user has been created",
-            "User " + resultado._id.toString() + " has been created",
-            resultado._id.toString(),
-            "...")
+          logCtrl.createLog("Se ha creado un usuario",
+            "Se ha creado un usuario",
+            "",
+            "",
+            14);
           res.status(201).json({
             success: true,
             mensaje: "Usuario creado",
@@ -167,16 +167,16 @@ function postIdentification(req, res) {
 
     }).catch(error => {
       console.log("Identification failed, reason: " + error);
-      logCtrl.createLog('Identification Failed',
-        'Someone just tried to identificate and failed',
-        '...',
-        '...', 5);
+      logCtrl.createLog('Fallo de identificación',
+        'Fallo de identificación',
+        '',
+        '',
+        5);
       res.status(500).json({
         success: false,
         error: error,
         msg: 'Usuario no identificado'
       });
-      //logCtrl.logFailRecognition();
     });
 }
 
@@ -186,12 +186,11 @@ function postIdentification(req, res) {
  */
 function IdentificationUser(idUser) {
   console.log("identification succeed !! is a User");
-  //logCtrl.logRecognitionUser(idUser);
 
-  var name = "A user has entered the building";
-  var description = "The user " + idUser + " has entered the building";
+  var name = "Residente Identificado";
+  var description = "Residente Identificado";
   var user = idUser;
-  var third = '...';
+  var third = '';
   var type = 0;
 
   logCtrl.createLog(name, description, user, third, type);
@@ -204,7 +203,7 @@ function IdentificationUser(idUser) {
 function IdentificationThird(idThird, idUser) {
   console.log("identification succeed !! is a Third");
   //logCtrl.logRecognitionThird(idThird);
-  Third.findByIdAndUpdate(idThird, {lastAccess : Date.now()})
+  Third.findByIdAndUpdate(idThird, { lastAccess: Date.now() })
     .exec()
     .then(result => {
       console.log(result);
@@ -212,14 +211,13 @@ function IdentificationThird(idThird, idUser) {
     .catch(err => {
       console.log(err);
     });
-      
-  var name = "A guest has entered the building";
-  var description = "Guest " + idThird + " from " + idUser + " has entered the building";
+
+  var name = "Invitado identificado";
+  var description = "Invitado identificado";
   var user = idUser;
   var third = idThird;
   var type = 3
   logCtrl.createLog(name, description, user, third, type);
-  console.log("Log created in third")
 }
 
 /**
@@ -228,15 +226,15 @@ function IdentificationThird(idThird, idUser) {
  */
 function updateUser(req, res) {
   const userId = req.params.userId;
-  User.findByIdAndUpdate(userId , { $set: req.body })
+  User.findByIdAndUpdate(userId, { $set: req.body })
     .exec()
     .then(result => {
       console.log(req.body);
-      logCtrl.createLog("Usuario se actualizo sus parametros",
-                        "un usuario actualizo sus datos",
-                        "",
-                        "",
-                        7);
+      logCtrl.createLog("Se ha actualizado los datos del residente",
+        "Se ha actualizado los datos del residente",
+        "",
+        "",
+        7);
       res.status(200).json(req.body);
     })
     .catch(err => {
@@ -256,11 +254,11 @@ function deleteUser(req, res) {
   User.findByIdAndRemove(userId)
     .exec()
     .then(result => {
-      logCtrl.createLog("Administrador ha elimiado un usuario",
-                    "El administrador del edificio ha eliminado el usuario {rut del usuario}",
-                    "",
-                    "",
-                    8);
+      logCtrl.createLog("Se ha eliminado un residente",
+        "Se ha eliminado un residente",
+        "",
+        "",
+        8);
       res.status(200).json("delete success");
     })
     .catch(err => {
@@ -274,24 +272,24 @@ function deleteUser(req, res) {
 function loginUser(req, res) {
   const password = req.body.password;
   Edifice.findById("5bca670ccbc43f3ae43cb4ba", function (err, edifice) {
-    if(err){
+    if (err) {
       console.log(err);
-      res.status(500).json({success:false})
+      res.status(500).json({ success: false })
     }
     var code = edifice.code;
     console.log("password received: " + password + " comparing against: " + code);
-    if(password==code){
-      res.status(200).json({success: true});
-      logCtrl.createLog("Residente ingresa por primera vez a la APP", 
-                      "El usuario " + "rut" + " ha ingresado haciendo uso del código " + "codigo",
-                      "",
-                      "",
-                      6);
+    if (password == code) {
+      res.status(200).json({ success: true });
+      logCtrl.createLog("Residente ingresa por primera vez a la App",
+        "El usuario " + "rut" + " ha ingresado haciendo uso del código " + "codigo",
+        "",
+        "",
+        6);
     } else {
-      res.status(403).json({success:false});
+      res.status(403).json({ success: false });
     }
-  });  
-  
+  });
+
   /*
   User.findOne({ rut: userRut })
   .exec()
