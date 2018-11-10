@@ -85,7 +85,11 @@ function updateAccess(req, res) {
   ).exec()
     .then(result => {
       console.log("Route: /Third/:idThird [PUT] Update 'access' the invited");
-      logCtrl.logUpdateAccess(idThird, newAccess);
+      logCtrl.createLog("Se ha cambiado el acceso de un invitado",
+                      "Se ha cambiado el acceso de un invitado",
+                      "",
+                      "",
+                      4);
       // logCtrl.createLog("Change status", "El estado de invitado ha sido cambiado a " + newAccess,
       // "...", idThird); // Cambiar el ... al usuario
       res.status(200).json(result);
@@ -134,8 +138,11 @@ function postThird(req, res) {
       django.createUserGuest(toDjango)
         .then(resp => {
           console.log("Faceapi trained accomplished");
-          logCtrl.logThird(req.body.idUser, resultado._id);
-          // logCtrl.createLog("Third created", "El invitado " + resultado._id.toString() + " ha sido ingresado",
+          logCtrl.createLog("Se ha creado un invitado",
+                          "Se ha creado un invitado",
+                          "",
+                          "",
+                          1);
           //req.body.idUser.toString(), resultado._id.toString());
           res.status(201).json({
             success: true,
@@ -168,8 +175,8 @@ function updateThird(req, res) {
     .exec()
     .then(result => {
       console.log(req.body);
-      logCtrl.createLog("Los datos de un invitado se han actualizado",
-                        "los datos de un invitado se han actualizado",
+      logCtrl.createLog("Se ha actualizado los datos del invitado",
+                        "Se ha actualizado los datos del invitado",
                         "",
                         "",
                         9);
@@ -192,8 +199,8 @@ function deleteThird(req, res) {
   Third.findByIdAndRemove(thirdId)
     .exec()
     .then(result => {
-      logCtrl.createLog("Invitado eliminado",
-                    "El invitado ha sido eliminado",
+      logCtrl.createLog("Se ha eliminado un invitado",
+                    "Se ha eliminado un invitado",
                     "",
                     "",
                     10);
