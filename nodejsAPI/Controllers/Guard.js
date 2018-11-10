@@ -46,8 +46,8 @@ function getGuard(req, res) {
     guard.save()
       .then(resultado => {
         console.log("Route: /Guard/ [POST] create Guard now");
-        logCtrl.createLog("Se agrego un Guardia",
-                          "Se agrego un nuevo Guardia",
+        logCtrl.createLog("Se ha creado un guardia",
+                          "Se ha creado un guardia",
                           "",
                           "",
                           11);
@@ -71,8 +71,8 @@ function getGuard(req, res) {
       .exec()
       .then(result => {
         console.log(req.body);
-        logCtrl.createLog("Se actualizo los datos del Guardia",
-                          "Se actualizo los datos del Guardia",
+        logCtrl.createLog("Se ha actualizado los datos del guardia",
+                          "Se ha actualizado los datos del guardia",
                           "",
                           "",
                           12);
@@ -95,8 +95,8 @@ function getGuard(req, res) {
     Guard.findByIdAndRemove(guardId)
       .exec()
       .then(result => {
-        logCtrl.createLog("Se elimino un Guardia",
-                      "Se elimino un Guardia",
+        logCtrl.createLog("Se ha eliminado un guardia",
+                      "Se ha eliminado un guardia",
                       "",
                       "",
                       13);
