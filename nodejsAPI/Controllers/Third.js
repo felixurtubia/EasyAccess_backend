@@ -156,7 +156,7 @@ function postThird(req, res) {
         .then(resp => {
           console.log("Faceapi trained accomplished");
           logCtrl.createLog("Se ha creado un invitado",
-            "Invitado " + resp.name + " " + resp.lastname + " se ha creado",
+            "Invitado " + resultado.name + " " + resultado.lastname + " se ha creado",
             "",
             "",
             1);
