@@ -82,7 +82,7 @@ function postUser(req, res) {
         .then(resp => {
           console.log("Faceapi trained accomplished");
           logCtrl.createLog("Se ha creado un usuario",
-            "Se ha creado un usuario",
+            "Usuario "+resultado.name + " "+resultado.lastname+" ha sido creado",
             "",
             "",
             14);
@@ -226,20 +226,23 @@ function IdentificationThird(idThird, idUser) {
  */
 function updateUser(req, res) {
   const userId = req.params.userId;
-  User.findByIdAndUpdate(userId, { $set: req.body })
+  User.findByIdAndUpdate(userId, { $set: req.body }, {new : true})
     .exec()
     .then(result => {
-      console.log(req.body);
       logCtrl.createLog("Se ha actualizado los datos del residente",
-        "Se ha actualizado los datos del residente",
+        "residente "+ result.name +" "+result.lastname+" ha actualizado sus datos",
         "",
         "",
         7);
-      res.status(200).json(req.body);
+      res.status(200).json({
+        success : true,
+        user : result
+      });
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({
+        success : false,
         error: err
       });
     });
@@ -255,15 +258,19 @@ function deleteUser(req, res) {
     .exec()
     .then(result => {
       logCtrl.createLog("Se ha eliminado un residente",
-        "Se ha eliminado un residente",
+        "Residente "+result.name+ " "+result.lastname+ " ha sido eliminado",
         "",
         "",
         8);
-      res.status(200).json("delete success");
+      res.status(200).json({
+        sucess: true,
+        user : result
+      });
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({
+        sucess : false,
         error: err
       });
     });
