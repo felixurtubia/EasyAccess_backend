@@ -20,7 +20,7 @@ function getThird(req, res) {
     .exec()
     .then(docs => {
       console.log("Route: /Third/:idUser [GET] Get all invited the user");
-      
+
       res.status(200).json(docs);
     })
     .catch(err => {
@@ -37,7 +37,7 @@ function getAllThird(req, res) {
     .exec()
     .then(docs => {
       console.log("Route: /Third/:idUser [GET] Get all invited");
-      
+
       res.status(200).json(docs);
     })
     .catch(err => {
@@ -76,30 +76,46 @@ function getThirdPromise(req) {
 function updateAccess(req, res) {
   var idThird = req.params.idThird;
   var newAccess = req.body.access
-  Third.update({ _id: idThird },
+  Third.findByIdAndUpdate(idThird,
     {
       $set: {
         "access": newAccess,
       }
-    }
+    }, { new: true }
   ).exec()
     .then(result => {
       console.log("Route: /Third/:idThird [PUT] Update 'access' the invited");
       logCtrl.createLog("Se ha cambiado el acceso de un invitado",
-                      "Se ha cambiado el acceso de un invitado",
-                      "",
-                      "",
-                      4);
-      // logCtrl.createLog("Change status", "El estado de invitado ha sido cambiado a " + newAccess,
-      // "...", idThird); // Cambiar el ... al usuario
-      res.status(200).json(result);
+        DescriptionUpdateAcess(result),
+        "",
+        "",
+        4);
+      res.status(200).json({
+        sucess: true,
+        third: result
+      });
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({
+        sucess: false,
         error: err
       });
     });
+}
+
+/**
+ * Genera una descripcion para el log de cambio de acceso de un invitado
+ * @param {JSON} third informacion de un invitado
+ */
+function DescriptionUpdateAcess(third) {
+  var access = "";
+  if (third.access) {
+    access = "Se le permite el acceso a ";
+  } else {
+    access = "Se le niega el acceso a ";
+  }
+  return access + third.name + " " + third.lastname;
 }
 
 /**
@@ -127,6 +143,7 @@ function postThird(req, res) {
   third.save()
     .then(resultado => {
       console.log("Route: /Third/ [POST] Create invited, now posting to faceapi");
+
       var toDjango = {
         idUser: resultado._id.toString(),
         image1: req.body.image1,
@@ -139,11 +156,10 @@ function postThird(req, res) {
         .then(resp => {
           console.log("Faceapi trained accomplished");
           logCtrl.createLog("Se ha creado un invitado",
-                          "Se ha creado un invitado",
-                          "",
-                          "",
-                          1);
-          //req.body.idUser.toString(), resultado._id.toString());
+            "Invitado " + resp.name + " " + resp.lastname + " se ha creado",
+            "",
+            "",
+            1);
           res.status(201).json({
             success: true,
             message: "Third create",
@@ -171,20 +187,23 @@ function postThird(req, res) {
  */
 function updateThird(req, res) {
   const thirdId = req.params.thirdId;
-  Third.findByIdAndUpdate(thirdId , { $set: req.body })
+  Third.findByIdAndUpdate(thirdId, { $set: req.body }, { new: true })
     .exec()
     .then(result => {
-      console.log(req.body);
       logCtrl.createLog("Se ha actualizado los datos del invitado",
-                        "Se ha actualizado los datos del invitado",
-                        "",
-                        "",
-                        9);
-      res.status(200).json(req.body);
+        "Invitado " + result.name + " " + result.lastname + " ha actualizado sus datos",
+        "",
+        "",
+        9);
+      res.status(200).json({
+        sucess: true,
+        invited: result
+      });
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({
+        sucess: false,
         error: err
       });
     });
@@ -200,15 +219,19 @@ function deleteThird(req, res) {
     .exec()
     .then(result => {
       logCtrl.createLog("Se ha eliminado un invitado",
-                    "Se ha eliminado un invitado",
-                    "",
-                    "",
-                    10);
-      res.status(200).json("delete success");
+        "Invitado " + result.name + " " + result.lastname + " ha sido eliminado",
+        "",
+        "",
+        10);
+      res.status(200).json({
+        sucess: true,
+        invited: result
+      });
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({
+        success: false,
         error: err
       });
     });
