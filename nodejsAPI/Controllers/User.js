@@ -82,7 +82,7 @@ function postUser(req, res) {
         .then(resp => {
           console.log("Faceapi trained accomplished");
           logCtrl.createLog("Se ha creado un usuario",
-            "Usuario "+resultado.name + " "+resultado.lastname+" ha sido creado",
+            "Usuario " + resultado.name + " " + resultado.lastname + " ha sido creado",
             "",
             "",
             14);
@@ -229,23 +229,23 @@ function IdentificationThird(idThird, idUser) {
  */
 function updateUser(req, res) {
   const userId = req.params.userId;
-  User.findByIdAndUpdate(userId, { $set: req.body }, {new : true})
+  User.findByIdAndUpdate(userId, { $set: req.body }, { new: true })
     .exec()
     .then(result => {
       logCtrl.createLog("Se ha actualizado los datos del residente",
-        "residente "+ result.name +" "+result.lastname+" ha actualizado sus datos",
+        "residente " + result.name + " " + result.lastname + " ha actualizado sus datos",
         "",
         "",
         7);
       res.status(200).json({
-        success : true,
-        user : result
+        success: true,
+        user: result
       });
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({
-        success : false,
+        success: false,
         error: err
       });
     });
@@ -260,20 +260,34 @@ function deleteUser(req, res) {
   User.findByIdAndRemove(userId)
     .exec()
     .then(result => {
-      logCtrl.createLog("Se ha eliminado un residente",
-        "Residente "+result.name+ " "+result.lastname+ " ha sido eliminado",
-        "",
-        "",
-        8);
-      res.status(200).json({
-        sucess: true,
-        user : result
-      });
+
+      django.deleteUser(userId)
+        .then(resp => {
+          console.log("Eliminado de Django");
+          logCtrl.createLog("Se ha eliminado un residente",
+            "Residente " + result.name + " " + result.lastname + " ha sido eliminado",
+            "",
+            "",
+            8);
+
+          res.status(200).json({
+            sucess: true,
+            user: result
+          });
+
+        }).catch(error => {
+          console.log(error);
+          res.status(500).json({
+            success: false,
+            error: error
+          });
+        })
+
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({
-        sucess : false,
+        sucess: false,
         error: err
       });
     });

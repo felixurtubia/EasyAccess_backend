@@ -33,6 +33,35 @@ var createUser = function (req, res) {
 }
 
 
+/**
+ * Eliminar un usuario en la api de django ingresando
+ * las imagenes para entrenar y preparar el analisis de match
+ */
+var deleteUser = function (userId) {
+  return new Promise(function (resolve, reject) {
+    var options = {
+      method: 'DELETE',
+
+      uri: 'http://easy.faceapi.boldware.cl/api/Persons/' + userId+'/',
+
+      form: {
+        userId: userId,
+      },
+      headers: {
+        /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
+      }
+    };
+    rp(options)
+      .then(function (body) {
+        resolve(body);
+      })
+      .catch(function (err) {
+        reject(err);
+      });
+  })
+}
+
+
 var createUserGuest = function (req, res) {
   return new Promise(function (resolve, reject) {
     var options = {
@@ -125,5 +154,6 @@ var makeMatch = function (req) {
 module.exports = {
   createUser,
   makeMatch,
-  createUserGuest
+  createUserGuest,
+  deleteUser
 }
