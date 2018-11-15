@@ -124,6 +124,7 @@ function postIdentification(req, res) {
         res.status(202).json({
           success: true,
           idMongo: resp2[1],
+          type: 'user',
           msg: 'Usuario residente'
         });
       } else if (resp2[0] == 1) {
@@ -138,6 +139,7 @@ function postIdentification(req, res) {
               success: true,
               idMongo: resp2[1],
               idCreator: resp2[2],
+              type: 'third',
               msg: "El residente permite su entrada"
             });
           } else {
@@ -147,6 +149,7 @@ function postIdentification(req, res) {
               success: false,
               idMongo: resp2[1],
               idCreator: resp2[2],
+              type: 'third',
               msg: "El residente denegó su entrada"
             });
           }
