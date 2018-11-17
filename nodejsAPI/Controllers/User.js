@@ -118,10 +118,6 @@ function postIdentification(req, res) {
   var toDjango2 = {
     image: req.body.image
   }
-  console.log("Imagen recibida de tipo" + typeof req.body.image);
-  console.log("-------------------------------");
-  console.log("Imagen Recibida:  ", req.body.image);
-  console.log("-------------------------------");
   console.log("Identification begin");
   django.makeMatch(toDjango2)
     .then(resp2 => {
@@ -173,7 +169,7 @@ function postIdentification(req, res) {
 
 
     }).catch(error => {
-      console.log("Identification failed, reason: " + error);
+      console.log("Identification failed, reason: ");
       logCtrl.createLog('Fallo de identificación',
         'Fallo de identificación',
         '',
