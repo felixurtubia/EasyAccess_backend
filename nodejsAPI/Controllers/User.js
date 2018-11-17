@@ -119,6 +119,9 @@ function postIdentification(req, res) {
     image: req.body.image
   }
   console.log("Imagen recibida de tipo" + typeof req.body.image);
+  console.log("-------------------------------");
+  console.log("Imagen Recibida:  ", req.body.image);
+  console.log("-------------------------------");
   console.log("Identification begin");
   django.makeMatch(toDjango2)
     .then(resp2 => {
@@ -160,9 +163,6 @@ function postIdentification(req, res) {
         }).catch(error => {
           res.status(500).json({ success: false, msg: error })
         })
-
-
-
       } else {
         res.status(202).json({
           success: true,
