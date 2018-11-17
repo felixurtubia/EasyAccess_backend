@@ -11,6 +11,7 @@ const userSchema = schema({
     rut: { type: String, required: false}, //, trim: true, match: /\d{8}-\d{1}/ 
     birthDate: { type: String, require: false },
     created: {type:Date, default: Date.now},
+    pin : {type: String, required: false},
 });
 
 module.exports = mongoose.model('User', userSchema);

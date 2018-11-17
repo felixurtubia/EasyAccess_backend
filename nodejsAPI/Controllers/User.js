@@ -61,13 +61,15 @@ function getUserRut(req, res) {
  * @param image3 imagen3 del usuario
  */
 function postUser(req, res) {
+  var numero = Math.floor(Math.random()*(999999-100000+1)+100000);
   const user = User({
     _id: new mongoose.Types.ObjectId(),
     department: "5bca7cbc7944c28e153a1019",
     name: req.body.name,
     lastname: req.body.lastname,
     rut: req.body.rut,
-    birthDate: "16/07/2018"
+    birthDate: "16/07/2018",
+    pin: numero,
   });
   user.save()
     .then(resultado => {
@@ -89,7 +91,8 @@ function postUser(req, res) {
           res.status(201).json({
             success: true,
             mensaje: "Usuario creado",
-            usuario: resultado
+            usuario: resultado,
+            pin: resultado.pin,
           });
         }).catch(error => {
           console.log(error);
@@ -295,7 +298,8 @@ function deleteUser(req, res) {
 
 function loginUser(req, res) {
   const password = req.body.password;
-  Edifice.findById("5bca670ccbc43f3ae43cb4ba", function (err, edifice) {
+  const rut = req.body.rut;
+  /* Edifice.findById("5bca670ccbc43f3ae43cb4ba", function (err, edifice) {
     if (err) {
       console.log(err);
       res.status(500).json({ success: false })
@@ -312,20 +316,20 @@ function loginUser(req, res) {
     } else {
       res.status(403).json({ success: false });
     }
-  });
+  });*/
 
-  /*
-  User.findOne({ rut: userRut })
+  User.findOne({ rut: rut, pin:password })
   .exec()
   .then(docs => {
     console.log("Route: /User/login, user finded");
-    if(userPass=="passwordTest"){
+    res.status(200).json({success:true, id: docs._id, })
+    /*if(userPass=="passwordTest"){
       res.status(200).json(docs);
       console.log("User identified");
     } else {
       res.status(403).json({success: false});
       console.log("Password equivocada" + userPass);
-    };
+    };*/
     
   })
   .catch(error => {
@@ -333,7 +337,7 @@ function loginUser(req, res) {
     res.status(500).json({
       error: error
     })
-  });*/
+  });
 
 }
 
