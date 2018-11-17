@@ -109,7 +109,25 @@ function postUser(req, res) {
       });
     });
 }
-
+function getUserIdPromise(req,res){
+  return new Promise(function (resolve, reject) {
+        var idUser = req.idUser;
+        console.log(idUser);
+        User.find({ _id: idUser })
+          .exec()
+          .then(docs => {
+            console.log(docs[0])
+            console.log("Route: /User/:idUser [GET] Get user by id on promise");
+            resolve(docs[0])
+          })
+          .catch(err => {
+            console.log(err);
+            reject(err)
+          });
+    
+      })
+    
+    }
 /**
  * Se envia una foto para reconocimiento facial
  * @param image imagen de la persona
@@ -124,12 +142,27 @@ function postIdentification(req, res) {
       if (resp2[0] == 0) {
         console.log("es residente")
         IdentificationUser(resp2[1]);
-        res.status(202).json({
-          success: true,
-          idMongo: resp2[1],
-          type: 'user',
-          msg: 'Usuario residente'
-        });
+        getUserIdPromise({idUser:resp2[1]}).then(data=>{
+          if(data.access){
+            res.status(202).json({
+              success: true,
+              idMongo: resp2[1],
+              type: 'user',
+              msg: 'Usuario residente'
+            });
+          }
+          else{
+            res.status(200).json({
+              success: false,
+              idMongo: resp2[1],
+              type: 'user',
+              msg: 'Usuario residente bloqueado por administrador'
+            });
+          }
+
+        })
+        
+     
       } else if (resp2[0] == 1) {
         let reqParams = { idUser: resp2[1] }
         thirdCtrl.getThirdPromise(reqParams).then(data => {
