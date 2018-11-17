@@ -334,9 +334,8 @@ function loginUser(req, res) {
   })
   .catch(error => {
     console.log(error);
-    res.status(500).json({
-      error: error
-    })
+    res.status(403).json({success: false});
+    console.log("Password equivocada o algun problema :D" + userPass);
   });
 
 }
