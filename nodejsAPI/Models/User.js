@@ -12,6 +12,7 @@ const userSchema = schema({
     birthDate: { type: String, require: false },
     created: {type:Date, default: Date.now},
     pin : {type: String, required: false},
+    access:{ type:Boolean,default:true }
 });
 
 module.exports = mongoose.model('User', userSchema);

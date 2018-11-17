@@ -233,7 +233,7 @@ function updateUser(req, res) {
     .exec()
     .then(result => {
       logCtrl.createLog("Se ha actualizado los datos del residente",
-        "residente " + result.name + " " + result.lastname + " ha actualizado sus datos",
+        result.name + " " + result.lastname + " con éxito",
         "",
         "",
         7);
@@ -265,7 +265,7 @@ function deleteUser(req, res) {
         .then(resp => {
           console.log("Eliminado de Django");
           logCtrl.createLog("Se ha eliminado un residente",
-            "Residente " + result.name + " " + result.lastname + " ha sido eliminado",
+            result.name + " " + result.lastname + "con éxito",
             "",
             "",
             8);
@@ -319,7 +319,7 @@ function loginUser(req, res) {
   .exec()
   .then(docs => {
     console.log("Route: /User/login, user finded");
-    res.status(200).json({success:true, id: docs._id, })
+    res.status(200).json({success:true, id: docs._id, data:docs })
     /*if(userPass=="passwordTest"){
       res.status(200).json(docs);
       console.log("User identified");
