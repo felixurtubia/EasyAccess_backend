@@ -118,6 +118,7 @@ function postIdentification(req, res) {
   var toDjango2 = {
     image: req.body.image
   }
+  console.log("Imagen recibida de tipo" + typeof req.body.image);
   console.log("Identification begin");
   django.makeMatch(toDjango2)
     .then(resp2 => {
@@ -335,7 +336,7 @@ function loginUser(req, res) {
   .catch(error => {
     console.log(error);
     res.status(403).json({success: false});
-    console.log("Password equivocada o algun problema :D" + userPass);
+    console.log("Password equivocada o algun problema :D" + password);
   });
 
 }
