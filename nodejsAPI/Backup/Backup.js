@@ -18,6 +18,7 @@ function BackupDB() {
     });
 }
  
-cron.schedule('59 59 23 * * 0', () => { //23:59:59 los domingos
+cron.schedule('* * * * *', () => { //23:59:59 los domingos
   BackupDB();
+  console.log("Haciendo Backup en cada minuto")
 });
