@@ -12,6 +12,7 @@ const edificeCtrl = require('./Edifice')
 const User = require('../Models/User');
 const Edifice = require('../Models/Edifice');
 const Third = require('../Models/Third');
+const Department = require('../Models/Department');
 
 /**
  * Entrega todos los usuarios 
@@ -20,8 +21,14 @@ function getUser(req, res) {
   User.find()
     .exec()
     .then(docs => {
-      res.status(200).json(docs);
-      console.log("Route: /User [GET] Get all Users");
+
+      Department.populate(docs, { path: "department" }, function (err, docs) {
+            res.status(200).send(docs);
+            console.log("Route: /User [GET] Get all Users");
+    });
+      
+      //res.status(200).json(docs);
+      //console.log("Route: /User [GET] Get all Users");
     })
     .catch(err => {
       console.log(err);
