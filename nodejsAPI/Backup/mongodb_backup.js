@@ -34,7 +34,7 @@ exports.empty = function (mixedVar) {
     return false;
 };
 // Auto backup script
-dbAutoBackUp = function () {
+exports. dbAutoBackUp = function () {
     // check for auto backup is enabled or disabled
     if (dbOptions.autoBackup == true) {
         var date = new Date();
