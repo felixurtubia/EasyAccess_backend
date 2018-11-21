@@ -17,7 +17,7 @@ exports.stringToDate = function (dateString) {
     return new Date(dateString);
 }
 /* return if variable is empty or not. */
-exports.empty = function (mixedVar) {
+empty = function (mixedVar) {
     var undef, key, i, len;
     var emptyValues = [undef, null, false, 0, '', '0'];
     for (i = 0, len = emptyValues.length; i < len; i++) {
