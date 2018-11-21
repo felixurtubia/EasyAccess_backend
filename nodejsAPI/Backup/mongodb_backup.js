@@ -10,7 +10,7 @@ var dbOptions = {
     autoBackup: true,
     removeOldBackup: true,
     keepLastDaysBackup: 2,
-    autoBackupPath: '~/Test/EasyAccess_backend/nodejsAPI/Backup/' // i.e. /var/database-backup/
+    autoBackupPath: '/var/Backup_EasyAccess_mongo/' // i.e. /var/database-backup/
 };
 /* return date object */
 exports.stringToDate = function (dateString) {
