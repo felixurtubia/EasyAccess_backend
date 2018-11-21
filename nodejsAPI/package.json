@@ -21,7 +21,8 @@
     "node-cron": "^2.0.3",
     "raw-body": "^2.3.3",
     "request": "^2.87.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "cron": "^1.5.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.2"
