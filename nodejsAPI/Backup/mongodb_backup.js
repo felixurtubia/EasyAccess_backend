@@ -10,7 +10,7 @@ var dbOptions = {
     autoBackup: true,
     removeOldBackup: true,
     keepLastDaysBackup: 2,
-    autoBackupPath: '~/Test/EasyAccess_backend/nodejsAPI/Backup' // i.e. /var/database-backup/
+    autoBackupPath: '~/Test/EasyAccess_backend/nodejsAPI/Backup/' // i.e. /var/database-backup/
 };
 /* return date object */
 exports.stringToDate = function (dateString) {
@@ -34,7 +34,8 @@ exports.empty = function (mixedVar) {
     return false;
 };
 // Auto backup script
-exports. dbAutoBackUp = function () {
+exports.dbAutoBackUp = function () {
+    console.log("AutoBackup ejecutado")
     // check for auto backup is enabled or disabled
     if (dbOptions.autoBackup == true) {
         var date = new Date();
