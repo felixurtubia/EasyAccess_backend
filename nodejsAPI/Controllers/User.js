@@ -21,14 +21,15 @@ function getUser(req, res) {
   User.find()
     .exec()
     .then(docs => {
-
-      Department.populate(docs, { path: "department" }, function (err, docs) {
+      res.status(200).send(docs);
+      console.log("Route: /User [GET] Get all Users");
+      /*Department.populate(docs, { path: "department" }, function (err, docs) {
             res.status(200).send(docs);
             console.log("Route: /User [GET] Get all Users");
-    });
+    });*/
       
-      //res.status(200).json(docs);
-      //console.log("Route: /User [GET] Get all Users");
+      res.status(200).json(docs);
+      console.log("Route: /User [GET] Get all Users");
     })
     .catch(err => {
       console.log(err);
