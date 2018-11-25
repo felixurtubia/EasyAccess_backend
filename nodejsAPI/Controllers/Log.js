@@ -212,6 +212,63 @@ function getLogMin(req, res) {
         });
 }
 
+/**
+ * Filtro 1 de los logs
+ */
+function getLogFilter1(req, res) {
+    var filter = req.params.filter;
+    var query = {
+        $or:
+            [
+                { name: { $regex: filter, $options: 'i' } },
+                { description: { $regex: filter, $options: 'i' } }
+            ]
+    }
+    Log.find(query).sort('-date').limit(20)
+        .exec()
+        .then(docs => {
+            console.log("Route: /Log [GET] Get all logs");
+            res.status(200).send(docs);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+}
+
+/**
+ * Filtro 1 de los logs
+ */
+function getLogFilter2(req, res) {
+    var filter = new RegExp('^'+ req.params.filter+'$', 'i');
+
+
+    //const nameExp = new RegExp('^'+req.body.customerName+'$', 'i');
+   //query = { $or : [ { firstName: nameExp }, { lastName: nameExp } ] }; 
+
+    var query = {
+        $or:
+            [
+                { name: filter },
+                { description: filter }
+            ]
+    }
+    Log.find(query).sort('-date').limit(20)
+        .exec()
+        .then(docs => {
+            console.log("Route: /Log [GET] Get all logs");
+            res.status(200).send(docs);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+}
+
 module.exports = {
     logRecognitionUser,
     logRecognitionThird,
@@ -221,5 +278,7 @@ module.exports = {
     logFailRecognition,
     getLog,
     createLog,
-    getLogMin
+    getLogMin,
+    getLogFilter1,
+    getLogFilter2
 }
