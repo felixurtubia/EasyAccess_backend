@@ -221,7 +221,8 @@ function getLogFilter1(req, res) {
         $or:
             [
                 { name: { $regex: filter, $options: 'i' } },
-                { description: { $regex: filter, $options: 'i' } }
+                { description: { $regex: filter, $options: 'i' } },
+                { date: { $regex: filter, $options: 'i' } }
             ]
     }
     Log.find(query).sort('-date').limit(20)
@@ -252,7 +253,8 @@ function getLogFilter2(req, res) {
         $or:
             [
                 { name: filter },
-                { description: filter }
+                { description: filter },
+                { date: filter }
             ]
     }
     Log.find(query).sort('-date').limit(20)
