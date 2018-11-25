@@ -74,6 +74,8 @@ function logThird(idUser, idThird) {
         });
 }
 
+
+
 /**
  * Log del usuario al invitar un tercero junto su fecha y hora
  * @param {String} idUser id del usuario
@@ -192,6 +194,24 @@ function getLog(req, res) {
         });
 }
 
+/**
+ * Entrega 40 logs ordenados por la fecha
+ */
+function getLogMin(req, res) {
+    Log.find().sort('-date').limit(40)
+        .exec()
+        .then(docs => {
+            console.log("Route: /Log [GET] Get all logs");
+            res.status(200).send(docs);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+}
+
 module.exports = {
     logRecognitionUser,
     logRecognitionThird,
@@ -201,4 +221,5 @@ module.exports = {
     logFailRecognition,
     getLog,
     createLog,
+    getLogMin
 }
