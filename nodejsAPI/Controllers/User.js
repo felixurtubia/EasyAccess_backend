@@ -64,6 +64,7 @@ function getUserRut(req, res) {
  * @param {String} name nombre del usuario
  * @param {String} lastname apellido del usuario
  * @param {String} rut rut del usuario
+ * @param {department} department id del departamento
  * @param image1 imagen1 del usuario
  * @param image2 imagen2 del usuario
  * @param image3 imagen3 del usuario
@@ -72,7 +73,7 @@ function postUser(req, res) {
   var numero = Math.floor(Math.random()*(999999-100000+1)+100000);
   const user = User({
     _id: new mongoose.Types.ObjectId(),
-    department: "5bca7cbc7944c28e153a1019",
+    department: req.body.department,
     name: req.body.name,
     lastname: req.body.lastname,
     rut: req.body.rut,
