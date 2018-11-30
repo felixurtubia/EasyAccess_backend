@@ -215,9 +215,13 @@ function updateThird(req, res) {
  */
 function deleteThird(req, res) {
   const thirdId = req.params.thirdId;
+
   Third.findByIdAndRemove(thirdId)
     .exec()
     .then(result => {
+     
+      django.deleteUser(result._id).then(result=>{console.log("borrado de django")}).catch(err=>{console.log(err)})
+
       logCtrl.createLog("Se ha eliminado un invitado",
         "Invitado " + result.name + " " + result.lastname + " ha sido eliminado",
         "",
