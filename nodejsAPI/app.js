@@ -2,7 +2,6 @@
 const cors = require('cors');
 var express = require('express');
 var bodyParse = require("body-parser");
-var contentType = require('content-type')
 var app = express();
 var userRoute = require("./Routes/User");
 var logRoute = require("./Routes/Log");
@@ -13,7 +12,10 @@ var edificeRoute = require('./Routes/Edifice');
 var departmentRoute = require('./Routes/Department');
 var guardRoute = require('./Routes/Guard');
 var InitDataRoute = require('./Routes/InitData');
+var plateRoute = require('./Routes/Plate');
+
 var getRawBody = require('raw-body');
+var contentType = require('content-type');
 
 app.use(cors());
 app.options('*', cors());
@@ -31,13 +33,13 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
+
   if (req.method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
   }
   next();
 });
-
 //IMPORTAR RUTAS
 app.use('/User', userRoute);
 app.use('/Log', logRoute);
@@ -48,7 +50,7 @@ app.use('/Edifice', edificeRoute);
 app.use('/Department', departmentRoute);
 app.use('/Guard', guardRoute);
 app.use('/InitData', InitDataRoute);
-
+app.use('/Plate', plateRoute)
 //CONFIGURACIONES SECUNDARIAS
 app.use((req, res, next) => {
   const error = new Error("Not found");
