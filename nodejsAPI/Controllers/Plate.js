@@ -67,6 +67,47 @@ function getPlate(req, res) {
 }
 
 /**
+ * Entrega todos las patentes de un usuario mediante
+ *  * @param {String} plateCode id del usuario (RUTA)
+ * la id de ese usuario
+ */
+
+function searchPlate(req, res) {
+ 
+  Plate.find({ plateCode: req.params.plateCode })
+    .exec()
+    .then(docs => {
+      console.log("A request for all user palte's has been done");
+      res.status(200).json(docs);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+    
+}
+
+
+function getPlates(req, res) {
+ 
+  Plate.find()
+    .exec()
+    .then(docs => {
+      console.log("A request for all user palte's has been done");
+      res.status(200).json(docs);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+    
+}
+
+/**
  * Se busca una patente mediante su id en la ruta
  * y se actualiza su 'access' con el valor
  * @param {String} idPlate id del invitado (RUTA)
@@ -110,5 +151,7 @@ function updateAccess(req, res) {
 module.exports = {
   postPlate,
   getPlate,
-  updateAccess
+  updateAccess,
+  searchPlate,
+  getPlates
 }

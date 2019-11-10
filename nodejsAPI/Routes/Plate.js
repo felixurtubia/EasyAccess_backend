@@ -8,5 +8,6 @@ const router = express.Router();
 router.post('/', plateController.postPlate);
 router.get('/:idUser', plateController.getPlate);
 router.put('/:idPlate',plateController.updateAccess);
-
+router.get('/Search/:plateCode', plateController.searchPlate);
+ 
 module.exports = router;
