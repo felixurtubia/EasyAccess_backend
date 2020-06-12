@@ -52,18 +52,36 @@ function postPlate(req, res) {
  * @param {String} idUser id del usuario (RUTA)
  */
 function getPlate(req, res) {
-  Plate.find({ user: req.params.idUser })
-    .exec()
-    .then(docs => {
-      console.log("A request for all user palte's has been done");
-      res.status(200).json(docs);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
+  if (req.params.idUser != null) {
+
+    Plate.find({ user: req.params.idUser })
+      .exec()
+      .then(docs => {
+        console.log("A request for all user palte's has been done");
+        res.status(200).json(docs);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
       });
-    });
+
+  } else {
+
+    Plate.find()
+      .exec()
+      .then(docs => {
+        console.log("A request for all user palte's has been done");
+        res.status(200).json(docs);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+  }
 }
 
 /**
@@ -73,7 +91,7 @@ function getPlate(req, res) {
  */
 
 function searchPlate(req, res) {
- 
+
   Plate.find({ plateCode: req.params.plateCode })
     .exec()
     .then(docs => {
@@ -86,12 +104,12 @@ function searchPlate(req, res) {
         error: err
       });
     });
-    
+
 }
 
 
 function getPlates(req, res) {
- 
+
   Plate.find()
     .exec()
     .then(docs => {
@@ -104,7 +122,7 @@ function getPlates(req, res) {
         error: err
       });
     });
-    
+
 }
 
 /**
