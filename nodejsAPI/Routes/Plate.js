@@ -9,5 +9,5 @@ router.post('/', plateController.postPlate);
 router.get('/:idUser', plateController.getPlate);
 router.put('/:idPlate',plateController.updateAccess);
 router.get('/Search/:plateCode', plateController.searchPlate);
- 
+router.get('/All', plateController.getPlates);
 module.exports = router;
