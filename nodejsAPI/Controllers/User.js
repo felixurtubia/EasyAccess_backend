@@ -13,7 +13,7 @@ const User = require('../Models/User');
 const Edifice = require('../Models/Edifice');
 const Third = require('../Models/Third');
 const Department = require('../Models/Department');
-
+const Plate = require('../Models/Plate');
 /**
  * Entrega todos los usuarios 
  */
@@ -24,10 +24,10 @@ function getUser(req, res) {
       //res.status(200).send(docs);
       //console.log("Route: /User [GET] Get all Users");
       Department.populate(docs, { path: "department" }, function (err, docs) {
-            res.status(200).send(docs);
-            console.log("Route: /User [GET] Get all Users");
-    });
-      
+        res.status(200).send(docs);
+        console.log("Route: /User [GET] Get all Users");
+      });
+
       //res.status(200).json(docs);
       //console.log("Route: /User [GET] Get all Users");
     })
@@ -70,7 +70,7 @@ function getUserRut(req, res) {
  * @param image3 imagen3 del usuario
  */
 function postUser(req, res) {
-  var numero = Math.floor(Math.random()*(999999-100000+1)+100000);
+  var numero = Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
   const user = User({
     _id: new mongoose.Types.ObjectId(),
     department: req.body.department,
@@ -118,25 +118,25 @@ function postUser(req, res) {
       });
     });
 }
-function getUserIdPromise(req,res){
+function getUserIdPromise(req, res) {
   return new Promise(function (resolve, reject) {
-        var idUser = req.idUser;
-        console.log(idUser);
-        User.find({ _id: idUser })
-          .exec()
-          .then(docs => {
-            console.log(docs[0])
-            console.log("Route: /User/:idUser [GET] Get user by id on promise");
-            resolve(docs[0])
-          })
-          .catch(err => {
-            console.log(err);
-            reject(err)
-          });
-    
+    var idUser = req.idUser;
+    console.log(idUser);
+    User.find({ _id: idUser })
+      .exec()
+      .then(docs => {
+        console.log(docs[0])
+        console.log("Route: /User/:idUser [GET] Get user by id on promise");
+        resolve(docs[0])
       })
-    
-    }
+      .catch(err => {
+        console.log(err);
+        reject(err)
+      });
+
+  })
+
+}
 /**
  * Se envia una foto para reconocimiento facial
  * @param image imagen de la persona
@@ -151,8 +151,8 @@ function postIdentification(req, res) {
       if (resp2[0] == 0) {
         console.log("es residente")
         IdentificationUser(resp2[1]);
-        getUserIdPromise({idUser:resp2[1]}).then(data=>{
-          if(data.access){
+        getUserIdPromise({ idUser: resp2[1] }).then(data => {
+          if (data.access) {
             res.status(202).json({
               success: true,
               idMongo: resp2[1],
@@ -160,7 +160,7 @@ function postIdentification(req, res) {
               msg: 'Usuario residente'
             });
           }
-          else{
+          else {
             res.status(200).json({
               success: false,
               idMongo: resp2[1],
@@ -170,8 +170,8 @@ function postIdentification(req, res) {
           }
 
         })
-        
-     
+
+
       } else if (resp2[0] == 1) {
         let reqParams = { idUser: resp2[1] }
         thirdCtrl.getThirdPromise(reqParams).then(data => {
@@ -338,6 +338,7 @@ function deleteUser(req, res) {
 function loginUser(req, res) {
   const password = req.body.password;
   const rut = req.body.rut;
+
   /* Edifice.findById("5bca670ccbc43f3ae43cb4ba", function (err, edifice) {
     if (err) {
       console.log(err);
@@ -356,26 +357,35 @@ function loginUser(req, res) {
       res.status(403).json({ success: false });
     }
   });*/
+  var user;
+  User.findOne({ rut: rut, pin: password })
+    .exec()
+    .then(docs => {
+      console.log("Route: /User/login, user finded");
+      user = docs;
+      return ({ success: true, id: docs._id, data: docs });
 
-  User.findOne({ rut: rut, pin:password })
-  .exec()
-  .then(docs => {
-    console.log("Route: /User/login, user finded");
-    res.status(200).json({success:true, id: docs._id, data:docs })
-    /*if(userPass=="passwordTest"){
-      res.status(200).json(docs);
-      console.log("User identified");
-    } else {
-      res.status(403).json({success: false});
-      console.log("Password equivocada" + userPass);
-    };*/
-    
-  })
-  .catch(error => {
-    console.log(error);
-    res.status(403).json({success: false});
-    console.log("Password equivocada o algun problema :D" + password);
-  });
+      //res.status(200).json({success:true, id: docs._id, data:docs })
+      /*if(userPass=="passwordTest"){
+        res.status(200).json(docs);
+        console.log("User identified");
+      } else {
+        res.status(403).json({success: false});
+        console.log("Password equivocada" + userPass);
+      };*/
+
+    }).then(user => {
+      return Promise.all([Plate.count({ user: user.id }), Third.count({ user: user.id })]);
+
+    }).then(info => {
+      //info contiene la cantidad de patentes y de terceros invitados
+      res.status(200).json({ success: true, plates: info[0], thirds: info[1], id: user._id, data: user  })
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(403).json({ success: false });
+      console.log("Password equivocada o algun problema :D" + password);
+    });
 
 }
 
