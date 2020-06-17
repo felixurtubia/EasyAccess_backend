@@ -383,7 +383,7 @@ function loginUser(req, res) {
     })
     .catch(error => {
       console.log(error);
-      res.status(403).json({ success: false });
+      res.status(403).json({ success: false , msg:"Problemas de con login" });
       console.log("Password equivocada o algun problema :D" + password);
     });
 
