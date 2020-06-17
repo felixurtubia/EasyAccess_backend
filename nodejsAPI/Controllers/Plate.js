@@ -4,7 +4,7 @@
 const mongoose = require('mongoose');
 //Models
 const Plate = require('../Models/Plate');
-
+const User = require('../Models/User');
 /**
  * Crear un nuevo departamento
  * @param {String} plateCode codigo patente
@@ -52,8 +52,7 @@ function postPlate(req, res) {
  * @param {String} idUser id del usuario (RUTA)
  */
 function getPlate(req, res) {
-  if (!req.params.idUser) {
-
+  if (req.params.idUser !== undefined) {
     Plate.find({ user: req.params.idUser })
       .exec()
       .then(docs => {
@@ -66,13 +65,11 @@ function getPlate(req, res) {
           error: err
         });
       });
-
-  } else {
-
+  } else { 
     Plate.find()
       .exec()
       .then(docs => {
-        console.log("A request for all user palte's has been done");
+        console.log("A request for all user paalte's has been done");
         res.status(200).json(docs);
       })
       .catch(err => {
