@@ -185,8 +185,7 @@ function updatePlate(req, res) {
     }, { new: true }
   ).exec()
     .then(result => {
-      console.log(result)
-      console.log("Route: /plate/:idPlate [PUT] Update 'access' plate22");
+       console.log("Route: /plate/:idPlate [PUT] Update 'access' plate22");
 
       /*logCtrl.createLog("Se ha cambiado el acceso de un invitado",
         DescriptionUpdateAcess(result),
