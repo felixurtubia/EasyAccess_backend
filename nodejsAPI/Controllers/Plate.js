@@ -65,7 +65,7 @@ function getPlate(req, res) {
           error: err
         });
       });
-  } else { 
+  } else {
     Plate.find()
       .exec()
       .then(docs => {
@@ -176,11 +176,44 @@ function updateAccess(req, res) {
     });
 }
 
+function updatePlate(req, res) {
+  var idPlate = req.params.idPlate;
+ 
+  Plate.findByIdAndUpdate(idPlate,
+    {
+      $set: req.body
+    }, { new: true }
+  ).exec()
+    .then(result => {
+      console.log(result)
+      console.log("Route: /plate/:idPlate [PUT] Update 'access' plate22");
+
+      /*logCtrl.createLog("Se ha cambiado el acceso de un invitado",
+        DescriptionUpdateAcess(result),
+        "",
+        "",
+        4);
+      res.status(200).json({
+        sucess: true,
+        third: result
+      });*/
+      res.status(200).json({ success: true, plate: result })
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        sucess: false,
+        error: err
+      });
+    });
+}
+
 
 module.exports = {
   postPlate,
   getPlate,
   updateAccess,
   searchPlate,
-  getPlates
+  getPlates,
+  updatePlate
 }
