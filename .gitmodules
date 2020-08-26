@@ -6,3 +6,6 @@
 	path = EasyAccess_FaceAPI
 	url = https://github.com/felixurtubia/EasyAccess_FaceAPI.git
 	branch = master
+[submodule "EasyAccess_dashboardAdmin"]
+	path = EasyAccess_dashboardAdmin
+	url = https://github.com/bmirandan/EasyAccess_dashboardAdmin
