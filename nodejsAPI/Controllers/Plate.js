@@ -94,6 +94,8 @@ function searchPlate(req, res) {
       .exec()
       .then(docs => {
         console.log("A request for all user palte's has been done");
+
+        
         res.status(200).json(docs);
       })
       .catch(err => {
@@ -103,7 +105,7 @@ function searchPlate(req, res) {
         });
       });
   } else {
-    Plate.find({ plateCode: req.params.plateCode })
+    Plate.findOne({ plateCode: req.params.plateCode }).populate('user')
       .exec()
       .then(docs => {
         console.log("A request for all user palte's has been done");
