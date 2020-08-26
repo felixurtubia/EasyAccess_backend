@@ -108,7 +108,7 @@ function searchPlate(req, res) {
     Plate.findOne({ plateCode: req.params.plateCode }).populate('user')
       .exec()
       .then(docs => {
-        console.log("A request for all user palte's has been done");
+        console.log("A request for 1 user palte's has been done");
         res.status(200).json(docs);
       })
       .catch(err => {
