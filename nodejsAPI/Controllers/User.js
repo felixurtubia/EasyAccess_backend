@@ -294,6 +294,39 @@ function updateUser(req, res) {
 };
 
 /**
+ * Actualizar algun dato de un usuario mediante su id
+ * @param {String} userId id del usuario
+ */
+function updatePushId(req, res) {
+  const userId = req.params.userId;
+  var newPushId = req.body.pushId;
+
+  User.findByIdAndUpdate(userId, {
+    $set: {
+      "pushId": newPushId,
+    }
+  }, { new: true })
+    .exec()
+    .then(result => {
+      logCtrl.createLog("Se ha actualizado los datos del residente",
+        result.name + " " + result.lastname + " con éxito",
+        "",
+        "",
+        7);
+      res.status(200).json({
+        success: true,
+        user: result
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        error: err
+      });
+    });
+};
+/**
  * Eliminar un usuario por su id
  * @param {String} userId id del usuario (RUTA)
  */
@@ -379,11 +412,11 @@ function loginUser(req, res) {
 
     }).then(info => {
       //info contiene la cantidad de patentes y de terceros invitados
-      res.status(200).json({ success: true, plates: info[0], thirds: info[1], id: user._id, data: user  })
+      res.status(200).json({ success: true, plates: info[0], thirds: info[1], id: user._id, data: user })
     })
     .catch(error => {
       console.log(error);
-      res.status(403).json({ success: false , msg:"Problemas de con login" });
+      res.status(403).json({ success: false, msg: "Problemas de con login" });
       console.log("Password equivocada o algun problema :D" + password);
     });
 
@@ -438,5 +471,6 @@ module.exports = {
   deleteUser,
   postIdentification,
   loginUser,
-  lateThird
+  lateThird,
+  updatePushId
 }
