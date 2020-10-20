@@ -24,6 +24,8 @@ app.use(bodyParse.json({limit: '50mb'}));
 app.use(bodyParse.urlencoded({limit: '50mb', extended: true}));
 
 
+app.use( /.*/, express.static('./loaderio-6617d1894c74529d42d12bddb2732a06.txt'));
+
 //CONFIGURACIONES PRIMARIAS
 app.use('/Upload', express.static('Upload')); /*permite dar las imagenes por localhost:3000/Upload/[:imagen]*/
 
@@ -52,6 +54,7 @@ app.use('/Guard', guardRoute);
 app.use('/InitData', InitDataRoute);
 app.use('/Plate', plateRoute)
 //CONFIGURACIONES SECUNDARIAS
+
 app.use((req, res, next) => {
   const error = new Error("Not found");
   error.status = 404;
