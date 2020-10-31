@@ -15,15 +15,16 @@
     "connect-busboy": "0.0.2",
     "content-type": "^1.0.4",
     "cors": "^2.8.4",
+    "cron": "^1.5.0",
     "express": "^4.16.3",
     "mongodb-backup": "^1.6.9",
     "mongoose": "^5.1.6",
+    "mongoose-execution-time": "^1.0.2",
     "multer": "^1.3.1",
     "node-cron": "^2.0.3",
     "raw-body": "^2.3.3",
     "request": "^2.87.0",
-    "request-promise": "^4.2.2",
-    "cron": "^1.5.0"
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "nodemon": "^1.18.2"

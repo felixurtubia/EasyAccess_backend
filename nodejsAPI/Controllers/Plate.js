@@ -2,6 +2,12 @@
 
 //Modules
 const mongoose = require('mongoose');
+const { logExecutionTime, LoggerVerbosity } = require('mongoose-execution-time');
+ 
+mongoose.plugin(logExecutionTime, {
+  loggerVerbosity: LoggerVerbosity.Normal,
+  loggerLevel: 'info'
+});
 //Models
 const Plate = require('../Models/Plate');
 const User = require('../Models/User');
